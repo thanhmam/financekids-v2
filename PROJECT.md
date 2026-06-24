@@ -86,8 +86,8 @@ npm run start
 ## Firebase cần bật
 
 - Authentication → **Google** + **Anonymous**
-- Firestore Database (rules trong `firestore.rules`)
-- Authorized domains: `localhost`, domain Vercel
+- Firestore Database (rules trong `firestore.rules`) → **phải Publish rules trên Firebase Console**
+- Authorized domains: `localhost`, `money.thanhmam.com`, domain Vercel
 
 ## Tính năng chính
 
@@ -102,7 +102,12 @@ npm run start
 ## Changelog
 
 ### 2026-06-24
-- Khởi tạo dự án, đồng bộ từ GitHub
+- Khởi tạo dự án, đồng bộ từ GitHub về `C:\Projects\FinanceKids-v2`
+- Tạo `.env.local` với Firebase config (project: `financekids-v2`)
 - Fix hydration error do browser extension (`suppressHydrationWarning` trên `<html>`)
-- Thêm error handling chi tiết cho Google Login
-- Tạo `.env.local` với Firebase config
+- Thêm error handling chi tiết cho Google Login theo từng error code
+- Fix metadata `viewport`/`themeColor` deprecated trong Next.js 16 → dùng `generateViewport`
+- Tạo `public/icon-192.png` và `icon-512.png` cho PWA manifest
+- Publish Firestore security rules (trước đó dùng default deny-all nên điểm không lưu được)
+- Thêm `money.thanhmam.com` vào Firebase Authorized Domains
+- Custom domain: **money.thanhmam.com**
