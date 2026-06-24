@@ -12,15 +12,31 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-// Avoid re-initializing on hot reload
-const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
+// Chỉ khởi tạo khi đã có cấu hình hợp lệ — tránh crash khi build/deploy
+// thiếu env (app vẫn chạy ở chế độ khách + localStorage).
+export const isFirebaseConfigured = Boolean(
+  firebaseConfig.apiKey && firebaseConfig.projectId
+);
 
-export const db = getFirestore(app);
-export const auth = getAuth(app);
+let app = null;
+let db = null;
+let auth = null;
+
+if (isFirebaseConfigured) {
+  try {
+    app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
+    db = getFirestore(app);
+    auth = getAuth(app);
+  } catch (err) {
+    console.warn("Firebase init failed — chạy ở chế độ khách:", err?.message);
+  }
+}
+
+export { db, auth };
 
 // Analytics only in browser
 export const getAnalyticsInstance = async () => {
-  if (await isSupported()) {
+  if (app && (await isSupported())) {
     return getAnalytics(app);
   }
   return null;

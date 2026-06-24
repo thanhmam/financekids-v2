@@ -33,6 +33,10 @@ export default function LeaderboardPage() {
   const weekId = getWeekId();
 
   useEffect(() => {
+    if (!db) {
+      setLoading(false);
+      return;
+    }
     const q = query(
       collection(db, "leaderboard", weekId, "entries"),
       orderBy("xp", "desc"),

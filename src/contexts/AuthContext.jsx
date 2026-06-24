@@ -22,6 +22,11 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Chưa cấu hình Firebase → chạy chế độ khách, bỏ qua auth listener
+    if (!auth) {
+      setLoading(false);
+      return;
+    }
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       if (firebaseUser) {
         setUser(firebaseUser);
@@ -59,6 +64,7 @@ export function AuthProvider({ children }) {
   }, []);
 
   const loginWithGoogle = async () => {
+    if (!auth) throw new Error("Firebase chưa được cấu hình trên server");
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
     try {
@@ -70,6 +76,7 @@ export function AuthProvider({ children }) {
   };
 
   const loginAnonymous = async (nickname = "Bạn nhỏ", ageGroup = "9-12") => {
+    if (!auth) throw new Error("Firebase chưa được cấu hình trên server");
     try {
       const cred = await signInAnonymously(auth);
       const avatar = AVATARS[Math.floor(Math.random() * AVATARS.length)];
@@ -97,13 +104,13 @@ export function AuthProvider({ children }) {
   };
 
   const logout = async () => {
-    await signOut(auth);
+    if (auth) await signOut(auth);
     setUser(null);
     setProfile(null);
   };
 
   const updateAgeGroup = async (ageGroup) => {
-    if (!user) return;
+    if (!user || !db) return;
     const userRef = doc(db, "users", user.uid);
     await setDoc(userRef, { ageGroup }, { merge: true });
     setProfile((p) => ({ ...p, ageGroup }));
