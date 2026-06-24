@@ -129,6 +129,7 @@ export default function GamePage() {
       >
         {question.type === "quiz" && (
           <GameQuiz
+            key={currentQuestion}
             question={question}
             lessonColor={lesson.color}
             onAnswer={handleAnswer}
@@ -137,6 +138,7 @@ export default function GamePage() {
         )}
         {question.type === "ab" && (
           <GameAB
+            key={currentQuestion}
             question={question}
             lessonColor={lesson.color}
             onAnswer={handleAnswer}
@@ -145,6 +147,7 @@ export default function GamePage() {
         )}
         {question.type === "transaction" && (
           <GameTransaction
+            key={currentQuestion}
             question={question}
             lessonColor={lesson.color}
             onAnswer={handleAnswer}
