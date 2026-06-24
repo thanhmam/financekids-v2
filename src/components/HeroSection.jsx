@@ -56,7 +56,7 @@ export default function HeroSection({ totalXP, completedCount, totalCount, userN
             {avatar || "🐷"}
           </div>
           <h1 className="text-3xl md:text-5xl font-black text-white drop-shadow-md mb-2">
-            {userName ? `Xin chào, ${userName}!` : "FinanceKids"}
+            {userName ? `Xin chào, ${userName}!` : "XuXu"}
           </h1>
           <p className="text-white/90 font-bold text-lg md:text-xl mb-6">
             Học tài chính vui vẻ mỗi ngày! 🌟

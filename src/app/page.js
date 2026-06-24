@@ -41,7 +41,7 @@ export default function Home() {
         <div className="max-w-4xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2">
             <span className="text-2xl">🐷</span>
-            <span className="font-black text-orange-500 text-lg">FinanceKids</span>
+            <span className="font-black text-orange-500 text-lg">XuXu</span>
           </div>
           <div className="flex items-center gap-2">
             {/* Leaderboard */}
@@ -186,7 +186,7 @@ export default function Home() {
       {/* Footer */}
       <footer className="bg-white border-t border-gray-100 py-6 text-center">
         <p className="text-gray-400 text-sm font-semibold">
-          FinanceKids v2 ✨ · {LESSONS.length} bài học · 3 nhóm tuổi
+          XuXu ✨ · {LESSONS.length} bài học · 3 nhóm tuổi
         </p>
       </footer>
 

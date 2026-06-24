@@ -71,7 +71,7 @@ export default function LoginModal({ onClose }) {
           <div className="text-5xl mb-2" style={{ animation: "float 2s ease-in-out infinite" }}>
             🐷
           </div>
-          <h2 className="text-white font-black text-xl">Chào mừng đến FinanceKids!</h2>
+          <h2 className="text-white font-black text-xl">Chào mừng đến XuXu!</h2>
           <p className="text-white/80 font-semibold text-sm mt-1">
             Đăng nhập để lưu tiến độ học của bạn
           </p>

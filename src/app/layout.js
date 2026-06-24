@@ -2,14 +2,14 @@ import "./globals.css";
 import { AuthProvider } from "@/contexts/AuthContext";
 
 export const metadata = {
-  title: "FinanceKids - Học Tài Chính Vui Vẻ",
+  title: "XuXu - Học Tài Chính Vui Vẻ",
   description: "Game học tài chính dành cho trẻ em từ 6-16 tuổi",
   manifest: "/manifest.json",
   icons: {
     icon: "/favicon.ico",
   },
   openGraph: {
-    title: "FinanceKids - Học Tài Chính Vui Vẻ",
+    title: "XuXu - Học Tài Chính Vui Vẻ",
     description: "Game học tài chính dành cho trẻ em",
     type: "website",
   },
