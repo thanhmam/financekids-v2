@@ -107,6 +107,21 @@ export default function ResultScreen({ lesson, score, answers, onRetry, onHome }
           </div>
         </div>
 
+        {/* Góc phụ huynh */}
+        {lesson.parentGuide && (
+          <div
+            className={`mx-5 mb-2 rounded-2xl bg-amber-50 border border-amber-200 p-4 transition-all duration-500 delay-600 ${
+              showContent ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            <div className="flex items-center gap-2 mb-1">
+              <span className="text-lg">👨‍👩‍👧</span>
+              <span className="font-black text-amber-800 text-sm">Góc phụ huynh</span>
+            </div>
+            <p className="text-sm text-amber-900/80 leading-relaxed">{lesson.parentGuide}</p>
+          </div>
+        )}
+
         {/* Buttons */}
         <div
           className={`px-5 pb-6 space-y-3 transition-all duration-500 delay-700 ${
