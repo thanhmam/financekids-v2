@@ -43,7 +43,7 @@ export default function GamePage() {
 
   const handleNext = async () => {
     setShowTransition(true);
-    setTimeout(() => {
+    setTimeout(async () => {
       setShowTransition(false);
       if (currentQuestion < lesson.questions.length - 1) {
         setCurrentQuestion((q) => q + 1);
