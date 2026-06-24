@@ -4,8 +4,6 @@ import { AuthProvider } from "@/contexts/AuthContext";
 export const metadata = {
   title: "FinanceKids - Học Tài Chính Vui Vẻ",
   description: "Game học tài chính dành cho trẻ em từ 6-16 tuổi",
-  viewport: "width=device-width, initial-scale=1, maximum-scale=1",
-  themeColor: "#FF6B35",
   manifest: "/manifest.json",
   icons: {
     icon: "/favicon.ico",
@@ -15,6 +13,13 @@ export const metadata = {
     description: "Game học tài chính dành cho trẻ em",
     type: "website",
   },
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  themeColor: "#FF6B35",
 };
 
 export default function RootLayout({ children }) {
