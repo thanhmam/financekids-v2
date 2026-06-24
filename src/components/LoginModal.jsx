@@ -24,8 +24,17 @@ export default function LoginModal({ onClose }) {
     try {
       await loginWithGoogle();
       onClose();
-    } catch {
-      setError("Không thể đăng nhập Google. Thử lại nhé!");
+    } catch (err) {
+      console.error("Google login error:", err?.code, err?.message);
+      if (err?.code === "auth/popup-closed-by-user" || err?.code === "auth/cancelled-popup-request") {
+        setError("Bạn đã đóng cửa sổ đăng nhập. Thử lại nhé!");
+      } else if (err?.code === "auth/popup-blocked") {
+        setError("Trình duyệt đã chặn popup. Hãy cho phép popup và thử lại!");
+      } else if (err?.message?.includes("Firebase chưa được cấu hình")) {
+        setError("Lỗi cấu hình server. Vui lòng liên hệ admin!");
+      } else {
+        setError(`Không thể đăng nhập Google. Thử lại nhé! (${err?.code || "unknown"})`);
+      }
     } finally {
       setLoading(false);
     }
