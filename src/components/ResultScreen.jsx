@@ -1,145 +1,102 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
+import XuXuMascot from "@/components/XuXuMascot";
 
-const STAR_MESSAGES = {
-  3: { stars: 3, title: "Xuất sắc! 🏆", subtitle: "Bạn là thiên tài tài chính!", emoji: "🌟🌟🌟" },
-  2: { stars: 2, title: "Tốt lắm! 🎯", subtitle: "Bạn đã hiểu bài học này!", emoji: "⭐⭐🌟" },
-  1: { stars: 1, title: "Cố lên! 💪", subtitle: "Thử lại lần nữa nhé!", emoji: "⭐💫💫" },
-  0: { stars: 0, title: "Chưa đạt 😅", subtitle: "Ôn lại và thử lại!", emoji: "💫💫💫" },
-};
+const CONFETTI = ["🌟", "💰", "⭐", "🎉", "✨", "🏅", "💎"];
 
 export default function ResultScreen({ lesson, score, answers, onRetry, onHome }) {
-  const [showStars, setShowStars] = useState(false);
-  const [showContent, setShowContent] = useState(false);
+  const [show, setShow] = useState(false);
+  const [showBtns, setShowBtns] = useState(false);
 
-  const correctCount = answers.filter((a) => a.isCorrect).length;
+  const correctCount = answers.filter(a => a.isCorrect).length;
   const totalCount = answers.length;
-  const starCount = Math.round((correctCount / totalCount) * 3);
-  const result = STAR_MESSAGES[starCount] || STAR_MESSAGES[0];
+  const xuEarned = Math.round(score * 0.75);
+  const accuracyPct = totalCount > 0 ? Math.round((correctCount / totalCount) * 100) : 0;
 
   useEffect(() => {
-    setTimeout(() => setShowStars(true), 300);
-    setTimeout(() => setShowContent(true), 800);
+    const t1 = setTimeout(() => setShow(true), 200);
+    const t2 = setTimeout(() => setShowBtns(true), 700);
+    return () => { clearTimeout(t1); clearTimeout(t2); };
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#FFF9F0] flex flex-col items-center justify-center px-4 py-8">
-      {/* Confetti-like floating emojis */}
-      {showStars && (
-        <div className="fixed inset-0 pointer-events-none overflow-hidden">
-          {["🌟", "💰", "⭐", "🎉", "✨", "🏅", "💎", "🐷"].map((emoji, i) => (
-            <div
-              key={i}
-              className="absolute text-3xl"
-              style={{
-                left: `${10 + i * 12}%`,
-                top: "-10%",
-                animation: `floatDown ${2 + i * 0.3}s ease-in ${i * 0.2}s forwards`,
-              }}
-            >
+    <div style={{ minHeight: "100vh", background: "#16C172", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "32px 24px", position: "relative", overflow: "hidden" }}>
+
+      <style>{`
+        @keyframes floatDown { to { top: 110%; transform: rotate(720deg); opacity: 0; } }
+        @keyframes popIn { from { transform: scale(0.4); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+      `}</style>
+
+      {/* Confetti */}
+      {show && (
+        <div style={{ position: "fixed", inset: 0, pointerEvents: "none", overflow: "hidden", zIndex: 0 }}>
+          {CONFETTI.map((emoji, i) => (
+            <div key={i} style={{ position: "absolute", fontSize: 28, left: `${8 + i * 13}%`, top: "-10%", animation: `floatDown ${2 + i * 0.25}s ease-in ${i * 0.15}s forwards` }}>
               {emoji}
             </div>
           ))}
-
         </div>
       )}
 
-      <style>{`
-        @keyframes floatDown {
-          to { top: 110%; transform: rotate(720deg); opacity: 0; }
-        }
-      `}</style>
+      <div style={{ position: "relative", zIndex: 1, width: "100%", maxWidth: 400, display: "flex", flexDirection: "column", alignItems: "center" }}>
 
-      {/* Main card */}
-      <div
-        className="w-full max-w-sm bg-white rounded-3xl shadow-xl overflow-hidden"
-        style={{ animation: showContent ? "pop 0.5s ease forwards" : "none" }}
-      >
-        {/* Top colored section */}
-        <div
-          className="pt-8 pb-6 px-6 text-center"
-          style={{ backgroundColor: lesson.color }}
-        >
-          <div className="text-6xl mb-2">{lesson.icon}</div>
-          <h2 className="text-white font-black text-xl">{lesson.title}</h2>
-          <p className="text-white/80 font-semibold text-sm">Hoàn thành! 🎊</p>
+        {/* Excited mascot */}
+        <div style={{ animation: show ? "popIn 0.5s cubic-bezier(.175,.885,.32,1.275) forwards" : "none", opacity: show ? 1 : 0, marginBottom: 26 }}>
+          <XuXuMascot size={130} mood="excited" />
         </div>
 
-        {/* Stars */}
-        <div className="py-6 text-center border-b border-gray-100">
-          <div
-            className={`text-5xl transition-all duration-700 ${
-              showStars ? "opacity-100 scale-100" : "opacity-0 scale-50"
-            }`}
-          >
-            {result.emoji}
-          </div>
-          <h3
-            className={`font-black text-2xl text-gray-800 mt-2 transition-all duration-500 delay-300 ${
-              showStars ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-            }`}
-          >
-            {result.title}
-          </h3>
-          <p className="text-gray-500 font-semibold text-sm mt-1">{result.subtitle}</p>
-        </div>
-
-        {/* Stats */}
-        <div
-          className={`p-5 space-y-3 transition-all duration-500 delay-500 ${
-            showContent ? "opacity-100" : "opacity-0"
-          }`}
-        >
-          <div className="flex justify-between items-center p-3 bg-green-50 rounded-xl">
-            <span className="font-bold text-gray-700">✅ Câu đúng</span>
-            <span className="font-black text-green-600 text-lg">
-              {correctCount}/{totalCount}
-            </span>
-          </div>
-          <div className="flex justify-between items-center p-3 bg-yellow-50 rounded-xl">
-            <span className="font-bold text-gray-700">⭐ XP kiếm được</span>
-            <span className="font-black text-yellow-600 text-lg">+{score}</span>
-          </div>
-          <div className="flex justify-between items-center p-3 bg-orange-50 rounded-xl">
-            <span className="font-bold text-gray-700">📚 Bài học</span>
-            <span className="font-black text-orange-600 text-sm">{lesson.title}</span>
+        {/* Title */}
+        <div style={{ textAlign: "center", marginBottom: 28 }}>
+          <div style={{ font: "800 30px 'Baloo 2'", color: "#fff", lineHeight: 1.1 }}>Hoàn thành! 🎉</div>
+          <div style={{ font: "700 14px 'Nunito'", color: "rgba(255,255,255,.9)", marginTop: 8, lineHeight: 1.5 }}>
+            {lesson.title}
           </div>
         </div>
 
-        {/* Góc phụ huynh */}
+        {/* Reward pills */}
+        <div style={{ display: "flex", gap: 12, marginBottom: 32, width: "100%", justifyContent: "center" }}>
+          <div style={{ background: "rgba(255,255,255,.18)", borderRadius: 16, padding: "14px 6px", width: 88, textAlign: "center" }}>
+            <div style={{ color: "#FFC93C", font: "800 24px 'Baloo 2'" }}>★</div>
+            <div style={{ font: "800 18px 'Baloo 2'", color: "#fff", marginTop: 3 }}>+{score}</div>
+            <div style={{ font: "700 10px 'Nunito'", color: "rgba(255,255,255,.8)" }}>XP</div>
+          </div>
+          <div style={{ background: "rgba(255,255,255,.18)", borderRadius: 16, padding: "14px 6px", width: 88, textAlign: "center" }}>
+            <div style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 28, height: 28, borderRadius: "50%", background: "#FFC93C", border: "2px solid #E8A317", color: "#7A4E00", font: "800 13px 'Baloo 2'" }}>X</div>
+            <div style={{ font: "800 18px 'Baloo 2'", color: "#fff", marginTop: 3 }}>+{xuEarned}</div>
+            <div style={{ font: "700 10px 'Nunito'", color: "rgba(255,255,255,.8)" }}>xu</div>
+          </div>
+          <div style={{ background: "rgba(255,255,255,.18)", borderRadius: 16, padding: "14px 6px", width: 88, textAlign: "center" }}>
+            <div style={{ font: "800 18px 'Baloo 2'", color: "#fff" }}>{correctCount}/{totalCount}</div>
+            <div style={{ font: "800 14px 'Baloo 2'", color: "#fff", marginTop: 3 }}>{accuracyPct}%</div>
+            <div style={{ font: "700 10px 'Nunito'", color: "rgba(255,255,255,.8)" }}>đúng</div>
+          </div>
+        </div>
+
+        {/* Parent guide */}
         {lesson.parentGuide && (
-          <div
-            className={`mx-5 mb-2 rounded-2xl bg-amber-50 border border-amber-200 p-4 transition-all duration-500 delay-600 ${
-              showContent ? "opacity-100" : "opacity-0"
-            }`}
-          >
-            <div className="flex items-center gap-2 mb-1">
-              <span className="text-lg">👨‍👩‍👧</span>
-              <span className="font-black text-amber-800 text-sm">Góc phụ huynh</span>
+          <div style={{ background: "rgba(255,255,255,.15)", borderRadius: 18, padding: "14px 16px", marginBottom: 28, width: "100%" }}>
+            <div style={{ display: "flex", gap: 8, alignItems: "center", marginBottom: 6 }}>
+              <span style={{ fontSize: 16 }}>👨‍👩‍👧</span>
+              <span style={{ font: "800 13px 'Baloo 2'", color: "#fff" }}>Góc phụ huynh</span>
             </div>
-            <p className="text-sm text-amber-900/80 leading-relaxed">{lesson.parentGuide}</p>
+            <p style={{ font: "600 12px 'Nunito'", color: "rgba(255,255,255,.9)", lineHeight: 1.5, margin: 0 }}>{lesson.parentGuide}</p>
           </div>
         )}
 
         {/* Buttons */}
-        <div
-          className={`px-5 pb-6 space-y-3 transition-all duration-500 delay-700 ${
-            showContent ? "opacity-100" : "opacity-0"
-          }`}
-        >
+        <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: 12, transition: "opacity .4s", opacity: showBtns ? 1 : 0 }}>
           <button
             onClick={onHome}
-            className="w-full py-4 rounded-2xl font-black text-white text-lg shadow-lg active:scale-95 transition-transform"
-            style={{ backgroundColor: lesson.color }}
+            style={{ width: "100%", padding: "16px 0", borderRadius: 16, font: "800 17px 'Baloo 2'", color: "#16C172", background: "#fff", border: "none", boxShadow: "0 5px 0 rgba(0,0,0,.18)", cursor: "pointer", letterSpacing: .5 }}
           >
-            🏠 Về trang chủ
+            TIẾP TỤC
           </button>
           <button
             onClick={onRetry}
-            className="w-full py-3 rounded-2xl font-black text-gray-600 bg-gray-100 text-base active:scale-95 transition-transform hover:bg-gray-200"
+            style={{ width: "100%", padding: "13px 0", borderRadius: 16, font: "800 15px 'Baloo 2'", color: "rgba(255,255,255,.9)", background: "rgba(255,255,255,.18)", border: "2px solid rgba(255,255,255,.3)", cursor: "pointer" }}
           >
-            🔄 Chơi lại
+            Thử lại
           </button>
         </div>
       </div>

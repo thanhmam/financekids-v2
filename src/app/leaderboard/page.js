@@ -2,21 +2,17 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import {
-  collection,
-  query,
-  orderBy,
-  limit,
-  onSnapshot,
-} from "firebase/firestore";
+import { collection, query, orderBy, limit, onSnapshot } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { useAuth } from "@/contexts/AuthContext";
 
-const RANK_STYLE = {
-  0: { emoji: "🥇", bg: "bg-yellow-50", border: "border-yellow-300", text: "text-yellow-700" },
-  1: { emoji: "🥈", bg: "bg-gray-50", border: "border-gray-300", text: "text-gray-600" },
-  2: { emoji: "🥉", bg: "bg-orange-50", border: "border-orange-300", text: "text-orange-700" },
-};
+function BackIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+      <path d="M11.5 15L6 9L11.5 3" stroke="#15392A" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  );
+}
 
 function getWeekId() {
   const now = new Date();
@@ -24,6 +20,8 @@ function getWeekId() {
   const week = Math.ceil(((now - jan1) / 86400000 + jan1.getDay() + 1) / 7);
   return `${now.getFullYear()}-W${String(week).padStart(2, "0")}`;
 }
+
+const RANK_COLORS = ["#E8A317", "#9AA89E", "#CD7F32"];
 
 export default function LeaderboardPage() {
   const router = useRouter();
@@ -33,164 +31,122 @@ export default function LeaderboardPage() {
   const weekId = getWeekId();
 
   useEffect(() => {
-    if (!db) {
-      setLoading(false);
-      return;
-    }
-    const q = query(
-      collection(db, "leaderboard", weekId, "entries"),
-      orderBy("xp", "desc"),
-      limit(20)
-    );
-    const unsub = onSnapshot(
-      q,
-      (snap) => {
-        const data = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
-        setEntries(data);
-        setLoading(false);
-      },
-      (err) => {
-        console.warn("Leaderboard error:", err);
-        setLoading(false);
-      }
+    if (!db) { setLoading(false); return; }
+    const q = query(collection(db, "leaderboard", weekId, "entries"), orderBy("xp", "desc"), limit(20));
+    const unsub = onSnapshot(q,
+      snap => { setEntries(snap.docs.map(d => ({ id: d.id, ...d.data() }))); setLoading(false); },
+      err => { console.warn("Leaderboard error:", err); setLoading(false); }
     );
     return () => unsub();
   }, [weekId]);
 
-  const myRank = entries.findIndex((e) => e.uid === user?.uid);
+  const myRank = entries.findIndex(e => e.uid === user?.uid);
 
   return (
-    <div className="min-h-screen bg-[#FFF9F0]">
+    <div style={{ minHeight: "100vh", background: "#F4F8EF" }}>
+
       {/* Header */}
-      <div
-        className="px-4 pt-6 pb-8 text-center relative"
-        style={{ background: "linear-gradient(135deg, #3F51B5, #9C27B0)" }}
-      >
+      <div style={{ background: "#fff", borderBottom: "2px solid #ECF1E6", padding: "14px 20px 16px", display: "flex", alignItems: "flex-start", gap: 14 }}>
         <button
           onClick={() => router.push("/")}
-          className="absolute left-4 top-6 text-white/80 font-black text-xl"
+          style={{ width: 40, height: 40, borderRadius: 12, background: "#F4F8EF", border: "2px solid #ECF1E6", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", padding: 0, flexShrink: 0, marginTop: 4 }}
         >
-          ←
+          <BackIcon />
         </button>
-        <div className="text-5xl mb-2" style={{ animation: "float 2s ease-in-out infinite" }}>
-          🏆
-        </div>
-        <h1 className="text-white font-black text-2xl">Bảng Xếp Hạng</h1>
-        <p className="text-white/70 font-semibold text-sm mt-1">
-          Tuần này · {weekId.replace("W", "tuần ")}
-        </p>
-
-        {/* My rank bubble */}
-        {myRank >= 0 && (
-          <div className="mt-3 inline-block bg-white/20 text-white rounded-2xl px-4 py-2">
-            <span className="font-black">Bạn đang ở vị trí #{myRank + 1} 🎯</span>
+        <div style={{ flex: 1, textAlign: "center" }}>
+          <div style={{ color: "#FFC93C", font: "800 32px 'Baloo 2'", lineHeight: 1 }}>♛</div>
+          <div style={{ font: "800 20px 'Baloo 2'", color: "#15392A", marginTop: 2 }}>Hạng Vàng</div>
+          <div style={{ font: "600 12px 'Nunito'", color: "#9AA89E", marginTop: 2 }}>
+            Top 7 thăng hạng · {weekId.replace("-W", " · tuần ")}
           </div>
-        )}
-
-        {/* Wave */}
-        <div
-          className="absolute bottom-0 left-0 right-0 h-6 bg-[#FFF9F0]"
-          style={{ clipPath: "ellipse(55% 100% at 50% 100%)" }}
-        />
+        </div>
+        <div style={{ width: 40 }} />
       </div>
 
+      {/* My rank */}
+      {myRank >= 0 && (
+        <div style={{ background: "#EAFBF1", border: "2px solid #16C172", borderRadius: 16, margin: "16px 16px 0", padding: "10px 16px", display: "flex", alignItems: "center", gap: 10 }}>
+          <span style={{ font: "700 14px 'Nunito'", color: "#0E9E5C" }}>Bạn đang ở vị trí</span>
+          <span style={{ font: "800 22px 'Baloo 2'", color: "#16C172" }}>#{myRank + 1}</span>
+          <span style={{ fontSize: 18 }}>🎯</span>
+        </div>
+      )}
+
       {/* List */}
-      <div className="max-w-lg mx-auto px-4 py-6 space-y-3">
+      <div style={{ padding: "16px 16px 32px", maxWidth: 520, margin: "0 auto" }}>
+
         {loading && (
-          <div className="text-center py-12">
-            <div className="text-4xl animate-spin inline-block">⭐</div>
-            <p className="text-gray-500 font-bold mt-3">Đang tải...</p>
+          <div style={{ textAlign: "center", padding: "56px 0" }}>
+            <div style={{ fontSize: 40, display: "inline-block", animation: "spin 1s linear infinite" }}>⭐</div>
+            <p style={{ font: "700 14px 'Nunito'", color: "#9AA89E", marginTop: 12 }}>Đang tải...</p>
           </div>
         )}
 
         {!loading && entries.length === 0 && (
-          <div className="text-center py-16">
-            <div className="text-6xl mb-4">🌟</div>
-            <p className="text-gray-700 font-black text-lg">Chưa có ai trong tuần này!</p>
-            <p className="text-gray-500 font-semibold text-sm mt-2">
-              Hãy là người đầu tiên kiếm XP nhé!
-            </p>
+          <div style={{ textAlign: "center", padding: "64px 0" }}>
+            <div style={{ fontSize: 60, marginBottom: 16 }}>🌟</div>
+            <p style={{ font: "800 18px 'Baloo 2'", color: "#15392A" }}>Chưa có ai trong tuần này!</p>
+            <p style={{ font: "600 13px 'Nunito'", color: "#9AA89E", marginTop: 8 }}>Hãy là người đầu tiên kiếm XP nhé!</p>
             <button
               onClick={() => router.push("/")}
-              className="mt-4 px-6 py-3 rounded-2xl font-black text-white shadow-md"
-              style={{ backgroundColor: "#3F51B5" }}
+              style={{ marginTop: 20, padding: "13px 28px", borderRadius: 16, font: "800 15px 'Baloo 2'", color: "#fff", background: "#16C172", border: "none", boxShadow: "0 4px 0 #0E9E5C", cursor: "pointer" }}
             >
               Bắt đầu học ngay →
             </button>
           </div>
         )}
 
-        {entries.map((entry, idx) => {
-          const rank = RANK_STYLE[idx];
-          const isMe = entry.uid === user?.uid;
-
-          return (
-            <div
-              key={entry.id}
-              className={`flex items-center gap-4 p-4 rounded-2xl border-2 transition-all
-                ${rank ? `${rank.bg} ${rank.border}` : isMe ? "bg-orange-50 border-orange-300" : "bg-white border-gray-100"}
-                ${isMe ? "shadow-md" : "shadow-sm"}
-              `}
-              style={{ animation: `slideUp 0.3s ease ${idx * 40}ms both` }}
-            >
-              {/* Rank */}
-              <div className="w-10 text-center">
-                {rank ? (
-                  <span className="text-2xl">{rank.emoji}</span>
-                ) : (
-                  <span className={`font-black text-lg ${isMe ? "text-orange-500" : "text-gray-400"}`}>
-                    #{idx + 1}
-                  </span>
+        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          {entries.map((entry, idx) => {
+            const isMe = entry.uid === user?.uid;
+            const rankColor = RANK_COLORS[idx];
+            return (
+              <div
+                key={entry.id}
+                style={{
+                  display: "flex", alignItems: "center", gap: 12,
+                  background: isMe ? "#EAFBF1" : "#fff",
+                  border: `2px solid ${isMe ? "#16C172" : "#ECF1E6"}`,
+                  borderRadius: 14, padding: "10px 14px",
+                  animation: `slideUp 0.3s ease ${idx * 40}ms both`,
+                }}
+              >
+                <div style={{ width: 26, textAlign: "center", font: "800 15px 'Baloo 2'", color: rankColor || (isMe ? "#16C172" : "#9AA89E"), flexShrink: 0 }}>
+                  {idx + 1}
+                </div>
+                <div style={{ width: 36, height: 36, borderRadius: "50%", background: "#FFF9F0", border: `2px solid ${isMe ? "#16C172" : "#ECF1E6"}`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20, flexShrink: 0 }}>
+                  {entry.avatar || "🐷"}
+                </div>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ font: "800 14px 'Nunito'", color: isMe ? "#0E9E5C" : "#15392A", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                    {entry.displayName || "Bạn nhỏ"}
+                    {isMe && <span style={{ font: "700 11px 'Nunito'", color: "#16C172", marginLeft: 6 }}>(bạn)</span>}
+                  </div>
+                  <div style={{ font: "600 12px 'Nunito'", color: "#9AA89E", marginTop: 1 }}>
+                    ⭐ {(entry.xp || 0).toLocaleString()} XP tuần này
+                  </div>
+                </div>
+                {entries[0]?.xp > 0 && (
+                  <div style={{ width: 52, height: 6, background: "#ECF1E6", borderRadius: 4, overflow: "hidden", flexShrink: 0 }}>
+                    <div style={{ width: `${Math.round(((entry.xp || 0) / entries[0].xp) * 100)}%`, height: "100%", background: "linear-gradient(90deg, #16C172, #FFC93C)", borderRadius: 4 }} />
+                  </div>
                 )}
               </div>
+            );
+          })}
+        </div>
 
-              {/* Avatar */}
-              <div
-                className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl flex-shrink-0"
-                style={{ backgroundColor: "#FFF9F0" }}
-              >
-                {entry.avatar || "🐷"}
-              </div>
-
-              {/* Name + XP */}
-              <div className="flex-1 min-w-0">
-                <div className={`font-black text-base truncate ${rank ? rank.text : isMe ? "text-orange-600" : "text-gray-800"}`}>
-                  {entry.displayName || "Bạn nhỏ"}
-                  {isMe && <span className="ml-2 text-xs font-bold text-orange-400">(bạn)</span>}
-                </div>
-                <div className="text-gray-500 font-semibold text-sm">
-                  ⭐ {(entry.xp || 0).toLocaleString()} XP tuần này
-                </div>
-              </div>
-
-              {/* XP bar */}
-              {entries[0]?.xp > 0 && (
-                <div className="w-16 h-2 bg-gray-200 rounded-full overflow-hidden">
-                  <div
-                    className="h-full rounded-full bg-gradient-to-r from-orange-400 to-yellow-400"
-                    style={{
-                      width: `${Math.round(((entry.xp || 0) / entries[0].xp) * 100)}%`,
-                    }}
-                  />
-                </div>
-              )}
-            </div>
-          );
-        })}
-      </div>
-
-      {/* Footer CTA */}
-      <div className="max-w-lg mx-auto px-4 pb-16 text-center">
-        <p className="text-gray-400 font-semibold text-sm mb-3">
-          Bảng xếp hạng reset mỗi thứ Hai
-        </p>
-        <button
-          onClick={() => router.push("/")}
-          className="px-8 py-3 rounded-2xl font-black text-white shadow-md"
-          style={{ background: "linear-gradient(135deg, #FF6B35, #FFD700)" }}
-        >
-          📚 Học thêm để leo hạng!
-        </button>
+        {entries.length > 0 && (
+          <div style={{ textAlign: "center", marginTop: 28 }}>
+            <p style={{ font: "600 12px 'Nunito'", color: "#9AA89E", marginBottom: 14 }}>Bảng xếp hạng reset mỗi thứ Hai</p>
+            <button
+              onClick={() => router.push("/")}
+              style={{ padding: "13px 28px", borderRadius: 16, font: "800 15px 'Baloo 2'", color: "#fff", background: "linear-gradient(135deg, #16C172, #0E9E5C)", border: "none", boxShadow: "0 4px 0 #0B7A48", cursor: "pointer" }}
+            >
+              📚 Học thêm để leo hạng!
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
