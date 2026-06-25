@@ -3,82 +3,62 @@
 import Link from "next/link";
 import { CATEGORIES } from "@/data/lessons";
 
-const AGE_BADGE = {
-  "6-8": { label: "6-8 tuổi", color: "bg-green-100 text-green-700" },
-  "9-12": { label: "9-12 tuổi", color: "bg-blue-100 text-blue-700" },
-  "13-16": { label: "13-16 tuổi", color: "bg-purple-100 text-purple-700" },
+const AGE_CHIP = {
+  "6-8":   { bg: "#E3F7EC", color: "#0E9E5C", label: "6-8 tuổi" },
+  "9-12":  { bg: "#EEF2FF", color: "#4F46E5", label: "9-12 tuổi" },
+  "13-16": { bg: "#F1E9FF", color: "#7C4DEC", label: "13-16 tuổi" },
 };
 
 export default function LessonCard({ lesson, isCompleted }) {
   const category = CATEGORIES[lesson.category];
-  const ageBadge = AGE_BADGE[lesson.ageGroup];
-  const questionCount = lesson.questions.length;
+  const age = AGE_CHIP[lesson.ageGroup];
 
   return (
     <Link href={`/game/${lesson.id}`}>
       <div
-        className="lesson-card bg-white rounded-2xl p-4 shadow-sm border-2 relative overflow-hidden cursor-pointer"
-        style={{ borderColor: isCompleted ? "#4CAF50" : lesson.color + "40" }}
+        className="lesson-card"
+        style={{
+          background: isCompleted ? "#EAFBF1" : "#fff",
+          border: `2px solid ${isCompleted ? "#16C172" : "#ECF1E6"}`,
+          borderBottomWidth: 4,
+          borderRadius: 18,
+          padding: "13px 12px",
+          position: "relative",
+          overflow: "hidden",
+          cursor: "pointer",
+          height: "100%",
+        }}
       >
-        {/* Completed stamp */}
+        {/* Completed badge */}
         {isCompleted && (
-          <div className="absolute top-3 right-3 bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-black shadow-md">
-            ✓
-          </div>
+          <div style={{ position: "absolute", top: 10, right: 10, width: 24, height: 24, borderRadius: 8, background: "#16C172", display: "flex", alignItems: "center", justifyContent: "center", font: "800 11px 'Baloo 2'", color: "#fff" }}>✓</div>
         )}
 
-        {/* Color accent bar */}
-        <div
-          className="absolute top-0 left-0 right-0 h-1 rounded-t-2xl"
-          style={{ backgroundColor: lesson.color }}
-        />
-
-        {/* Icon + Title */}
-        <div className="flex items-start gap-3 mb-3 pr-8">
-          <div
-            className="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl flex-shrink-0 shadow-sm"
-            style={{ backgroundColor: lesson.bgColor }}
-          >
-            {lesson.icon}
-          </div>
-          <div>
-            <h3 className="font-black text-gray-800 leading-tight text-base">
-              {lesson.title}
-            </h3>
-            <p className="text-gray-500 text-sm font-semibold mt-0.5">
-              {lesson.subtitle}
-            </p>
-          </div>
+        {/* Icon */}
+        <div style={{ width: 46, height: 46, borderRadius: 14, background: lesson.bgColor || "#F4F8EF", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22, marginBottom: 9 }}>
+          {lesson.icon}
         </div>
 
-        {/* Tags */}
-        <div className="flex items-center gap-2 flex-wrap mb-3">
-          <span className={`text-xs font-bold px-2 py-1 rounded-full ${ageBadge.color}`}>
-            {ageBadge.label}
-          </span>
-          <span className={`text-xs font-bold px-2 py-1 rounded-full ${category.color}`}>
-            {category.emoji} {category.label}
-          </span>
+        {/* Title + subtitle */}
+        <div style={{ font: "800 13px 'Baloo 2'", color: "#15392A", lineHeight: 1.25, marginBottom: 3, paddingRight: isCompleted ? 28 : 0 }}>
+          {lesson.title}
+        </div>
+        <div style={{ font: "600 11px 'Nunito'", color: "#9AA89E", marginBottom: 10, lineHeight: 1.3 }}>
+          {lesson.subtitle}
+        </div>
+
+        {/* Age chip */}
+        <div style={{ display: "inline-block", background: age.bg, color: age.color, borderRadius: 20, padding: "3px 9px", font: "700 10px 'Nunito'", marginBottom: 10 }}>
+          {age.label}
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3 text-xs text-gray-400 font-semibold">
-            <span>❓ {questionCount} câu hỏi</span>
-            <span>⭐ +{lesson.xp} XP</span>
-          </div>
-          <div
-            className="text-xs font-black px-3 py-1.5 rounded-full text-white shadow-sm transition-transform"
-            style={{ backgroundColor: lesson.color }}
-          >
-            {isCompleted ? "Chơi lại" : "Bắt đầu →"}
-          </div>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <span style={{ font: "600 11px 'Nunito'", color: "#9AA89E" }}>⭐ +{lesson.xp} XP</span>
+          <span style={{ font: "800 12px 'Baloo 2'", color: isCompleted ? "#0E9E5C" : "#16C172" }}>
+            {isCompleted ? "Chơi lại" : "Học →"}
+          </span>
         </div>
-
-        {/* Completed overlay tint */}
-        {isCompleted && (
-          <div className="absolute inset-0 bg-green-500/5 rounded-2xl pointer-events-none" />
-        )}
       </div>
     </Link>
   );
