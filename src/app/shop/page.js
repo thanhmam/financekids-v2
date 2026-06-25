@@ -15,7 +15,6 @@ const ITEMS = [
     name: "Hồi đầy tim",
     desc: "Tiếp tục học ngay",
     price: 350,
-    canAfford: true,
   },
   {
     id: "streak_freeze",
@@ -25,17 +24,15 @@ const ITEMS = [
     name: "Băng giữ streak",
     desc: "Bảo vệ 1 ngày lỡ quên",
     price: 120,
-    canAfford: true,
   },
   {
     id: "xp_boost",
     icon: "★",
     iconBg: "#FFF3DC",
     iconColor: "#FF8A3D",
-    name: "Nhân đôi XP · 15 phút",
+    name: "Nhân đôi XP · 15'",
     desc: "Cày điểm thần tốc",
     price: 200,
-    canAfford: true,
   },
   {
     id: "skin",
@@ -45,7 +42,26 @@ const ITEMS = [
     name: "Đổi diện mạo XuXu",
     desc: "Mũ & phụ kiện mới",
     price: 500,
-    canAfford: false,
+    locked: true,
+  },
+  {
+    id: "unlock_invest",
+    icon: "▲",
+    iconBg: "#F1E9FF",
+    iconColor: "#7C4DEC",
+    name: "Mở chủ đề Đầu tư",
+    desc: "Truy cập sớm 6 bài học",
+    price: 120,
+    locked: true,
+  },
+  {
+    id: "combo_save",
+    icon: "◈",
+    iconBg: "#FFF8E6",
+    iconColor: "#E8A317",
+    name: "Combo tiết kiệm",
+    desc: "5 băng + 3 hồi tim",
+    price: 800,
   },
 ];
 
@@ -103,41 +119,41 @@ export default function ShopPage() {
           </div>
         </div>
 
-        {/* Items list */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 11 }}>
+        {/* Items grid */}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 11 }}>
           {ITEMS.map(item => {
             const affordable = xu >= item.price;
+            const isLocked = item.locked && !affordable;
             return (
               <div key={item.id} style={{
-                display: "flex", alignItems: "center", gap: 12,
-                background: "#fff", border: "2px solid #ECF1E6", borderRadius: 16, padding: 12,
+                background: "#fff", border: "2px solid #ECF1E6",
+                borderRadius: 18, padding: "14px 12px", textAlign: "center",
               }}>
                 <div style={{
-                  width: 44, height: 44, borderRadius: 12,
+                  width: 52, height: 52, borderRadius: 14,
                   background: item.iconBg, display: "flex", alignItems: "center",
-                  justifyContent: "center", color: item.iconColor, font: "800 20px 'Baloo 2'",
-                  flexShrink: 0,
+                  justifyContent: "center", color: item.iconColor, font: "800 24px 'Baloo 2'",
+                  margin: "0 auto 10px",
                 }}>
                   {item.icon}
                 </div>
-                <div style={{ flex: 1 }}>
-                  <div style={{ font: "800 14px 'Baloo 2'", color: "#15392A" }}>{item.name}</div>
-                  <div style={{ font: "600 11px 'Nunito'", color: "#9AA89E" }}>{item.desc}</div>
-                </div>
+                <div style={{ font: "800 13px 'Baloo 2'", color: "#15392A", marginBottom: 3 }}>{item.name}</div>
+                <div style={{ font: "600 11px 'Nunito'", color: "#9AA89E", marginBottom: 10, lineHeight: 1.35 }}>{item.desc}</div>
                 <button
                   className="btn-press"
                   onClick={() => handleBuy(item)}
                   style={{
-                    background: affordable ? "#16C172" : "#fff",
-                    color: affordable ? "#fff" : "#5B7065",
-                    border: affordable ? "none" : "2px solid #DDE6D6",
-                    borderRadius: 12, padding: "8px 12px",
+                    width: "100%",
+                    background: isLocked || !affordable ? "#fff" : "#16C172",
+                    color: isLocked || !affordable ? "#5B7065" : "#fff",
+                    border: isLocked || !affordable ? "2px solid #DDE6D6" : "none",
+                    borderRadius: 11, padding: "9px 0",
                     font: "800 12px 'Baloo 2'",
-                    boxShadow: affordable ? "0 3px 0 #0E9E5C" : "none",
-                    cursor: "pointer", flexShrink: 0,
+                    boxShadow: !isLocked && affordable ? "0 3px 0 #0E9E5C" : "none",
+                    cursor: "pointer",
                   }}
                 >
-                  {item.price}
+                  {item.price} xu
                 </button>
               </div>
             );

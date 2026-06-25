@@ -225,7 +225,7 @@ export default function Home() {
             {[
               { icon: "⌂", label: "Học", active: true, action: null },
               { icon: "◆", label: "Khám phá", action: () => router.push("/explore") },
-              { icon: "▲", label: "Streak", action: () => router.push("/streak") },
+              { icon: "▲", label: "Nhiệm vụ", action: () => router.push("/tasks") },
               { icon: "♛", label: "Xếp hạng", action: () => router.push("/leaderboard") },
               { icon: "◉", label: "Cửa hàng", action: () => router.push("/shop") },
               { icon: "☺", label: "Hồ sơ", action: () => router.push("/profile") },
