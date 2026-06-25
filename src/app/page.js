@@ -7,6 +7,7 @@ import LessonCard from "@/components/LessonCard";
 import BadgesPanel from "@/components/BadgesPanel";
 import LoginModal from "@/components/LoginModal";
 import XuXuMascot from "@/components/XuXuMascot";
+import BottomNav from "@/components/BottomNav";
 import { useAuth } from "@/contexts/AuthContext";
 import { useProgress } from "@/hooks/useProgress";
 
@@ -37,14 +38,12 @@ function BackIcon({ color = "#15392A" }) {
 
 export default function Home() {
   const router = useRouter();
-  const { user, profile, logout } = useAuth();
+  const { user, profile } = useAuth();
   const { completed, totalXP } = useProgress();
 
   const [selectedAgeGroup, setSelectedAgeGroup] = useState("all");
   const [showLogin, setShowLogin] = useState(false);
   const [showBadges, setShowBadges] = useState(false);
-  const [showUserMenu, setShowUserMenu] = useState(false);
-  const [activeTab, setActiveTab] = useState("home");
 
   const tip = useMemo(() => TIPS[Math.floor(Math.random() * TIPS.length)], []);
 
@@ -101,7 +100,7 @@ export default function Home() {
                 <span style={{ color: "#FF8A3D", font: "800 13px 'Baloo 2'" }}>▲</span>
                 <span style={{ font: "800 13px 'Baloo 2'", color: "#15392A" }}>{streak}</span>
               </div>
-              <button onClick={() => user ? setShowUserMenu(!showUserMenu) : setShowLogin(true)} style={{ background: "none", border: "none", cursor: "pointer", padding: 0 }}>
+              <button onClick={() => user ? router.push("/profile") : setShowLogin(true)} style={{ background: "none", border: "none", cursor: "pointer", padding: 0 }}>
                 <XuXuMascot size={40} />
               </button>
             </div>
@@ -207,43 +206,7 @@ export default function Home() {
           </div>
         </div>
 
-        {/* BOTTOM NAV */}
-        <div style={{ position: "fixed", bottom: 0, left: 0, right: 0, display: "flex", justifyContent: "space-around", alignItems: "center", background: "#fff", borderTop: "2px solid #ECF1E6", padding: "10px 0 14px", zIndex: 40 }}>
-          <button onClick={() => setActiveTab("home")} style={{ background: "none", border: "none", cursor: "pointer", padding: "0 10px" }}>
-            <div style={{ width: 30, height: 30, borderRadius: 9, background: activeTab === "home" ? "#16C172" : "transparent", display: "flex", alignItems: "center", justifyContent: "center", color: activeTab === "home" ? "#fff" : "#C2CDBA", font: "800 16px 'Baloo 2'", transition: "all .15s" }}>⌂</div>
-          </button>
-          <button onClick={() => router.push("/leaderboard")} style={{ background: "none", border: "none", cursor: "pointer", padding: "0 10px" }}>
-            <div style={{ color: "#C2CDBA", font: "800 18px 'Baloo 2'" }}>◆</div>
-          </button>
-          <button onClick={() => setShowBadges(!showBadges)} style={{ background: "none", border: "none", cursor: "pointer", padding: "0 10px" }}>
-            <div style={{ color: showBadges ? "#FF8A3D" : "#C2CDBA", font: "800 18px 'Baloo 2'", transition: "color .15s" }}>▲</div>
-          </button>
-          <button onClick={() => router.push("/leaderboard")} style={{ background: "none", border: "none", cursor: "pointer", padding: "0 10px" }}>
-            <div style={{ color: "#C2CDBA", font: "800 18px 'Baloo 2'" }}>♛</div>
-          </button>
-          <button onClick={() => user ? setShowUserMenu(!showUserMenu) : setShowLogin(true)} style={{ background: "none", border: "none", cursor: "pointer", padding: "0 10px" }}>
-            <div style={{ width: 30, height: 30, borderRadius: "50%", background: "#FFC93C", border: user ? "2.5px solid #E8A317" : "2.5px dashed #FFB877", boxShadow: user ? "0 0 0 2.5px #16C172" : "none", transition: "all .15s" }} />
-          </button>
-        </div>
-
-        {/* USER MENU */}
-        {showUserMenu && (
-          <>
-            <div style={{ position: "fixed", inset: 0, zIndex: 40 }} onClick={() => setShowUserMenu(false)} />
-            <div style={{ position: "fixed", bottom: 76, right: 16, zIndex: 50, background: "#fff", borderRadius: 20, boxShadow: "0 8px 32px rgba(21,57,42,.14)", border: "2px solid #ECF1E6", overflow: "hidden", minWidth: 185, animation: "slideUp .25s ease" }}>
-              <div style={{ padding: "12px 14px 10px", borderBottom: "1px solid #ECF1E6" }}>
-                <div style={{ font: "800 15px 'Baloo 2'", color: "#15392A" }}>{profile?.displayName}</div>
-                <div style={{ font: "600 12px 'Nunito'", color: "#FF8A3D", marginTop: 2 }}>⭐ {totalXP} XP</div>
-              </div>
-              <button onClick={() => { setShowBadges(!showBadges); setShowUserMenu(false); }} style={{ width: "100%", textAlign: "left", padding: "10px 14px", font: "700 13px 'Nunito'", color: "#15392A", background: "none", border: "none", cursor: "pointer" }}>
-                🏅 Huy hiệu
-              </button>
-              <button onClick={() => { logout(); setShowUserMenu(false); }} style={{ width: "100%", textAlign: "left", padding: "10px 14px", font: "700 13px 'Nunito'", color: "#FF5366", background: "none", border: "none", cursor: "pointer", borderTop: "1px solid #ECF1E6" }}>
-                🚪 Đăng xuất
-              </button>
-            </div>
-          </>
-        )}
+        <BottomNav />
       </main>
 
       {/* ═══════════════════════════════════════════════
@@ -261,11 +224,11 @@ export default function Home() {
           <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
             {[
               { icon: "⌂", label: "Học", active: true, action: null },
-              { icon: "◆", label: "Khám phá", action: () => router.push("/leaderboard") },
-              { icon: "▲", label: "Nhiệm vụ", action: null },
+              { icon: "◆", label: "Khám phá", action: () => router.push("/explore") },
+              { icon: "▲", label: "Streak", action: () => router.push("/streak") },
               { icon: "♛", label: "Xếp hạng", action: () => router.push("/leaderboard") },
-              { icon: "◉", label: "Cửa hàng", action: null },
-              { icon: "☺", label: "Hồ sơ", action: () => user ? setShowUserMenu(!showUserMenu) : setShowLogin(true) },
+              { icon: "◉", label: "Cửa hàng", action: () => router.push("/shop") },
+              { icon: "☺", label: "Hồ sơ", action: () => router.push("/profile") },
             ].map(item => (
               <button
                 key={item.label}
@@ -429,25 +392,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ── SHARED MODALS ── */}
-      {showUserMenu && (
-        <>
-          <div style={{ position: "fixed", inset: 0, zIndex: 40 }} onClick={() => setShowUserMenu(false)} />
-          <div style={{ position: "fixed", bottom: 76, right: 16, zIndex: 50, background: "#fff", borderRadius: 20, boxShadow: "0 8px 32px rgba(21,57,42,.14)", border: "2px solid #ECF1E6", overflow: "hidden", minWidth: 185, animation: "slideUp .25s ease" }}
-            className="lg:bottom-auto lg:top-16 lg:right-6">
-            <div style={{ padding: "12px 14px 10px", borderBottom: "1px solid #ECF1E6" }}>
-              <div style={{ font: "800 15px 'Baloo 2'", color: "#15392A" }}>{profile?.displayName}</div>
-              <div style={{ font: "600 12px 'Nunito'", color: "#FF8A3D", marginTop: 2 }}>⭐ {totalXP} XP</div>
-            </div>
-            <button onClick={() => { setShowBadges(!showBadges); setShowUserMenu(false); }} style={{ width: "100%", textAlign: "left", padding: "10px 14px", font: "700 13px 'Nunito'", color: "#15392A", background: "none", border: "none", cursor: "pointer" }}>
-              🏅 Huy hiệu
-            </button>
-            <button onClick={() => { logout(); setShowUserMenu(false); }} style={{ width: "100%", textAlign: "left", padding: "10px 14px", font: "700 13px 'Nunito'", color: "#FF5366", background: "none", border: "none", cursor: "pointer", borderTop: "1px solid #ECF1E6" }}>
-              🚪 Đăng xuất
-            </button>
-          </div>
-        </>
-      )}
       {showLogin && <LoginModal onClose={() => setShowLogin(false)} />}
     </>
   );

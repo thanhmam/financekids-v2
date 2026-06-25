@@ -8,13 +8,87 @@ import GameAB from "@/components/GameAB";
 import GameTransaction from "@/components/GameTransaction";
 import ResultScreen from "@/components/ResultScreen";
 import BadgeToast from "@/components/BadgeToast";
+import XuXuMascot from "@/components/XuXuMascot";
 import { useProgress } from "@/hooks/useProgress";
+
+const MAX_HEARTS = 5;
 
 function BackIcon() {
   return (
     <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
       <path d="M11.5 15L6 9L11.5 3" stroke="#15392A" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
+  );
+}
+
+function OutOfHeartsModal({ onRefill, onPractice, onHome, refillTimer }) {
+  return (
+    <>
+      {/* Dark overlay */}
+      <div style={{ position: "fixed", inset: 0, background: "rgba(14,42,30,.82)", zIndex: 50 }} />
+      {/* Bottom sheet */}
+      <div style={{
+        position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 51,
+        background: "#fff", borderRadius: "30px 30px 0 0",
+        padding: "26px 22px 32px", textAlign: "center",
+        animation: "slideUp .35s ease",
+      }}>
+        {/* Sad mascot */}
+        <div style={{ margin: "0 auto 18px", display: "inline-block" }}>
+          <XuXuMascot size={96} mood="sad" />
+        </div>
+
+        {/* Empty hearts */}
+        <div style={{ display: "flex", justifyContent: "center", gap: 6, marginBottom: 10 }}>
+          {Array.from({ length: MAX_HEARTS }).map((_, i) => (
+            <span key={i} style={{ color: "#E4C9CE", font: "800 22px 'Baloo 2'" }}>♡</span>
+          ))}
+        </div>
+
+        <div style={{ font: "800 24px 'Baloo 2'", color: "#15392A" }}>Hết tim rồi!</div>
+        <div style={{ font: "700 13px 'Nunito'", color: "#5B7065", marginTop: 5, lineHeight: 1.4 }}>
+          Bạn cần tim để tiếp tục. Hồi tim hoặc luyện tập lại nhé.
+        </div>
+
+        {/* Refill button */}
+        <button
+          className="btn-press"
+          onClick={onRefill}
+          style={{
+            display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+            width: "100%", background: "#16C172", color: "#fff",
+            borderRadius: 16, boxShadow: "0 5px 0 #0E9E5C",
+            padding: 14, font: "800 15px 'Baloo 2'", marginTop: 20,
+            border: "none", cursor: "pointer",
+          }}
+        >
+          <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 22, height: 22, borderRadius: "50%", background: "#FFC93C", border: "2px solid #E8A317", color: "#7A4E00", font: "800 11px 'Baloo 2'" }}>X</span>
+          HỒI ĐẦY TIM · 350
+        </button>
+
+        {/* Practice to recover */}
+        <button
+          className="btn-press"
+          onClick={onPractice}
+          style={{
+            width: "100%", border: "2px solid #DDE6D6", borderBottomWidth: 4,
+            color: "#16C172", borderRadius: 16, padding: 13,
+            font: "800 14px 'Baloo 2'", marginTop: 11,
+            background: "#fff", cursor: "pointer",
+          }}
+        >
+          LUYỆN TẬP ĐỂ HỒI TIM
+        </button>
+
+        <div style={{ font: "700 12px 'Nunito'", color: "#9AA89E", marginTop: 14 }}>
+          Tim hồi đầy sau <b style={{ color: "#FF8A3D" }}>{refillTimer}</b>
+        </div>
+
+        <button onClick={onHome} style={{ marginTop: 10, background: "none", border: "none", font: "700 13px 'Nunito'", color: "#9AA89E", cursor: "pointer" }}>
+          Về trang chủ
+        </button>
+      </div>
+    </>
   );
 }
 
@@ -29,6 +103,22 @@ export default function GamePage() {
   const [answers, setAnswers] = useState([]);
   const [isFinished, setIsFinished] = useState(false);
   const [showTransition, setShowTransition] = useState(false);
+  const [hearts, setHearts] = useState(MAX_HEARTS);
+  const [showOutOfHearts, setShowOutOfHearts] = useState(false);
+
+  // Countdown timer for heart refill (demo: starts at 4h32m10s)
+  const [refillSecs, setRefillSecs] = useState(4 * 3600 + 32 * 60 + 10);
+  useEffect(() => {
+    if (!showOutOfHearts) return;
+    const interval = setInterval(() => setRefillSecs(s => Math.max(0, s - 1)), 1000);
+    return () => clearInterval(interval);
+  }, [showOutOfHearts]);
+  const formatTimer = (secs) => {
+    const h = Math.floor(secs / 3600);
+    const m = Math.floor((secs % 3600) / 60);
+    const s = secs % 60;
+    return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+  };
 
   useEffect(() => {
     if (!lesson) router.push("/");
@@ -44,6 +134,12 @@ export default function GamePage() {
     setAnswers(newAnswers);
     if (isCorrect) {
       setScore(s => s + (points || Math.round(lesson.xp / lesson.questions.length)));
+    } else {
+      const newHearts = hearts - 1;
+      setHearts(newHearts);
+      if (newHearts <= 0) {
+        setTimeout(() => setShowOutOfHearts(true), 600);
+      }
     }
   };
 
@@ -70,7 +166,7 @@ export default function GamePage() {
           lesson={lesson}
           score={score}
           answers={answers}
-          onRetry={() => { setCurrentQuestion(0); setScore(0); setAnswers([]); setIsFinished(false); }}
+          onRetry={() => { setCurrentQuestion(0); setScore(0); setAnswers([]); setIsFinished(false); setHearts(MAX_HEARTS); }}
           onHome={() => router.push("/")}
         />
         {newBadges.length > 0 && <BadgeToast badgeIds={newBadges} onDismiss={clearNewBadges} />}
@@ -94,9 +190,17 @@ export default function GamePage() {
           <div style={{ width: `${progress}%`, height: "100%", borderRadius: 9, background: "#16C172", boxShadow: "inset 0 3px 0 rgba(255,255,255,.35)", transition: "width .5s ease" }} />
         </div>
 
-        <div style={{ display: "flex", alignItems: "center", gap: 4, flexShrink: 0 }}>
-          <span style={{ color: "#FF5366", font: "800 17px 'Baloo 2'" }}>♥</span>
-          <span style={{ font: "800 14px 'Baloo 2'", color: "#15392A" }}>5</span>
+        {/* Hearts display */}
+        <div style={{ display: "flex", alignItems: "center", gap: 3, flexShrink: 0 }}>
+          {Array.from({ length: MAX_HEARTS }).map((_, i) => (
+            <span key={i} style={{
+              color: i < hearts ? "#FF5366" : "#ECF1E6",
+              font: "800 16px 'Baloo 2'",
+              transition: "color .2s",
+            }}>
+              ♥
+            </span>
+          ))}
         </div>
       </div>
 
@@ -116,6 +220,27 @@ export default function GamePage() {
           <GameTransaction key={currentQuestion} question={question} lessonColor={lesson.color} onAnswer={handleAnswer} onNext={handleNext} />
         )}
       </div>
+
+      {/* Out of Hearts modal */}
+      {showOutOfHearts && (
+        <OutOfHeartsModal
+          refillTimer={formatTimer(refillSecs)}
+          onRefill={() => {
+            // UI-only: refill hearts and continue
+            setHearts(MAX_HEARTS);
+            setShowOutOfHearts(false);
+          }}
+          onPractice={() => {
+            // Restart current lesson
+            setCurrentQuestion(0);
+            setScore(0);
+            setAnswers([]);
+            setHearts(MAX_HEARTS);
+            setShowOutOfHearts(false);
+          }}
+          onHome={() => router.push("/")}
+        />
+      )}
     </div>
   );
 }

@@ -5,6 +5,20 @@ export default function XuXuMascot({ size = 56, mood = "happy" }) {
   const border = Math.max(2, Math.round(s * 0.055));
   const shadow = Math.round(s * 0.09);
 
+  if (mood === "sad") {
+    return (
+      <div style={{ position: "relative", width: s, height: s, borderRadius: "50%", background: "radial-gradient(circle at 38% 30%,#FFE594,#FFC93C 58%,#F2B01E)", border: `${border}px solid #C99A22`, boxShadow: `0 ${shadow}px 0 #A87E12`, flexShrink: 0 }}>
+        {/* Sad straight-line eyes */}
+        <div style={{ position: "absolute", top: "40%", left: "25%", width: s * 0.14, height: s * 0.04, background: "#3A2A00", borderRadius: 4 }} />
+        <div style={{ position: "absolute", top: "40%", right: "25%", width: s * 0.14, height: s * 0.04, background: "#3A2A00", borderRadius: 4 }} />
+        {/* Frown mouth */}
+        <div style={{ position: "absolute", top: "57%", left: "50%", transform: "translateX(-50%)", width: s * 0.32, height: s * 0.15, border: `${Math.max(2, Math.round(s * 0.04))}px solid #3A2A00`, borderBottom: "none", borderRadius: "44px 44px 0 0" }} />
+        {/* Tear drop */}
+        <div style={{ position: "absolute", top: "49%", left: "23%", width: s * 0.07, height: s * 0.11, background: "#7EC8FF", borderRadius: "0 0 50% 50%" }} />
+      </div>
+    );
+  }
+
   if (mood === "excited") {
     return (
       <div style={{ position: "relative", width: s, height: s, borderRadius: "50%", background: "radial-gradient(circle at 38% 30%,#FFE594,#FFC93C 58%,#F2B01E)", border: `${border}px solid #E8A317`, boxShadow: `0 ${shadow}px 0 #C98A12`, flexShrink: 0 }}>
