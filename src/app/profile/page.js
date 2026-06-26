@@ -6,6 +6,8 @@ import { useProgress } from "@/hooks/useProgress";
 import { BADGES } from "@/lib/badges";
 import XuXuMascot from "@/components/XuXuMascot";
 import LoginModal from "@/components/LoginModal";
+import ProBadge from "@/components/ProBadge";
+import UpgradeModal from "@/components/UpgradeModal";
 import { useState } from "react";
 import BottomNav from "@/components/BottomNav";
 import DesktopLayout from "@/components/DesktopLayout";
@@ -23,9 +25,10 @@ const BADGE_ICONS = {
 
 export default function ProfilePage() {
   const router = useRouter();
-  const { user, profile, logout } = useAuth();
+  const { user, profile, logout, isPro, activateTrial } = useAuth();
   const { completed, totalXP } = useProgress();
   const [showLogin, setShowLogin] = useState(false);
+  const [showUpgrade, setShowUpgrade] = useState(false);
 
   const streak = profile?.streak || 0;
   const xu = profile?.xu || 0;
@@ -67,7 +70,10 @@ export default function ProfilePage() {
         <div style={{ display:"flex", alignItems:"center", gap:cols===4?20:14, background:"#fff", border:"2px solid #ECF1E6", borderRadius:20, padding:cols===4?"22px":"16px 14px", marginBottom:18 }}>
           <XuXuMascot size={cols===4?84:66} />
           <div style={{ flex:1 }}>
-            <div style={{ font:`800 ${cols===4?24:20}px 'Baloo 2'`, color:"#15392A" }}>{displayName}</div>
+            <div style={{ display:"flex", alignItems:"center", gap:8, flexWrap:"wrap" }}>
+              <span style={{ font:`800 ${cols===4?24:20}px 'Baloo 2'`, color:"#15392A" }}>{displayName}</span>
+              {isPro && <ProBadge size={cols===4?"md":"sm"} />}
+            </div>
             <div style={{ font:"700 13px 'Nunito'", color:"#9AA89E" }}>Tham gia {joinedDate}</div>
           </div>
           {cols === 4 && (
@@ -134,6 +140,32 @@ export default function ProfilePage() {
           </div>
           <button onClick={() => router.push("/leaderboard")} style={{ background:"none", border:"none", cursor:"pointer", color:"#FFC93C", font:"800 30px 'Baloo 2'" }}>♛</button>
         </div>
+
+        {/* Pro status card */}
+        {isPro ? (
+          <div style={{ marginTop:14, background:"linear-gradient(145deg,#7C4DEC,#8B5CF6)", borderRadius:18, padding:"14px 16px", color:"#fff", display:"flex", alignItems:"center", justifyContent:"space-between" }}>
+            <div>
+              <div style={{ display:"flex", alignItems:"center", gap:8 }}>
+                <span style={{ font:"800 15px 'Baloo 2'" }}>XuXu Pro</span>
+                <span style={{ font:"800 10px 'Baloo 2'", background:"rgba(255,255,255,.22)", borderRadius:6, padding:"2px 6px" }}>ACTIVE</span>
+              </div>
+              {profile?.proExpiry?.toDate?.() && (
+                <div style={{ font:"600 11px 'Nunito'", color:"rgba(255,255,255,.72)", marginTop:3 }}>
+                  Hết hạn: {profile.proExpiry.toDate().toLocaleDateString("vi-VN",{day:"2-digit",month:"2-digit",year:"numeric"})}
+                </div>
+              )}
+            </div>
+            <span style={{ font:"800 28px 'Baloo 2'" }}>◆</span>
+          </div>
+        ) : (
+          <button onClick={() => setShowUpgrade(true)} style={{ marginTop:14, width:"100%", background:"#15392A", borderRadius:18, padding:"14px 16px", color:"#fff", display:"flex", alignItems:"center", justifyContent:"space-between", border:"none", cursor:"pointer" }}>
+            <div style={{ textAlign:"left" }}>
+              <div style={{ font:"800 15px 'Baloo 2'" }}>Nâng cấp Pro</div>
+              <div style={{ font:"600 11px 'Nunito'", color:"rgba(255,255,255,.7)", marginTop:2 }}>Tim vô hạn · 2× XP · không quảng cáo</div>
+            </div>
+            <div style={{ background:"#FFC93C", color:"#7A4E00", borderRadius:10, padding:"8px 12px", font:"800 12px 'Baloo 2'", boxShadow:"0 3px 0 #D99312", flexShrink:0 }}>THỬ NGAY</div>
+          </button>
+        )}
       </>
     );
   }
@@ -152,6 +184,7 @@ export default function ProfilePage() {
         <div style={{ padding:"16px 18px 0" }}><ProfileContent cols={2} /></div>
         <BottomNav />
         {showLogin && <LoginModal onClose={() => setShowLogin(false)} />}
+        {showUpgrade && <UpgradeModal onClose={() => setShowUpgrade(false)} onActivate={activateTrial} />}
       </div>
 
       {/* ── DESKTOP ── */}
@@ -164,6 +197,7 @@ export default function ProfilePage() {
           <ProfileContent cols={4} />
         </div>
         {showLogin && <LoginModal onClose={() => setShowLogin(false)} />}
+        {showUpgrade && <UpgradeModal onClose={() => setShowUpgrade(false)} onActivate={activateTrial} />}
       </DesktopLayout>
     </>
   );

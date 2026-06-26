@@ -211,6 +211,9 @@ Logic mở khoá dựa trên `completedLessons[]`, `totalXP`, `streak`.
   lastActiveAt:      Timestamp
   isAnonymous:       boolean
   createdAt:         Timestamp
+  isPro:             boolean            # Pro subscription active
+  proExpiry:         Timestamp | null   # null = free
+  trialStartedAt:    Timestamp | null   # để chống trial nhiều lần
 
 /leaderboard/{weekId}              # "2026-W26"
   entries: [
@@ -262,6 +265,55 @@ vercel --prod
 
 ---
 
+## Monetization — Free vs Pro
+
+### Tier Comparison
+
+| Tính năng            | Free              | Pro                        |
+|----------------------|-------------------|----------------------------|
+| Tim (hearts)         | 5 / phiên         | Vô hạn                     |
+| XP mỗi bài          | 1×                | 2×                         |
+| Xu kiếm được        | 1×                | 2×                         |
+| Bài học              | 45 bài cơ bản     | + Chủ đề Đầu tư (sớm)     |
+| Quảng cáo / upsell  | Có                | Không                      |
+| Pro badge profile   | Không             | Có (◆ PRO chip màu tím)   |
+
+### Pricing
+
+- **Tháng**: 49.000đ / tháng
+- **Năm**: 399.000đ / năm (~33.250đ/tháng · tiết kiệm 32%)
+- **Trial**: 7 ngày miễn phí — kích hoạt qua nút "DÙNG THỬ MIỄN PHÍ"
+
+### Firestore Schema (bổ sung)
+
+```
+/users/{userId}
+  + isPro:           boolean           # true khi subscription active
+  + proExpiry:       Timestamp | null  # null = chưa kích hoạt
+  + trialStartedAt:  Timestamp | null  # chống trial nhiều lần
+```
+
+### Components & Files
+
+| File | Vai trò |
+|------|---------|
+| `src/components/ProBadge.jsx` | Chip ◆ PRO màu `#8B5CF6`, 2 sizes |
+| `src/components/UpgradeModal.jsx` | Overlay modal: pricing + feature list + CTA |
+| `src/contexts/AuthContext.jsx` | Thêm `isPro` (derived) + `activateTrial()` |
+| `src/components/DesktopLayout.jsx` | Wire Pro card → UpgradeModal |
+| `src/app/page.js` | Wire mobile Pro card → UpgradeModal |
+| `src/app/profile/page.js` | Hiển thị ProBadge + ngày hết hạn |
+| `src/app/shop/page.js` | Overlay "Chỉ Pro" cho locked items |
+
+### Design tokens cho Pro tier
+
+- Background: `linear-gradient(145deg, #7C4DEC, #8B5CF6)`
+- Badge: `background: #8B5CF6, boxShadow: 0 2px 0 #7C4DEC`
+- Active card: `background: linear-gradient(145deg, #7C4DEC, #8B5CF6), color: #fff`
+- CTA button: `background: #FFC93C, color: #7A4E00, boxShadow: 0 5px 0 #D99312`
+
+---
+
 ## Backlog / Roadmap
 
 ### Đang làm
@@ -295,6 +347,14 @@ vercel --prod
 ---
 
 ## Changelog
+
+### 2026-06-26
+- Upload XuXu Design System v1 vào `design-system/` (tokens, 11 components, guidelines, UI kit)
+- Cập nhật README + PROJECT với quy tắc follow design system
+- Thêm tính năng Free vs Pro: `ProBadge`, `UpgradeModal`, `activateTrial`
+- Wire Pro card trong desktop sidebar + mobile home → UpgradeModal
+- Shop: overlay "Chỉ Pro" cho locked items
+- Profile: hiển thị PRO badge + ngày hết hạn
 
 ### 2026-06-25
 - Thêm `/tasks` page: daily tasks (progress bars, claim reward), weekly tasks, countdown timer

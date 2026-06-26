@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<!-- @template name="XuXu Mobile Screen" description="A branded XuXu mobile screen with sticky header, scrollable body, and pinned CTA bar." -->
+<helmet>
+  <script src="./ds-base.js"></script>
+</helmet>
+
+<!-- Phone shell -->
+<div style="min-height:100vh;background:#DDE7D4;display:flex;align-items:center;justify-content:center;padding:24px;box-sizing:border-box">
+  <div style="width:390px;min-height:700px;max-height:calc(100vh - 48px);background:#fff;border-radius:40px;overflow:hidden;box-shadow:0 24px 60px rgba(21,57,42,.28),0 0 0 10px #15392A;display:flex;flex-direction:column;position:relative">
+
+    <!-- Sticky header -->
+    <div style="flex-shrink:0;background:#fff;border-bottom:2px solid #ECF1E6;padding:16px 20px;display:flex;align-items:center;gap:12px">
+      <div style="font:800 22px 'Baloo 2';color:#15392A;flex:1">{{ title }}</div>
+      <div style="display:inline-flex;align-items:center;gap:6px;background:#FFF8E6;border:1.5px solid #FFC93C;border-radius:999px;padding:5px 12px">
+        <span style="width:20px;height:20px;border-radius:50%;background:#FFC93C;border:2px solid #E8A317;display:inline-flex;align-items:center;justify-content:center;color:#7A4E00;font:800 12px 'Baloo 2'">X</span>
+        <span style="font:800 15px 'Baloo 2';color:#15392A">{{ xuBalance }}</span>
+      </div>
+    </div>
+
+    <!-- Scrollable body -->
+    <div style="flex:1;min-height:0;overflow-y:auto;background:#F4F8EF;padding:16px">
+
+      <!-- Hero card (dark) -->
+      <div style="background:#15392A;border-radius:20px;padding:18px 16px;margin-bottom:12px;display:flex;align-items:center;gap:14px">
+        <!-- XuXu mascot (CSS coin) -->
+        <div style="width:56px;height:56px;border-radius:50%;flex-shrink:0;background:radial-gradient(circle at 38% 30%,#FFE594,#FFC93C 58%,#F2B01E);border:3px solid #E8A317;box-shadow:0 5px 0 #C98A12;position:relative">
+          <div style="position:absolute;top:40%;left:25%;width:6px;height:9px;background:#3A2A00;border-radius:50%"></div>
+          <div style="position:absolute;top:40%;right:25%;width:6px;height:9px;background:#3A2A00;border-radius:50%"></div>
+          <div style="position:absolute;top:60%;left:50%;transform:translateX(-50%);width:17px;height:8px;border:2px solid #3A2A00;border-top:none;border-radius:0 0 12px 12px"></div>
+        </div>
+        <div style="flex:1">
+          <div style="font:800 16px 'Baloo 2';color:#fff;line-height:1.2">{{ heroTitle }}</div>
+          <div style="font:600 12px 'Nunito';color:rgba(255,255,255,.75);margin-top:4px">{{ heroSubtitle }}</div>
+        </div>
+      </div>
+
+      <!-- Progress bar -->
+      <div style="background:#fff;border:2px solid #ECF1E6;border-radius:18px;padding:14px 16px;margin-bottom:12px">
+        <div style="display:flex;justify-content:space-between;margin-bottom:10px">
+          <span style="font:800 14px 'Baloo 2';color:#15392A">{{ progressLabel }}</span>
+          <span style="font:700 12px 'Nunito';color:#16C172">{{ progressFrac }}</span>
+        </div>
+        <div style="height:12px;border-radius:8px;background:#ECF1E6;overflow:hidden">
+          <div style="width:66%;height:100%;background:#16C172;box-shadow:inset 0 3px 0 rgba(255,255,255,.35);border-radius:8px"></div>
+        </div>
+      </div>
+
+      <!-- Content cards -->
+      <sc-for list="{{ items }}" as="item" hint-placeholder-count="3">
+        <div style="background:#fff;border:2px solid #ECF1E6;border-bottom-width:4px;border-radius:18px;padding:14px 14px;margin-bottom:10px;display:flex;align-items:center;gap:12px">
+          <div style="width:46px;height:46px;border-radius:14px;background:#F4F8EF;display:flex;align-items:center;justify-content:center;font:800 22px 'Baloo 2';flex-shrink:0">{{ item.icon }}</div>
+          <div style="flex:1;min-width:0">
+            <div style="font:800 14px 'Baloo 2';color:#15392A;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ item.title }}</div>
+            <div style="font:600 12px 'Nunito';color:#9AA89E;margin-top:2px">{{ item.sub }}</div>
+          </div>
+          <span style="font:800 13px 'Baloo 2';color:#16C172">→</span>
+        </div>
+      </sc-for>
+
+    </div>
+
+    <!-- Pinned CTA bar — never scrolls away -->
+    <div style="flex-shrink:0;padding:12px 16px 20px;border-top:2px solid #ECF1E6;background:#fff">
+      <button style="width:100%;padding:15px 22px;border-radius:16px;font:800 16px 'Baloo 2';letter-spacing:.5px;color:#fff;background:#16C172;border:none;box-shadow:0 5px 0 #0E9E5C;cursor:pointer">{{ ctaLabel }}</button>
+    </div>
+
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: 460, &quot;height&quot;: 760 },
+  &quot;title&quot;:         { &quot;editor&quot;: &quot;text&quot;,   &quot;default&quot;: &quot;Bài học hôm nay&quot;,           &quot;tsType&quot;: &quot;string&quot; },
+  &quot;xuBalance&quot;:     { &quot;editor&quot;: &quot;text&quot;,   &quot;default&quot;: &quot;1.250&quot;,                     &quot;tsType&quot;: &quot;string&quot; },
+  &quot;heroTitle&quot;:     { &quot;editor&quot;: &quot;text&quot;,   &quot;default&quot;: &quot;Mục tiêu hôm nay&quot;,          &quot;tsType&quot;: &quot;string&quot; },
+  &quot;heroSubtitle&quot;:  { &quot;editor&quot;: &quot;text&quot;,   &quot;default&quot;: &quot;Hoàn thành 3 bài để nhận thưởng!&quot;, &quot;tsType&quot;: &quot;string&quot; },
+  &quot;progressLabel&quot;: { &quot;editor&quot;: &quot;text&quot;,   &quot;default&quot;: &quot;Tiến độ&quot;,                   &quot;tsType&quot;: &quot;string&quot; },
+  &quot;progressFrac&quot;:  { &quot;editor&quot;: &quot;text&quot;,   &quot;default&quot;: &quot;2/3 bài&quot;,                   &quot;tsType&quot;: &quot;string&quot; },
+  &quot;progressPct&quot;:   { &quot;editor&quot;: &quot;int&quot;,    &quot;default&quot;: 66, &quot;min&quot;: 0, &quot;max&quot;: 100,    &quot;tsType&quot;: &quot;number&quot; },
+  &quot;ctaLabel&quot;:      { &quot;editor&quot;: &quot;text&quot;,   &quot;default&quot;: &quot;HỌC TIẾP&quot;,                  &quot;tsType&quot;: &quot;string&quot; }
+}">
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      title: this.props.title ?? "Bài học hôm nay",
+      xuBalance: this.props.xuBalance ?? "1.250",
+      heroTitle: this.props.heroTitle ?? "Mục tiêu hôm nay",
+      heroSubtitle: this.props.heroSubtitle ?? "Hoàn thành 3 bài để nhận thưởng!",
+      progressLabel: this.props.progressLabel ?? "Tiến độ",
+      progressFrac: this.props.progressFrac ?? "2/3 bài",
+      progressPct: this.props.progressPct ?? 66,
+      progressWidth: (this.props.progressPct ?? 66) + "%",
+      items: this.props.items ?? [
+        { icon: "💰", bg: "#FFF9E6", title: "Tiền là gì?", sub: "+100 XP · 6-8 tuổi" },
+        { icon: "⚖️", bg: "#E8F5E9", title: "Cần và Muốn", sub: "+120 XP · 6-8 tuổi" },
+        { icon: "🐷", bg: "#FCE4EC", title: "Heo Đất Thần Kỳ", sub: "+150 XP · 6-8 tuổi" },
+      ],
+      ctaLabel: this.props.ctaLabel ?? "HỌC TIẾP",
+    };
+  }
+}
+
+</script>
+</body>
+</html>

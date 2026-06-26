@@ -1,0 +1,66 @@
+/* ============================================================
+   XuXu — Effects: shadows, the signature 3D button, motion
+   The defining XuXu motif is the "chunky 3D" look: solid colored
+   drop-shadows directly below buttons/coins (no blur), plus a
+   thicker bottom border on cards. Pressing a button sinks it into
+   its shadow. Soft ambient shadows are reserved for hover lifts.
+   ============================================================ */
+:root {
+  /* ---- 3D solid "stacked" shadows (no blur) ---- */
+  --shadow-3d-green:  0 5px 0 var(--xu-green-dark);
+  --shadow-3d-green-sm: 0 4px 0 var(--xu-green-dark);
+  --shadow-3d-green-xs: 0 3px 0 var(--xu-green-dark);
+  --shadow-3d-gold:   0 4px 0 var(--xu-gold-shadow);
+  --shadow-3d-coin:   0 5px 0 var(--xu-gold-shadow); /* coin/mascot depth */
+  --shadow-3d-streak: 0 5px 0 var(--xu-streak-dark);
+  --shadow-3d-white:  0 5px 0 rgba(0,0,0,.18); /* white button on color bg */
+
+  /* ---- Ambient soft shadows (cards / hover) ---- */
+  --shadow-soft:  0 2px 8px rgba(21,57,42,.07);
+  --shadow-lift:  0 8px 24px rgba(21,57,42,.10);
+  --shadow-toast: 0 6px 20px rgba(0,0,0,.18);
+
+  /* ---- Inset highlight on filled progress bars ---- */
+  --inset-shine:  inset 0 3px 0 rgba(255,255,255,.35);
+
+  /* ---- Borders: cards use a thicker bottom edge ---- */
+  --border-bottom-3d: 4px; /* borderBottomWidth on cards/options */
+
+  /* ---- Motion ---- */
+  --ease-snappy: cubic-bezier(.175,.885,.32,1.275); /* @kind other */
+  --ease-out:    ease; /* @kind other */
+  --dur-press:   .1s;  /* @kind other */
+  --dur-quick:   .15s; /* @kind other */
+  --dur-move:    .3s;  /* @kind other */
+  --dur-fill:    .6s;  /* @kind other */
+}
+
+/* ---- Keyframes used across the brand ---- */
+@keyframes xu-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+@keyframes xu-slide-up {
+  from { transform: translateY(24px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+@keyframes xu-pop {
+  0%   { transform: scale(.8); opacity: 0; }
+  70%  { transform: scale(1.1); }
+  100% { transform: scale(1); opacity: 1; }
+}
+@keyframes xu-wiggle {
+  0%, 100% { transform: rotate(-5deg); }
+  50%      { transform: rotate(5deg); }
+}
+@keyframes xu-star-pop {
+  0%   { transform: scale(0) rotate(0); opacity: 0; }
+  50%  { transform: scale(1.3) rotate(20deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0); opacity: 1; }
+}
+
+/* ---- Utility classes the product relies on ---- */
+.xu-btn-press { transition: transform var(--dur-press) var(--ease-out); }
+.xu-btn-press:active { transform: scale(.95); }
+
+.xu-float { animation: xu-float 3s ease-in-out infinite; }

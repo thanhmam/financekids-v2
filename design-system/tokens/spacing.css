@@ -1,0 +1,40 @@
+/* ============================================================
+   XuXu — Spacing & radius tokens
+   The product uses a soft, generous spacing rhythm (multiples of
+   ~4px) and big friendly corner radii. Screens have ~16px gutters
+   on mobile; cards round at 16–22px; pills go fully round.
+   ============================================================ */
+:root {
+  /* ---- Spacing scale ---- */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  11px;  /* common card-internal gap */
+  --space-4:  14px;  /* card padding (mobile) */
+  --space-5:  16px;  /* screen gutter / section gap */
+  --space-6:  20px;  /* card padding (comfortable) */
+  --space-7:  24px;
+  --space-8:  28px;
+  --space-10: 40px;
+
+  /* ---- Screen gutters ---- */
+  --gutter-mobile:  16px;
+  --gutter-desktop: 28px;
+
+  /* ---- Corner radii ---- */
+  --radius-chip:   12px; /* small chips, icon tiles */
+  --radius-button: 14px; /* buttons */
+  --radius-card:   18px; /* default cards */
+  --radius-card-lg:22px; /* hero cards */
+  --radius-pill:   999px;/* fully-rounded pills */
+  --radius-icon:   14px; /* lesson/shop icon tiles */
+
+  /* ---- Icon tile sizes ---- */
+  --tile-sm: 40px;
+  --tile-md: 46px;
+  --tile-lg: 52px;
+
+  /* ---- Layout (desktop 3-column shell) ---- */
+  --sidebar-w:    236px;
+  --rightrail-w:  288px;
+  --content-max:  520px; /* centered single-column max */
+}

@@ -1,0 +1,126 @@
+<!-- @dsCard group="Spacing" viewport="700x320" name="Layout — Mobile & Desktop" subtitle="Screen gutters, safe areas, bottom-action pattern, 3-col desktop" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; background: #fff; font-family: var(--font-body); color: var(--xu-ink); }
+  .wrap { display: flex; gap: 28px; padding: 20px 24px; }
+  .col { flex: 1; }
+  .title { font: 800 13px var(--font-display); color: var(--xu-ink); margin-bottom: 12px; padding-bottom: 6px; border-bottom: 2px solid var(--xu-line); }
+  .row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 7px; }
+  .key { font: 600 11px var(--font-body); color: var(--xu-muted); }
+  .val { font: 800 12px var(--font-display); color: var(--xu-green-dark); }
+  .phone { width: 100px; height: 180px; border: 3px solid var(--xu-ink); border-radius: 18px; position: relative; margin: 0 auto; overflow: hidden; background: var(--xu-bg); }
+  .p-header { height: 28px; background: #fff; border-bottom: 2px solid var(--xu-line); display: flex; align-items: center; padding: 0 8px; }
+  .p-body { flex: 1; min-height: 0; overflow: hidden; padding: 6px 8px; display: flex; flex-direction: column; gap: 5px; }
+  .p-card { height: 18px; background: var(--xu-green-100); border: 1.5px solid var(--xu-green-border); border-radius: 6px; }
+  .p-card2 { height: 30px; background: var(--xu-ink); border-radius: 6px; }
+  .p-action { height: 30px; background: #fff; border-top: 2px solid var(--xu-line); display: flex; align-items: center; justify-content: center; padding: 0 8px; flex-shrink: 0; }
+  .p-btn { height: 16px; background: var(--xu-green); border-radius: 5px; width: 100%; box-shadow: 0 2px 0 var(--xu-green-dark); }
+  .p-nav { height: 28px; background: #fff; border-top: 2px solid var(--xu-line); display: flex; align-items: center; justify-content: space-around; padding: 0 8px; flex-shrink: 0; }
+  .p-dot { width: 14px; height: 14px; border-radius: 4px; background: var(--xu-line); }
+  .p-dot.active { background: var(--xu-green); }
+  .p-content { flex: 1; overflow: hidden; display: flex; flex-direction: column; gap: 5px; padding: 6px 8px; }
+  .desktop { width: 100%; height: 140px; border: 2px solid var(--xu-line); border-radius: 10px; overflow: hidden; display: flex; }
+  .d-side { width: 40px; background: var(--xu-ink); display: flex; flex-direction: column; padding: 8px 5px; gap: 5px; }
+  .d-icon { width: 22px; height: 22px; border-radius: 6px; background: rgba(255,255,255,.15); margin: 0 auto; }
+  .d-icon.active { background: var(--xu-green); }
+  .d-main { flex: 1; padding: 8px 8px; display: flex; flex-direction: column; gap: 5px; background: var(--xu-bg); }
+  .d-right { width: 48px; background: #fff; border-left: 2px solid var(--xu-line); padding: 8px 6px; display: flex; flex-direction: column; gap: 5px; }
+  .d-row { height: 14px; border-radius: 4px; }
+  .note { font: 600 11px var(--font-body); color: var(--xu-caption); margin-top: 8px; line-height: 1.5; }
+  .badge { display: inline-block; background: var(--xu-streak-100); color: var(--xu-streak); font: 700 10px var(--font-body); border-radius: 6px; padding: 2px 7px; margin-bottom: 4px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <!-- Mobile -->
+    <div class="col">
+      <div class="title">Mobile (375–430px wide)</div>
+      <div class="phone" style="display:flex;flex-direction:column">
+        <div class="p-header">
+          <div style="width:30px;height:8px;background:var(--xu-ink);border-radius:3px"></div>
+          <div style="margin-left:auto;display:flex;gap:3px">
+            <div style="width:14px;height:14px;background:var(--xu-gold-50);border:1.5px solid var(--xu-gold-dark);border-radius:8px;display:flex;align-items:center;justify-content:center;font:800 7px 'Baloo 2';color:#7A4E00">X</div>
+            <div style="width:30px;height:12px;background:var(--xu-green-100);border-radius:8px"></div>
+          </div>
+        </div>
+        <div class="p-content">
+          <div class="p-card2"></div>
+          <div class="p-card"></div>
+          <div class="p-card"></div>
+          <div style="height:12px;background:var(--xu-gems-50);border-radius:4px"></div>
+        </div>
+        <div class="p-action"><div class="p-btn"></div></div>
+        <div class="p-nav">
+          <div class="p-dot active"></div>
+          <div class="p-dot"></div>
+          <div class="p-dot"></div>
+          <div class="p-dot"></div>
+          <div style="width:14px;height:14px;border-radius:50%;background:var(--xu-gold);border:1.5px solid var(--xu-gold-dark)"></div>
+        </div>
+      </div>
+      <div class="note">
+        <span class="badge">KEY RULE</span><br/>
+        Action buttons (KIỂM TRA, HỌC TIẾP) must be in a <b>pinned bottom bar</b> — <code>flexShrink:0</code> outside the scroll container. Never inside a scrollable flex child.<br/><br/>
+        Screen gutter: <b>16px</b> each side<br/>
+        Bottom nav height: <b>64px</b><br/>
+        Scrollable body: <code>flex:1; minHeight:0; overflowY:auto</code>
+      </div>
+    </div>
+
+    <!-- Desktop -->
+    <div class="col">
+      <div class="title">Desktop (≥900px) — 3-column</div>
+      <div class="desktop">
+        <div class="d-side">
+          <div class="d-icon active"></div>
+          <div class="d-icon"></div>
+          <div class="d-icon"></div>
+          <div class="d-icon"></div>
+          <div style="width:22px;height:22px;border-radius:50%;background:var(--xu-gold);border:1.5px solid var(--xu-gold-dark);margin:auto auto 0"></div>
+        </div>
+        <div class="d-main">
+          <div class="d-row" style="background:var(--xu-ink);width:70%"></div>
+          <div class="d-row" style="background:var(--xu-green-100);width:100%"></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;flex:1">
+            <div style="background:var(--xu-line);border-radius:5px"></div>
+            <div style="background:var(--xu-line);border-radius:5px"></div>
+            <div style="background:var(--xu-green-50);border:1.5px solid var(--xu-green-border);border-radius:5px"></div>
+            <div style="background:var(--xu-line);border-radius:5px"></div>
+          </div>
+        </div>
+        <div class="d-right">
+          <div style="width:28px;height:28px;background:radial-gradient(circle at 38% 30%,#FFE594,#FFC93C);border-radius:50%;border:1.5px solid var(--xu-gold-dark);margin:0 auto"></div>
+          <div class="d-row" style="background:var(--xu-line)"></div>
+          <div class="d-row" style="background:var(--xu-streak-100)"></div>
+          <div class="d-row" style="background:var(--xu-gems-50)"></div>
+          <div class="d-row" style="background:var(--xu-green-100)"></div>
+        </div>
+      </div>
+      <div class="note">
+        Left sidebar: <b>236px</b> · dark ink bg<br/>
+        Content column: max <b>520px</b>, centered<br/>
+        Right rail: <b>288px</b> · stats/mascot/tips<br/>
+        Gutter: <b>28px</b> each side<br/><br/>
+        The mobile app is the primary surface. Desktop adapts the same component set into a sidebar-nav layout.
+      </div>
+    </div>
+
+    <!-- Tokens -->
+    <div class="col" style="max-width:160px">
+      <div class="title">Layout tokens</div>
+      <div class="row"><span class="key">--gutter-mobile</span><span class="val">16px</span></div>
+      <div class="row"><span class="key">--gutter-desktop</span><span class="val">28px</span></div>
+      <div class="row"><span class="key">--sidebar-w</span><span class="val">236px</span></div>
+      <div class="row"><span class="key">--rightrail-w</span><span class="val">288px</span></div>
+      <div class="row"><span class="key">--content-max</span><span class="val">520px</span></div>
+      <div class="row"><span class="key">--tile-sm</span><span class="val">40px</span></div>
+      <div class="row"><span class="key">--tile-md</span><span class="val">46px</span></div>
+      <div class="row"><span class="key">--tile-lg</span><span class="val">52px</span></div>
+    </div>
+  </div>
+</body>
+</html>

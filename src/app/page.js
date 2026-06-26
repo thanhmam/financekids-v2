@@ -10,6 +10,7 @@ import XuXuMascot from "@/components/XuXuMascot";
 import BottomNav from "@/components/BottomNav";
 import { useAuth } from "@/contexts/AuthContext";
 import { useProgress } from "@/hooks/useProgress";
+import UpgradeModal from "@/components/UpgradeModal";
 
 const DAILY_GOAL = 3;
 
@@ -38,12 +39,13 @@ function BackIcon({ color = "#15392A" }) {
 
 export default function Home() {
   const router = useRouter();
-  const { user, profile } = useAuth();
+  const { user, profile, isPro, activateTrial } = useAuth();
   const { completed, totalXP } = useProgress();
 
   const [selectedAgeGroup, setSelectedAgeGroup] = useState("all");
   const [showLogin, setShowLogin] = useState(false);
   const [showBadges, setShowBadges] = useState(false);
+  const [showUpgrade, setShowUpgrade] = useState(false);
 
   const tip = useMemo(() => TIPS[Math.floor(Math.random() * TIPS.length)], []);
 
@@ -248,11 +250,21 @@ export default function Home() {
             ))}
           </div>
 
-          <div style={{ marginTop: "auto", background: "#15392A", borderRadius: 16, padding: 14, color: "#fff" }}>
-            <div style={{ font: "800 15px 'Baloo 2'" }}>XuXu Pro</div>
-            <div style={{ font: "600 11px 'Nunito'", color: "rgba(255,255,255,.72)", margin: "3px 0 10px" }}>Tim vô hạn · không quảng cáo</div>
-            <div style={{ background: "#FFC93C", color: "#7A4E00", borderRadius: 11, padding: "9px 0", textAlign: "center", font: "800 13px 'Baloo 2'", boxShadow: "0 4px 0 #D99312" }}>DÙNG THỬ</div>
-          </div>
+          {isPro ? (
+            <div style={{ marginTop: "auto", background: "linear-gradient(145deg, #7C4DEC, #8B5CF6)", borderRadius: 16, padding: 14, color: "#fff" }}>
+              <div style={{ font: "800 15px 'Baloo 2'", marginBottom: 2 }}>◆ XuXu Pro · Active</div>
+              <div style={{ font: "600 11px 'Nunito'", color: "rgba(255,255,255,.8)" }}>Tim vô hạn · 2× XP · không quảng cáo</div>
+            </div>
+          ) : (
+            <div style={{ marginTop: "auto", background: "#15392A", borderRadius: 16, padding: 14, color: "#fff" }}>
+              <div style={{ font: "800 15px 'Baloo 2'" }}>XuXu Pro</div>
+              <div style={{ font: "600 11px 'Nunito'", color: "rgba(255,255,255,.72)", margin: "3px 0 10px" }}>Tim vô hạn · không quảng cáo</div>
+              <button
+                onClick={() => setShowUpgrade(true)}
+                style={{ background: "#FFC93C", color: "#7A4E00", borderRadius: 11, padding: "9px 0", textAlign: "center", font: "800 13px 'Baloo 2'", boxShadow: "0 4px 0 #D99312", border: "none", cursor: "pointer", width: "100%" }}
+              >DÙNG THỬ</button>
+            </div>
+          )}
         </div>
 
         {/* ── MAIN ── */}
@@ -393,6 +405,7 @@ export default function Home() {
       </div>
 
       {showLogin && <LoginModal onClose={() => setShowLogin(false)} />}
+      {showUpgrade && <UpgradeModal onClose={() => setShowUpgrade(false)} onActivate={activateTrial} />}
     </>
   );
 }

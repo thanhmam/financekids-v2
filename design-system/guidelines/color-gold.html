@@ -1,0 +1,27 @@
+<!-- @dsCard group="Colors" viewport="700x150" name="Gold — The Xu Coin" subtitle="Mascot, coin, and XP accents in warm gold" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; background: #fff; font-family: var(--font-body); }
+  .wrap { display: flex; gap: 10px; padding: 18px 20px; flex-wrap: wrap; align-items: flex-start; }
+  .sw { width: 100px; }
+  .chip { height: 56px; border-radius: 12px; border: 1px solid rgba(0,0,0,.05); }
+  .name { font: var(--fw-display) 12px var(--font-display); color: var(--xu-ink); margin-top: 7px; }
+  .hex { font: 600 11px var(--font-body); color: var(--xu-caption); text-transform: uppercase; }
+  .coin { width: 56px; height: 56px; border-radius: 50%; background: radial-gradient(circle at 38% 30%,#FFE594,#FFC93C 58%,#F2B01E); border: 3px solid var(--xu-gold-dark); box-shadow: 0 5px 0 var(--xu-gold-shadow); display:flex; align-items:center; justify-content:center; color:#7A4E00; font: var(--fw-display) 24px var(--font-display); }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="sw"><div class="coin">X</div><div class="name">coin face</div><div class="hex">3D + border</div></div>
+    <div class="sw"><div class="chip" style="background:var(--xu-gold)"></div><div class="name">gold</div><div class="hex">#FFC93C</div></div>
+    <div class="sw"><div class="chip" style="background:var(--xu-gold-light)"></div><div class="name">gold-light</div><div class="hex">#FFE594</div></div>
+    <div class="sw"><div class="chip" style="background:var(--xu-gold-dark)"></div><div class="name">gold-dark</div><div class="hex">#E8A317</div></div>
+    <div class="sw"><div class="chip" style="background:var(--xu-gold-shadow)"></div><div class="name">gold-shadow</div><div class="hex">#D99312</div></div>
+    <div class="sw"><div class="chip" style="background:var(--xu-gold-50);border:1px solid var(--xu-line)"></div><div class="name">gold-50</div><div class="hex">#FFF8E6</div></div>
+  </div>
+</body>
+</html>

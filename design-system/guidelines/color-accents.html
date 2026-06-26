@@ -1,0 +1,26 @@
+<!-- @dsCard group="Colors" viewport="700x150" name="Semantic Accents" subtitle="Streak, hearts, gems, info — each with a tint surface" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; background: #fff; font-family: var(--font-body); }
+  .wrap { display: flex; gap: 12px; padding: 18px 20px; flex-wrap: wrap; }
+  .sw { width: 120px; }
+  .pair { display: flex; height: 56px; border-radius: 12px; overflow: hidden; border: 1px solid var(--xu-line); }
+  .pair .solid { flex: 1.6; }
+  .pair .tint { flex: 1; }
+  .name { font: var(--fw-display) 12px var(--font-display); color: var(--xu-ink); margin-top: 7px; }
+  .hex { font: 600 11px var(--font-body); color: var(--xu-caption); text-transform: uppercase; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="sw"><div class="pair"><div class="solid" style="background:var(--xu-streak)"></div><div class="tint" style="background:var(--xu-streak-50)"></div></div><div class="name">streak</div><div class="hex">#FF8A3D</div></div>
+    <div class="sw"><div class="pair"><div class="solid" style="background:var(--xu-life)"></div><div class="tint" style="background:var(--xu-life-50)"></div></div><div class="name">life / heart</div><div class="hex">#FF5366</div></div>
+    <div class="sw"><div class="pair"><div class="solid" style="background:var(--xu-gems)"></div><div class="tint" style="background:var(--xu-gems-50)"></div></div><div class="name">gems</div><div class="hex">#8B5CF6</div></div>
+    <div class="sw"><div class="pair"><div class="solid" style="background:var(--xu-info)"></div><div class="tint" style="background:var(--xu-info-50)"></div></div><div class="name">info / ice</div><div class="hex">#2BA3FF</div></div>
+  </div>
+</body>
+</html>

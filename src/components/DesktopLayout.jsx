@@ -1,10 +1,11 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
 import { useProgress } from "@/hooks/useProgress";
 import XuXuMascot from "@/components/XuXuMascot";
+import UpgradeModal from "@/components/UpgradeModal";
 
 const NAV_ITEMS = [
   { icon: "⌂", label: "Học",       path: "/" },
@@ -32,8 +33,9 @@ const DAYS = ["T2", "T3", "T4", "T5", "T6", "T7", "CN"];
 export default function DesktopLayout({ children }) {
   const router = useRouter();
   const pathname = usePathname();
-  const { profile } = useAuth();
+  const { profile, isPro, activateTrial } = useAuth();
   const { completed, totalXP } = useProgress();
+  const [showUpgrade, setShowUpgrade] = useState(false);
 
   const streak = profile?.streak || 0;
   const xu = profile?.xu || 1250;
@@ -93,19 +95,37 @@ export default function DesktopLayout({ children }) {
         </div>
 
         {/* XuXu Pro card */}
-        <div style={{ marginTop: "auto", background: "#15392A", borderRadius: 16, padding: 16, color: "#fff" }}>
-          <div style={{ font: "800 16px 'Baloo 2'" }}>XuXu Pro</div>
-          <div style={{ font: "600 11px 'Nunito'", color: "rgba(255,255,255,.72)", margin: "4px 0 12px" }}>
-            Tim vô hạn · không quảng cáo · x2 xu
+        {isPro ? (
+          <div style={{ marginTop: "auto", background: "linear-gradient(145deg, #7C4DEC, #8B5CF6)", borderRadius: 16, padding: 16, color: "#fff" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
+              <span style={{ font: "800 16px 'Baloo 2'" }}>XuXu Pro</span>
+              <span style={{ font: "800 10px 'Baloo 2'", background: "rgba(255,255,255,.22)", borderRadius: 6, padding: "2px 6px" }}>ACTIVE</span>
+            </div>
+            <div style={{ font: "600 11px 'Nunito'", color: "rgba(255,255,255,.8)" }}>Tim vô hạn · 2× XP · 2× xu</div>
+            {profile?.proExpiry?.toDate?.() && (
+              <div style={{ font: "600 10px 'Nunito'", color: "rgba(255,255,255,.55)", marginTop: 4 }}>
+                Hết hạn: {profile.proExpiry.toDate().toLocaleDateString("vi-VN")}
+              </div>
+            )}
           </div>
-          <div style={{
-            background: "#FFC93C", color: "#7A4E00", borderRadius: 11,
-            padding: 10, textAlign: "center", font: "800 13px 'Baloo 2'",
-            boxShadow: "0 4px 0 #D99312",
-          }}>
-            DÙNG THỬ MIỄN PHÍ
+        ) : (
+          <div style={{ marginTop: "auto", background: "#15392A", borderRadius: 16, padding: 16, color: "#fff" }}>
+            <div style={{ font: "800 16px 'Baloo 2'" }}>XuXu Pro</div>
+            <div style={{ font: "600 11px 'Nunito'", color: "rgba(255,255,255,.72)", margin: "4px 0 12px" }}>
+              Tim vô hạn · không quảng cáo · x2 xu
+            </div>
+            <button
+              onClick={() => setShowUpgrade(true)}
+              style={{
+                background: "#FFC93C", color: "#7A4E00", borderRadius: 11,
+                padding: 10, textAlign: "center", font: "800 13px 'Baloo 2'",
+                boxShadow: "0 4px 0 #D99312", border: "none", cursor: "pointer", width: "100%",
+              }}
+            >
+              DÙNG THỬ MIỄN PHÍ
+            </button>
           </div>
-        </div>
+        )}
       </div>
 
       {/* ── MAIN (children) ── */}
@@ -237,6 +257,13 @@ export default function DesktopLayout({ children }) {
           </div>
         ))}
       </div>
+
+      {showUpgrade && (
+        <UpgradeModal
+          onClose={() => setShowUpgrade(false)}
+          onActivate={activateTrial}
+        />
+      )}
     </div>
   );
 }

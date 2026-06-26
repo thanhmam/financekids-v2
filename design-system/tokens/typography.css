@@ -1,0 +1,54 @@
+/* ============================================================
+   XuXu — Typography tokens
+   Two playful, highly-legible families with full Vietnamese
+   diacritic support:
+     • Baloo 2  — rounded display, used for ALL headings, numbers,
+                  buttons, labels. Almost always weight 800.
+     • Nunito   — soft humanist sans, used for body, captions,
+                  descriptions. Weights 600/700.
+   The brand sets fonts with the shorthand `font:` property,
+   e.g. font: "800 22px 'Baloo 2'".
+   ============================================================ */
+:root {
+  /* ---- Families ---- */
+  --font-display: 'Baloo 2', system-ui, cursive;   /* headings, numbers, buttons */
+  --font-body:    'Nunito', system-ui, sans-serif; /* body, captions */
+
+  /* ---- Display weights (Baloo 2 is heavy by default) ---- */
+  --fw-display:   800; /* @kind font */
+  --fw-display-2: 700; /* @kind font */
+
+  /* ---- Body weights (Nunito) ---- */
+  --fw-body:      600; /* @kind font */
+  --fw-body-bold: 700; /* @kind font */
+  --fw-body-x:    800; /* @kind font */
+
+  /* ---- Type scale (px values matching the product) ---- */
+  --fs-hero:      34px; /* onboarding hero */
+  --fs-display:   30px; /* result screen, big numbers */
+  --fs-h1:        22px; /* screen titles */
+  --fs-h2:        18px; /* section headers */
+  --fs-h3:        16px; /* sub-headers, card titles */
+  --fs-label:     14px; /* buttons, nav labels, list titles */
+  --fs-body:      13px; /* body copy, descriptions */
+  --fs-caption:   12px; /* captions */
+  --fs-micro:     11px; /* chips, hints, fine print */
+  --fs-nano:      10px; /* tiny chip labels */
+
+  /* ---- Line heights ---- */
+  --lh-tight:     1.1;  /* @kind other */
+  --lh-snug:      1.25; /* @kind other */
+  --lh-body:      1.5;  /* @kind other */
+
+  /* ---- Letter spacing ---- */
+  --ls-cta:       0.5px; /* uppercase button labels */
+
+  /* ---- Ready-made font shorthands (the brand style) ---- */
+  --type-h1:      var(--fw-display) var(--fs-h1)/var(--lh-tight) var(--font-display);
+  --type-h2:      var(--fw-display) var(--fs-h2)/var(--lh-tight) var(--font-display);
+  --type-h3:      var(--fw-display) var(--fs-h3)/var(--lh-snug)  var(--font-display);
+  --type-label:   var(--fw-display) var(--fs-label) var(--font-display);
+  --type-body:    var(--fw-body)    var(--fs-body)/var(--lh-body) var(--font-body);
+  --type-caption: var(--fw-body)    var(--fs-caption) var(--font-body);
+  --type-micro:   var(--fw-body)    var(--fs-micro) var(--font-body);
+}

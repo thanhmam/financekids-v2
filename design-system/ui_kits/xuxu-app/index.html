@@ -1,0 +1,83 @@
+<!-- @dsCard group="XuXu App" viewport="430x780" name="XuXu — Interactive App" subtitle="Onboarding → learn → quiz → reward, plus all 5 tabs" -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>XuXu — App UI Kit</title>
+<link rel="stylesheet" href="../../styles.css" />
+<style>
+  html, body { margin: 0; height: 100%; }
+  body { background: #DDE7D4; font-family: var(--font-body); display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 24px; box-sizing: border-box; }
+  #phone {
+    width: 402px; height: 740px; max-height: calc(100vh - 48px);
+    background: #fff; border-radius: 40px; overflow: hidden; position: relative;
+    box-shadow: 0 24px 60px rgba(21,57,42,.28), 0 0 0 10px #15392A, 0 0 0 11px #0B2419;
+  }
+  #screen { position: absolute; inset: 0; overflow: hidden; }
+  input { font-family: var(--font-body); }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<script src="data.js"></script>
+</head>
+<body>
+  <div id="phone"><div id="screen"></div></div>
+
+  <script type="text/babel" src="Screens1.jsx"></script>
+  <script type="text/babel" src="Screens2.jsx"></script>
+  <script type="text/babel" src="Screens3.jsx"></script>
+
+  <script type="text/babel">
+    const { BottomNav } = window.XuXuDesignSystem_72e90e;
+    const DATA = window.XUXU_DATA;
+    const TABS = ["home", "explore", "tasks", "leaderboard", "profile"];
+
+    function App() {
+      const [route, setRoute] = React.useState("onboarding"); // onboarding | tab | shop | game | result
+      const [tab, setTab] = React.useState("home");
+      const [completed, setCompleted] = React.useState(["lesson-01", "lesson-02"]);
+      const [xp, setXp] = React.useState(DATA.user.xp);
+      const [lesson, setLesson] = React.useState(null);
+      const [result, setResult] = React.useState(null);
+
+      const play = (l) => { setLesson(l); setRoute("game"); };
+      const finish = (r) => {
+        setResult(r);
+        if (!completed.includes(r.lesson.id)) setCompleted(c => [...c, r.lesson.id]);
+        setXp(x => x + r.xp);
+        setRoute("result");
+      };
+
+      let content, showNav = false;
+      if (route === "onboarding") {
+        content = <Onboarding onStart={() => setRoute("tab")} />;
+      } else if (route === "game") {
+        content = <GamePlay lesson={lesson} onExit={() => setRoute("tab")} onFinish={finish} />;
+      } else if (route === "result") {
+        content = <Result result={result} onHome={() => { setTab("home"); setRoute("tab"); }} onRetry={() => setRoute("game")} />;
+      } else if (route === "shop") {
+        content = <Shop data={DATA} onBack={() => setRoute("tab")} />;
+      } else {
+        showNav = true;
+        if (tab === "home") content = <Home data={DATA} completed={completed} totalXP={xp} onPlay={play} onShop={() => setRoute("shop")} />;
+        else if (tab === "explore") content = <Explore data={DATA} completed={completed} onPlay={play} />;
+        else if (tab === "tasks") content = <Tasks data={DATA} />;
+        else if (tab === "leaderboard") content = <Leaderboard data={DATA} />;
+        else if (tab === "profile") content = <Profile data={DATA} completed={completed} totalXP={xp} />;
+      }
+
+      return (
+        <React.Fragment>
+          {content}
+          {showNav && <BottomNav active={tab} onSelect={setTab} />}
+        </React.Fragment>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("screen")).render(<App />);
+  </script>
+</body>
+</html>

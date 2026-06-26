@@ -38,6 +38,17 @@ Web app gamification học tài chính cho trẻ em 6–16 tuổi. Giao diện t
 **Button 3D**: `box-shadow: 0 5px 0 #0E9E5C` + `border-bottom-width: 4px`
 **Fonts**: `font: "800 22px 'Baloo 2'"` cho heading · `font: "600 13px 'Nunito'"` cho body
 
+> **Source đầy đủ**: `design-system/` — token CSS, 11 JSX components, guidelines HTML, UI kit tương tác.
+
+### Quy tắc bắt buộc khi phát triển tính năng mới
+
+- Màu sắc: **chỉ dùng giá trị từ** `design-system/tokens/colors.css`
+- Typography: `'Baloo 2'` weight 800 cho heading/button · `'Nunito'` weight 600–700 cho body
+- Button: pattern 3D press (`box-shadow: 0 4px 0 shadowColor` + `className="btn-press"`)
+- Card: `borderRadius: 18px` · `border: 2px solid #ECF1E6` · hover lift `box-shadow: 0 8px 24px rgba(21,57,42,.10)`
+- Component mới: tham khảo `design-system/components/` trước khi tự viết
+- Pro tier màu: `#8B5CF6` (--xu-gems) với shadow `#7C4DEC`
+
 ---
 
 ## Cài đặt & Chạy local

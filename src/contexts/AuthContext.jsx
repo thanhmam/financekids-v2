@@ -9,7 +9,7 @@ import {
   onAuthStateChanged,
   updateProfile,
 } from "firebase/auth";
-import { doc, setDoc, getDoc, serverTimestamp } from "firebase/firestore";
+import { doc, setDoc, getDoc, serverTimestamp, Timestamp } from "firebase/firestore";
 import { auth, db } from "@/lib/firebase";
 
 const AuthContext = createContext(null);
@@ -116,6 +116,29 @@ export function AuthProvider({ children }) {
     setProfile((p) => ({ ...p, ageGroup }));
   };
 
+  const activateTrial = async () => {
+    if (!user || !db) return;
+    const expiry = new Date();
+    expiry.setDate(expiry.getDate() + 7);
+    const firestoreExpiry = Timestamp.fromDate(expiry);
+    const update = {
+      isPro: true,
+      proExpiry: firestoreExpiry,
+      trialStartedAt: serverTimestamp(),
+    };
+    const userRef = doc(db, "users", user.uid);
+    await setDoc(userRef, update, { merge: true });
+    // Optimistic local update — wrap expiry so isPro check works immediately
+    setProfile((p) => ({ ...p, isPro: true, proExpiry: { toDate: () => expiry } }));
+  };
+
+  // Derived: true only while subscription is active and not expired
+  const isPro = Boolean(
+    profile?.isPro === true &&
+    profile?.proExpiry != null &&
+    profile.proExpiry.toDate?.() > new Date()
+  );
+
   return (
     <AuthContext.Provider
       value={{
@@ -127,6 +150,8 @@ export function AuthProvider({ children }) {
         logout,
         updateAgeGroup,
         isLoggedIn: !!user,
+        isPro,
+        activateTrial,
       }}
     >
       {children}

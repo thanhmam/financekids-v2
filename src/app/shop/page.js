@@ -6,6 +6,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useProgress } from "@/hooks/useProgress";
 import BottomNav from "@/components/BottomNav";
 import DesktopLayout from "@/components/DesktopLayout";
+import UpgradeModal from "@/components/UpgradeModal";
 
 const ITEMS = [
   { id:"heart_refill",  icon:"♥", iconBg:"#FFE3E7", iconColor:"#FF5366", name:"Hồi đầy tim",          desc:"Tiếp tục học ngay",           price:350 },
@@ -27,9 +28,10 @@ function XuBadge({ amount }) {
 
 export default function ShopPage() {
   const router = useRouter();
-  const { profile } = useAuth();
+  const { profile, isPro, activateTrial } = useAuth();
   const { totalXP } = useProgress();
   const [toast, setToast] = useState(null);
+  const [showUpgrade, setShowUpgrade] = useState(false);
   const xu = profile?.xu || 1250;
 
   const handleBuy = (item) => {
@@ -58,8 +60,18 @@ export default function ShopPage() {
         {ITEMS.map(item => {
           const affordable = xu >= item.price;
           const isLocked = item.locked && !affordable;
+          const needsPro = item.locked && !isPro;
           return (
-            <div key={item.id} style={{ background:"#fff", border:"2px solid #ECF1E6", borderRadius:18, padding:cols===3?"18px":"14px 12px", textAlign:"center" }}>
+            <div key={item.id} style={{ position:"relative", background:"#fff", border:"2px solid #ECF1E6", borderRadius:18, padding:cols===3?"18px":"14px 12px", textAlign:"center" }}>
+              {needsPro && (
+                <div
+                  onClick={() => setShowUpgrade(true)}
+                  style={{ position:"absolute", inset:0, borderRadius:16, background:"rgba(255,255,255,.88)", backdropFilter:"blur(2px)", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:6, cursor:"pointer", zIndex:2 }}
+                >
+                  <span style={{ background:"#8B5CF6", color:"#fff", borderRadius:10, padding:"5px 12px", font:"800 12px 'Baloo 2'", boxShadow:"0 3px 0 #7C4DEC" }}>◆ Chỉ Pro</span>
+                  <span style={{ font:"600 11px 'Nunito'", color:"#5B7065" }}>Nhấn để nâng cấp</span>
+                </div>
+              )}
               <div style={{ width:cols===3?56:52, height:cols===3?56:52, borderRadius:cols===3?16:14, background:item.iconBg, display:"flex", alignItems:"center", justifyContent:"center", color:item.iconColor, font:`800 ${cols===3?26:24}px 'Baloo 2'`, margin:"0 auto 10px" }}>
                 {item.icon}
               </div>
@@ -106,6 +118,7 @@ export default function ShopPage() {
           <div style={{ position:"fixed", bottom:90, left:"50%", transform:"translateX(-50%)", background:toast.color, color:"#fff", borderRadius:14, padding:"12px 20px", font:"800 14px 'Baloo 2'", boxShadow:"0 6px 20px rgba(0,0,0,.18)", zIndex:100, animation:"slideUp .3s ease", whiteSpace:"nowrap" }}>{toast.msg}</div>
         )}
         <BottomNav />
+        {showUpgrade && <UpgradeModal onClose={() => setShowUpgrade(false)} onActivate={activateTrial} />}
       </div>
 
       {/* ── DESKTOP ── */}
@@ -122,6 +135,7 @@ export default function ShopPage() {
         {toast && (
           <div style={{ position:"fixed", bottom:40, left:"50%", transform:"translateX(-50%)", background:toast.color, color:"#fff", borderRadius:14, padding:"12px 20px", font:"800 14px 'Baloo 2'", boxShadow:"0 6px 20px rgba(0,0,0,.18)", zIndex:100, animation:"slideUp .3s ease", whiteSpace:"nowrap" }}>{toast.msg}</div>
         )}
+        {showUpgrade && <UpgradeModal onClose={() => setShowUpgrade(false)} onActivate={activateTrial} />}
       </DesktopLayout>
     </>
   );

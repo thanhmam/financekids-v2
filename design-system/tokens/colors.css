@@ -1,0 +1,74 @@
+/* ============================================================
+   XuXu — Color tokens
+   A bright, friendly Duolingo-style palette built on a leafy
+   green primary, a gold "xu" coin accent, and warm semantic
+   hues for streak / hearts / gems. Everything sits on a soft
+   off-white green-tinted canvas (#F4F8EF).
+   ============================================================ */
+:root {
+  /* ---- Primary: leaf green ---- */
+  --xu-green:        #16C172; /* primary CTA, progress, active nav */
+  --xu-green-dark:   #0E9E5C; /* 3D button depth / shadow */
+  --xu-green-deeper: #0B7A48; /* deepest green shadow on gradients */
+  --xu-green-100:    #E3F7EC; /* tint chip bg */
+  --xu-green-50:     #EAFBF1; /* active/selected surface */
+  --xu-green-300:    #7BE0A8;
+  --xu-green-border: #BFEBD2; /* green-tinted borders */
+
+  /* ---- Ink: dark forest green (headings + dark cards) ---- */
+  --xu-ink:          #15392A; /* headings, dark surface bg */
+  --xu-ink-soft:     #34453B; /* body text on light when softer */
+
+  /* ---- Neutrals (green-tinted greys) ---- */
+  --xu-muted:        #5B7065; /* secondary text */
+  --xu-caption:      #9AA89E; /* captions, hints, placeholders */
+  --xu-faint:        #C2CDBA; /* disabled / inactive icons */
+  --xu-line:         #ECF1E6; /* default card border / hairline */
+  --xu-line-subtle:  #DDE6D6; /* dashed / softer border */
+  --xu-bg:           #F4F8EF; /* app canvas background */
+  --xu-surface:      #FFFFFF; /* card surface */
+
+  /* ---- Gold "xu" coin ---- */
+  --xu-gold:         #FFC93C; /* coin face, mascot, XP star */
+  --xu-gold-light:   #FFE594; /* coin highlight */
+  --xu-gold-dark:    #E8A317; /* coin border */
+  --xu-gold-shadow:  #D99312; /* coin 3D shadow */
+  --xu-gold-50:      #FFF8E6; /* gold tint surface */
+  --xu-gold-100:     #FFF3DC; /* gold tint chip */
+
+  /* ---- Semantic accents ---- */
+  --xu-streak:        #FF8A3D; /* streak flame, tasks */
+  --xu-streak-dark:   #E0631C; /* streak 3D shadow */
+  --xu-streak-50:     #FFEEDD; /* streak tint surface */
+  --xu-streak-100:    #FFF3DC;
+
+  --xu-life:          #FF5366; /* hearts / wrong answer */
+  --xu-life-50:       #FFE3E7; /* hearts tint / wrong bg */
+
+  --xu-gems:          #8B5CF6; /* leaderboard, challenge */
+  --xu-gems-50:       #F1E9FF; /* gems tint surface */
+
+  --xu-info:          #2BA3FF; /* streak freeze / ice */
+  --xu-info-50:       #E9F3FF; /* info tint surface */
+
+  /* ---- Semantic aliases (use these in product code) ---- */
+  --text-heading:    var(--xu-ink);
+  --text-body:       var(--xu-ink-soft);
+  --text-muted:      var(--xu-muted);
+  --text-caption:    var(--xu-caption);
+  --text-on-dark:    #FFFFFF;
+
+  --surface-canvas:  var(--xu-bg);
+  --surface-card:    var(--xu-surface);
+  --surface-dark:    var(--xu-ink);
+  --surface-active:  var(--xu-green-50);
+
+  --border-card:     var(--xu-line);
+  --border-strong:   var(--xu-line-subtle);
+
+  --accent-primary:  var(--xu-green);
+  --accent-coin:     var(--xu-gold);
+  --accent-streak:   var(--xu-streak);
+  --accent-danger:   var(--xu-life);
+  --accent-special:  var(--xu-gems);
+}

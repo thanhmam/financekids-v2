@@ -1,0 +1,37 @@
+<!-- @dsCard group="Brand" viewport="700x200" name="XuXu Mascot — Moods" subtitle="The gold-coin character: happy, excited, sad" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; background: #fff; font-family: var(--font-body); }
+  .wrap { display: flex; gap: 46px; padding: 24px 30px 18px; align-items: flex-end; }
+  .item { text-align: center; }
+  .lbl { font: var(--fw-display) 12px var(--font-display); color: var(--xu-ink); margin-top: 16px; }
+  .sub { font: 600 11px var(--font-body); color: var(--xu-caption); }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../_ds_bundle.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const { XuXuMascot } = window.XuXuDesignSystem_72e90e;
+    function Card() {
+      return (
+        <div className="wrap">
+          <div className="item"><XuXuMascot size={96} mood="happy" /><div className="lbl">happy</div><div className="sub">default · idle</div></div>
+          <div className="item"><XuXuMascot size={96} mood="excited" /><div className="lbl">excited</div><div className="sub">result / reward</div></div>
+          <div className="item"><XuXuMascot size={96} mood="sad" /><div className="lbl">sad</div><div className="sub">out of hearts</div></div>
+          <div className="item"><XuXuMascot size={56} mood="happy" /><div className="lbl">size 56</div><div className="sub">header avatar</div></div>
+          <div className="item"><XuXuMascot size={40} mood="happy" /><div className="lbl">size 40</div><div className="sub">inline</div></div>
+        </div>
+      );
+    }
+    ReactDOM.createRoot(document.getElementById("root")).render(<Card />);
+  </script>
+</body>
+</html>

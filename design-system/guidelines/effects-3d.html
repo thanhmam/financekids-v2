@@ -1,0 +1,38 @@
+<!-- @dsCard group="Effects" viewport="700x180" name="The 3D Press Motif" subtitle="Solid colored drop-shadows, 4px bottom borders, inset shine" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; background: var(--xu-bg); font-family: var(--font-body); }
+  .wrap { padding: 20px 22px; display: flex; gap: 30px; align-items: center; }
+  .col-lbl { font: 600 11px var(--font-body); color: var(--xu-caption); margin-bottom: 12px; text-transform: uppercase; letter-spacing: .4px; }
+  .btn { font: var(--fw-display) 14px var(--font-display); color: #fff; background: var(--xu-green); border: none; border-radius: 14px; padding: 12px 22px; box-shadow: var(--shadow-3d-green); }
+  .btn.press { transform: translateY(3px); box-shadow: 0 2px 0 var(--xu-green-dark); }
+  .card { background: #fff; border: 2px solid var(--xu-line); border-bottom-width: 4px; border-radius: 18px; padding: 14px 18px; font: var(--fw-display) 13px var(--font-display); color: var(--xu-ink); box-shadow: var(--shadow-soft); }
+  .track { width: 150px; height: 14px; border-radius: 9px; background: var(--xu-line); overflow: hidden; }
+  .fill { width: 64%; height: 100%; background: var(--xu-green); box-shadow: var(--inset-shine); border-radius: 9px; }
+  .stack { display: flex; gap: 12px; align-items: center; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div>
+      <div class="col-lbl">3D button · rest → press</div>
+      <div class="stack">
+        <button class="btn">KIỂM TRA</button>
+        <button class="btn press">KIỂM TRA</button>
+      </div>
+    </div>
+    <div>
+      <div class="col-lbl">4px bottom border</div>
+      <div class="card">Thẻ bài học</div>
+    </div>
+    <div>
+      <div class="col-lbl">Inset shine fill</div>
+      <div class="track"><div class="fill"></div></div>
+    </div>
+  </div>
+</body>
+</html>
