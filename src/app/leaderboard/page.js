@@ -5,14 +5,7 @@ import { useRouter } from "next/navigation";
 import { collection, query, orderBy, limit, onSnapshot } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { useAuth } from "@/contexts/AuthContext";
-
-function BackIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-      <path d="M11.5 15L6 9L11.5 3" stroke="#15392A" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
-    </svg>
-  );
-}
+import DesktopLayout from "@/components/DesktopLayout";
 
 function getWeekId() {
   const now = new Date();
@@ -42,112 +35,107 @@ export default function LeaderboardPage() {
 
   const myRank = entries.findIndex(e => e.uid === user?.uid);
 
-  return (
-    <div style={{ minHeight: "100vh", background: "#F4F8EF" }}>
-
-      {/* Header */}
-      <div style={{ background: "#fff", borderBottom: "2px solid #ECF1E6", padding: "14px 20px 16px", display: "flex", alignItems: "flex-start", gap: 14 }}>
-        <button
-          onClick={() => router.push("/")}
-          style={{ width: 40, height: 40, borderRadius: 12, background: "#F4F8EF", border: "2px solid #ECF1E6", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", padding: 0, flexShrink: 0, marginTop: 4 }}
-        >
-          <BackIcon />
-        </button>
-        <div style={{ flex: 1, textAlign: "center" }}>
-          <div style={{ color: "#FFC93C", font: "800 32px 'Baloo 2'", lineHeight: 1 }}>♛</div>
-          <div style={{ font: "800 20px 'Baloo 2'", color: "#15392A", marginTop: 2 }}>Hạng Vàng</div>
-          <div style={{ font: "600 12px 'Nunito'", color: "#9AA89E", marginTop: 2 }}>
-            Top 7 thăng hạng · {weekId.replace("-W", " · tuần ")}
+  function LeagueHeader() {
+    return (
+      <div style={{ background:"linear-gradient(135deg,#FFD970,#FFB938)", borderRadius:22, padding:"20px 24px", display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:20, boxShadow:"0 6px 0 #E59B12" }}>
+        <div style={{ display:"flex", alignItems:"center", gap:14 }}>
+          <div style={{ color:"#fff", font:"800 40px 'Baloo 2'", textShadow:"0 3px 0 rgba(0,0,0,.12)", lineHeight:1 }}>♛</div>
+          <div>
+            <div style={{ font:"800 22px 'Baloo 2'", color:"#7A4E00" }}>Hạng Vàng</div>
+            <div style={{ font:"700 12px 'Nunito'", color:"#9A6A0E" }}>Top 7 thăng hạng · {weekId.replace("-W"," · tuần ")}</div>
           </div>
         </div>
-        <div style={{ width: 40 }} />
+        {myRank >= 0 && (
+          <div style={{ background:"rgba(255,255,255,.4)", borderRadius:14, padding:"10px 16px", textAlign:"center" }}>
+            <div style={{ font:"800 20px 'Baloo 2'", color:"#7A4E00" }}>#{myRank + 1}</div>
+            <div style={{ font:"700 11px 'Nunito'", color:"#9A6A0E" }}>Hạng của bạn</div>
+          </div>
+        )}
       </div>
+    );
+  }
 
-      {/* My rank */}
-      {myRank >= 0 && (
-        <div style={{ background: "#EAFBF1", border: "2px solid #16C172", borderRadius: 16, margin: "16px 16px 0", padding: "10px 16px", display: "flex", alignItems: "center", gap: 10 }}>
-          <span style={{ font: "700 14px 'Nunito'", color: "#0E9E5C" }}>Bạn đang ở vị trí</span>
-          <span style={{ font: "800 22px 'Baloo 2'", color: "#16C172" }}>#{myRank + 1}</span>
-          <span style={{ fontSize: 18 }}>🎯</span>
-        </div>
-      )}
-
-      {/* List */}
-      <div style={{ padding: "16px 16px 32px", maxWidth: 520, margin: "0 auto" }}>
-
-        {loading && (
-          <div style={{ textAlign: "center", padding: "56px 0" }}>
-            <div style={{ fontSize: 40, display: "inline-block", animation: "spin 1s linear infinite" }}>⭐</div>
-            <p style={{ font: "700 14px 'Nunito'", color: "#9AA89E", marginTop: 12 }}>Đang tải...</p>
-          </div>
-        )}
-
-        {!loading && entries.length === 0 && (
-          <div style={{ textAlign: "center", padding: "64px 0" }}>
-            <div style={{ fontSize: 60, marginBottom: 16 }}>🌟</div>
-            <p style={{ font: "800 18px 'Baloo 2'", color: "#15392A" }}>Chưa có ai trong tuần này!</p>
-            <p style={{ font: "600 13px 'Nunito'", color: "#9AA89E", marginTop: 8 }}>Hãy là người đầu tiên kiếm XP nhé!</p>
-            <button
-              onClick={() => router.push("/")}
-              style={{ marginTop: 20, padding: "13px 28px", borderRadius: 16, font: "800 15px 'Baloo 2'", color: "#fff", background: "#16C172", border: "none", boxShadow: "0 4px 0 #0E9E5C", cursor: "pointer" }}
-            >
-              Bắt đầu học ngay →
-            </button>
-          </div>
-        )}
-
-        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+  function EntryList() {
+    if (loading) return (
+      <div style={{ textAlign:"center", padding:"56px 0" }}>
+        <div style={{ fontSize:40, display:"inline-block", animation:"spin 1s linear infinite" }}>⭐</div>
+        <p style={{ font:"700 14px 'Nunito'", color:"#9AA89E", marginTop:12 }}>Đang tải...</p>
+      </div>
+    );
+    if (!loading && entries.length === 0) return (
+      <div style={{ textAlign:"center", padding:"64px 0" }}>
+        <div style={{ fontSize:60, marginBottom:16 }}>🌟</div>
+        <p style={{ font:"800 18px 'Baloo 2'", color:"#15392A" }}>Chưa có ai trong tuần này!</p>
+        <p style={{ font:"600 13px 'Nunito'", color:"#9AA89E", marginTop:8 }}>Hãy là người đầu tiên kiếm XP nhé!</p>
+        <button onClick={() => router.push("/")} style={{ marginTop:20, padding:"13px 28px", borderRadius:16, font:"800 15px 'Baloo 2'", color:"#fff", background:"#16C172", border:"none", boxShadow:"0 4px 0 #0E9E5C", cursor:"pointer" }}>Bắt đầu học ngay →</button>
+      </div>
+    );
+    return (
+      <>
+        <div style={{ display:"flex", flexDirection:"column", gap:8 }}>
           {entries.map((entry, idx) => {
             const isMe = entry.uid === user?.uid;
-            const rankColor = RANK_COLORS[idx];
             return (
-              <div
-                key={entry.id}
-                style={{
-                  display: "flex", alignItems: "center", gap: 12,
-                  background: isMe ? "#EAFBF1" : "#fff",
-                  border: `2px solid ${isMe ? "#16C172" : "#ECF1E6"}`,
-                  borderRadius: 14, padding: "10px 14px",
-                  animation: `slideUp 0.3s ease ${idx * 40}ms both`,
-                }}
-              >
-                <div style={{ width: 26, textAlign: "center", font: "800 15px 'Baloo 2'", color: rankColor || (isMe ? "#16C172" : "#9AA89E"), flexShrink: 0 }}>
-                  {idx + 1}
-                </div>
-                <div style={{ width: 36, height: 36, borderRadius: "50%", background: "#FFF9F0", border: `2px solid ${isMe ? "#16C172" : "#ECF1E6"}`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20, flexShrink: 0 }}>
-                  {entry.avatar || "🐷"}
-                </div>
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <div style={{ font: "800 14px 'Nunito'", color: isMe ? "#0E9E5C" : "#15392A", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-                    {entry.displayName || "Bạn nhỏ"}
-                    {isMe && <span style={{ font: "700 11px 'Nunito'", color: "#16C172", marginLeft: 6 }}>(bạn)</span>}
+              <div key={entry.id} style={{ display:"flex", alignItems:"center", gap:12, background:isMe?"#EAFBF1":"#fff", border:`2px solid ${isMe?"#16C172":"#ECF1E6"}`, borderRadius:14, padding:"10px 14px", animation:`slideUp 0.3s ease ${idx*40}ms both` }}>
+                <div style={{ width:26, textAlign:"center", font:"800 15px 'Baloo 2'", color:RANK_COLORS[idx]||(isMe?"#16C172":"#9AA89E"), flexShrink:0 }}>{idx+1}</div>
+                <div style={{ width:36, height:36, borderRadius:"50%", background:"#FFF9F0", border:`2px solid ${isMe?"#16C172":"#ECF1E6"}`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:20, flexShrink:0 }}>{entry.avatar||"🐷"}</div>
+                <div style={{ flex:1, minWidth:0 }}>
+                  <div style={{ font:"800 14px 'Nunito'", color:isMe?"#0E9E5C":"#15392A", whiteSpace:"nowrap", overflow:"hidden", textOverflow:"ellipsis" }}>
+                    {entry.displayName||"Bạn nhỏ"}{isMe&&<span style={{ font:"700 11px 'Nunito'", color:"#16C172", marginLeft:6 }}>(bạn)</span>}
                   </div>
-                  <div style={{ font: "600 12px 'Nunito'", color: "#9AA89E", marginTop: 1 }}>
-                    ⭐ {(entry.xp || 0).toLocaleString()} XP tuần này
-                  </div>
+                  <div style={{ font:"600 12px 'Nunito'", color:"#9AA89E", marginTop:1 }}>⭐ {(entry.xp||0).toLocaleString()} XP tuần này</div>
                 </div>
-                {entries[0]?.xp > 0 && (
-                  <div style={{ width: 52, height: 6, background: "#ECF1E6", borderRadius: 4, overflow: "hidden", flexShrink: 0 }}>
-                    <div style={{ width: `${Math.round(((entry.xp || 0) / entries[0].xp) * 100)}%`, height: "100%", background: "linear-gradient(90deg, #16C172, #FFC93C)", borderRadius: 4 }} />
+                {entries[0]?.xp>0 && (
+                  <div style={{ width:52, height:6, background:"#ECF1E6", borderRadius:4, overflow:"hidden", flexShrink:0 }}>
+                    <div style={{ width:`${Math.round(((entry.xp||0)/entries[0].xp)*100)}%`, height:"100%", background:"linear-gradient(90deg,#16C172,#FFC93C)", borderRadius:4 }} />
                   </div>
                 )}
               </div>
             );
           })}
         </div>
-
         {entries.length > 0 && (
-          <div style={{ textAlign: "center", marginTop: 28 }}>
-            <p style={{ font: "600 12px 'Nunito'", color: "#9AA89E", marginBottom: 14 }}>Bảng xếp hạng reset mỗi thứ Hai</p>
-            <button
-              onClick={() => router.push("/")}
-              style={{ padding: "13px 28px", borderRadius: 16, font: "800 15px 'Baloo 2'", color: "#fff", background: "linear-gradient(135deg, #16C172, #0E9E5C)", border: "none", boxShadow: "0 4px 0 #0B7A48", cursor: "pointer" }}
-            >
-              📚 Học thêm để leo hạng!
-            </button>
+          <div style={{ textAlign:"center", marginTop:28 }}>
+            <p style={{ font:"600 12px 'Nunito'", color:"#9AA89E", marginBottom:14 }}>Bảng xếp hạng reset mỗi thứ Hai</p>
+            <button onClick={() => router.push("/")} style={{ padding:"13px 28px", borderRadius:16, font:"800 15px 'Baloo 2'", color:"#fff", background:"linear-gradient(135deg,#16C172,#0E9E5C)", border:"none", boxShadow:"0 4px 0 #0B7A48", cursor:"pointer" }}>📚 Học thêm để leo hạng!</button>
           </div>
         )}
+      </>
+    );
+  }
+
+  return (
+    <>
+      {/* ── MOBILE ── */}
+      <div className="lg:hidden" style={{ minHeight:"100vh", background:"#F4F8EF" }}>
+        <div style={{ background:"#fff", borderBottom:"2px solid #ECF1E6", padding:"14px 20px 16px", display:"flex", alignItems:"flex-start", gap:14 }}>
+          <button onClick={() => router.push("/")} style={{ width:40, height:40, borderRadius:12, background:"#F4F8EF", border:"2px solid #ECF1E6", display:"flex", alignItems:"center", justifyContent:"center", cursor:"pointer", padding:0, flexShrink:0, marginTop:4 }}>
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M11.5 15L6 9L11.5 3" stroke="#15392A" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          </button>
+          <div style={{ flex:1, textAlign:"center" }}>
+            <div style={{ color:"#FFC93C", font:"800 32px 'Baloo 2'", lineHeight:1 }}>♛</div>
+            <div style={{ font:"800 20px 'Baloo 2'", color:"#15392A", marginTop:2 }}>Hạng Vàng</div>
+            <div style={{ font:"600 12px 'Nunito'", color:"#9AA89E", marginTop:2 }}>Top 7 thăng hạng · {weekId.replace("-W"," · tuần ")}</div>
+          </div>
+          <div style={{ width:40 }} />
+        </div>
+        {myRank >= 0 && (
+          <div style={{ background:"#EAFBF1", border:"2px solid #16C172", borderRadius:16, margin:"16px 16px 0", padding:"10px 16px", display:"flex", alignItems:"center", gap:10 }}>
+            <span style={{ font:"700 14px 'Nunito'", color:"#0E9E5C" }}>Bạn đang ở vị trí</span>
+            <span style={{ font:"800 22px 'Baloo 2'", color:"#16C172" }}>#{myRank+1}</span>
+            <span style={{ fontSize:18 }}>🎯</span>
+          </div>
+        )}
+        <div style={{ padding:"16px 16px 32px", maxWidth:520, margin:"0 auto" }}><EntryList /></div>
       </div>
-    </div>
+
+      {/* ── DESKTOP ── */}
+      <DesktopLayout>
+        <div style={{ padding:"24px 28px" }}>
+          <LeagueHeader />
+          <EntryList />
+        </div>
+      </DesktopLayout>
+    </>
   );
 }
