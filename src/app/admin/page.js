@@ -1,122 +1,127 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { LESSONS, AGE_GROUPS, CATEGORIES } from "@/data/lessons";
+import { listUsers, listDraftLessons, useFirestore } from "@/lib/admin";
 
-const AGE_GROUPS = [
-  { value: "6-8", label: "6-8 tuổi 🌱" },
-  { value: "9-12", label: "9-12 tuổi 🌿" },
-  { value: "13-16", label: "13-16 tuổi 🌳" },
-];
+function StatCard({ emoji, label, value, href }) {
+  const inner = (
+    <div className="bg-white rounded-3xl shadow-sm p-5 hover:shadow-md transition-shadow">
+      <div className="text-3xl mb-2">{emoji}</div>
+      <div className="text-2xl font-black text-gray-800">{value}</div>
+      <div className="text-sm text-gray-500 font-bold">{label}</div>
+    </div>
+  );
+  return href ? <Link href={href}>{inner}</Link> : inner;
+}
 
-export default function AdminPage() {
-  const [ageGroup, setAgeGroup] = useState("6-8");
-  const [topic, setTopic] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState(null);
-  const [error, setError] = useState(null);
-  const [copied, setCopied] = useState(false);
+export default function AdminDashboard() {
+  const [users, setUsers] = useState([]);
+  const [drafts, setDrafts] = useState([]);
+  const [loaded, setLoaded] = useState(false);
 
-  const run = async () => {
-    if (!topic.trim()) return;
-    setLoading(true);
-    setError(null);
-    setResult(null);
-    try {
-      const res = await fetch("/api/agents/orchestrate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ageGroup, topic: topic.trim() }),
-      });
-      const data = await res.json();
-      if (!res.ok || data.success === false) {
-        setError(data.error || JSON.stringify(data.issues || data));
-      } else {
-        setResult(data.lesson || data);
-      }
-    } catch (e) {
-      setError(e.message);
-    } finally {
-      setLoading(false);
-    }
-  };
+  useEffect(() => {
+    (async () => {
+      setUsers(await listUsers());
+      setDrafts(await listDraftLessons());
+      setLoaded(true);
+    })();
+  }, []);
 
-  const copyJson = () => {
-    navigator.clipboard.writeText(JSON.stringify(result, null, 2));
-    setCopied(true);
-    setTimeout(() => setCopied(false), 1500);
-  };
+  const byAge = AGE_GROUPS.filter((g) => g.value !== "all").map((g) => ({
+    ...g,
+    count: LESSONS.filter((l) => l.ageGroup === g.value).length,
+  }));
 
   return (
-    <div className="min-h-screen bg-[#FFF9F0] px-4 py-8">
-      <div className="max-w-2xl mx-auto">
-        <h1 className="text-2xl font-black text-gray-800 mb-1">🤖 AI Pipeline tạo bài học</h1>
-        <p className="text-sm text-gray-500 mb-6">
-          3-agent: Content → Review → Design. Kết quả là JSON theo schema bài học.
-        </p>
+    <div className="max-w-5xl">
+      <h1 className="text-2xl font-black text-gray-800 mb-1">📊 Tổng quan</h1>
+      <p className="text-sm text-gray-500 mb-6">
+        Bảng điều khiển quản trị FinanceKids
+      </p>
 
-        <div className="bg-white rounded-3xl shadow-sm p-5 space-y-4">
-          <div>
-            <label className="block text-sm font-bold text-gray-700 mb-2">Độ tuổi</label>
-            <div className="flex gap-2 flex-wrap">
-              {AGE_GROUPS.map((g) => (
-                <button
-                  key={g.value}
-                  onClick={() => setAgeGroup(g.value)}
-                  className={`px-4 py-2 rounded-full font-bold text-sm transition-all ${
-                    ageGroup === g.value
-                      ? "bg-orange-500 text-white"
-                      : "bg-gray-100 text-gray-600"
-                  }`}
-                >
-                  {g.label}
-                </button>
-              ))}
-            </div>
+      {!useFirestore() && (
+        <div className="mb-6 bg-amber-50 border border-amber-200 rounded-2xl p-4 text-sm text-amber-800">
+          ⚠️ <b>Chế độ demo</b> — Firebase chưa được cấu hình. Dữ liệu người dùng
+          trống và các thay đổi lưu tạm trên trình duyệt (localStorage). Thêm biến
+          môi trường Firebase trên Vercel để bật đầy đủ.
+        </div>
+      )}
+
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <StatCard
+          emoji="📚"
+          label="Bài học"
+          value={LESSONS.length}
+          href="/admin/content"
+        />
+        <StatCard
+          emoji="🤖"
+          label="Bản nháp chờ duyệt"
+          value={loaded ? drafts.length : "…"}
+          href="/admin/content"
+        />
+        <StatCard
+          emoji="👥"
+          label="Người dùng"
+          value={loaded ? users.length : "…"}
+          href="/admin/users"
+        />
+        <StatCard
+          emoji="🎯"
+          label="Nhóm tuổi"
+          value={byAge.length}
+        />
+      </div>
+
+      <div className="grid md:grid-cols-2 gap-4">
+        <div className="bg-white rounded-3xl shadow-sm p-5">
+          <h2 className="font-black text-gray-800 mb-3">Bài học theo cấp độ</h2>
+          <div className="space-y-2">
+            {byAge.map((g) => (
+              <div key={g.value} className="flex items-center justify-between">
+                <span className="text-sm font-bold text-gray-600">
+                  {g.emoji} {g.label}
+                </span>
+                <span className="text-sm font-black text-gray-800">
+                  {g.count} bài
+                </span>
+              </div>
+            ))}
           </div>
-
-          <div>
-            <label className="block text-sm font-bold text-gray-700 mb-2">Chủ đề bài học</label>
-            <input
-              value={topic}
-              onChange={(e) => setTopic(e.target.value)}
-              placeholder="VD: Tiết kiệm tiền mừng tuổi"
-              className="w-full px-4 py-3 rounded-2xl border border-gray-200 focus:border-orange-400 outline-none"
-            />
-          </div>
-
-          <button
-            onClick={run}
-            disabled={loading || !topic.trim()}
-            className="w-full py-4 rounded-2xl font-black text-white text-lg bg-orange-500 disabled:bg-gray-300 active:scale-95 transition-transform"
-          >
-            {loading ? "Đang chạy pipeline…" : "Chạy 3-Agent Pipeline ▶"}
-          </button>
         </div>
 
-        {error && (
-          <div className="mt-4 bg-red-50 border border-red-200 rounded-2xl p-4 text-sm text-red-700 whitespace-pre-wrap">
-            ❌ {error}
+        <div className="bg-white rounded-3xl shadow-sm p-5">
+          <h2 className="font-black text-gray-800 mb-3">Bài học theo loại</h2>
+          <div className="space-y-2">
+            {Object.entries(CATEGORIES).map(([key, cat]) => (
+              <div key={key} className="flex items-center justify-between">
+                <span className="text-sm font-bold text-gray-600">
+                  {cat.emoji} {cat.label}
+                </span>
+                <span className="text-sm font-black text-gray-800">
+                  {LESSONS.filter((l) => l.category === key).length} bài
+                </span>
+              </div>
+            ))}
           </div>
-        )}
+        </div>
+      </div>
 
-        {result && (
-          <div className="mt-4 bg-white rounded-3xl shadow-sm p-5">
-            <div className="flex items-center justify-between mb-3">
-              <span className="font-black text-gray-800">
-                {result.icon} {result.title}
-              </span>
-              <button
-                onClick={copyJson}
-                className="text-sm font-bold px-3 py-1.5 rounded-xl bg-orange-50 text-orange-600"
-              >
-                {copied ? "✓ Đã copy" : "Copy JSON"}
-              </button>
-            </div>
-            <pre className="text-xs bg-gray-50 rounded-2xl p-4 overflow-auto max-h-96">
-              {JSON.stringify(result, null, 2)}
-            </pre>
-          </div>
-        )}
+      <div className="mt-6 flex flex-wrap gap-3">
+        <Link
+          href="/admin/ai"
+          className="px-5 py-3 rounded-2xl font-black text-white bg-orange-500 active:scale-95 transition-transform"
+        >
+          🤖 Tạo bài học bằng AI
+        </Link>
+        <Link
+          href="/admin/notifications"
+          className="px-5 py-3 rounded-2xl font-black text-gray-700 bg-white shadow-sm active:scale-95 transition-transform"
+        >
+          🔔 Gửi thông báo
+        </Link>
       </div>
     </div>
   );
