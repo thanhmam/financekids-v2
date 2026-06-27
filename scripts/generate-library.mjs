@@ -56,7 +56,7 @@ const TYPE_RATIO = [
   ["ab", 0.3],
   ["transaction", 0.15],
 ];
-const BATCH = 8;
+const BATCH = 6;
 
 // ---- helpers ----
 const norm = (s) =>
@@ -68,9 +68,26 @@ const norm = (s) =>
     .replace(/[^a-z0-9]/g, "");
 
 function parseJSON(text) {
-  const t = text.trim();
-  const fence = t.match(/```(?:json)?\s*([\s\S]*?)\s*```/);
-  return JSON.parse(fence ? fence[1] : t);
+  let t = text.trim();
+  // bỏ fence mở/đóng kể cả khi thiếu fence đóng (output bị cắt)
+  t = t.replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/i, "").trim();
+  try {
+    return JSON.parse(t);
+  } catch (e) {
+    // cứu vớt: lấy từ [ đầu tới ] cuối
+    const s = t.indexOf("[");
+    const end = t.lastIndexOf("]");
+    if (s >= 0 && end > s) return JSON.parse(t.slice(s, end + 1));
+    throw e;
+  }
+}
+
+// Tính lại số dư đúng theo công thức component (income/save cộng, expense trừ)
+function txBalance(q) {
+  let bal = q.startBalance || 0;
+  for (const s of q.steps || [])
+    bal += s.type === "expense" ? -Math.abs(s.amount) : Math.abs(s.amount);
+  return bal;
 }
 
 function loadBank() {
@@ -88,7 +105,7 @@ let totalIn = 0,
 async function callClaude(client, { model, system, user }) {
   const r = await client.messages.create({
     model,
-    max_tokens: 4096,
+    max_tokens: 8192,
     system: [{ type: "text", text: system, cache_control: { type: "ephemeral" } }],
     messages: [{ role: "user", content: user }],
   });
@@ -178,7 +195,7 @@ async function generateCell(client, topic, level, count, bank) {
     let tagged;
     try {
       tagged = await callClaude(client, {
-        model: "claude-sonnet-4-6",
+        model: "claude-haiku-4-5-20251001",
         system: LIB_TAG_PROMPT,
         user: JSON.stringify({ items: approved }),
       });
@@ -191,23 +208,32 @@ async function generateCell(client, topic, level, count, bank) {
     for (let i = 0; i < tagged.length && made < count; i++) {
       const it = tagged[i];
       if (!it.question || seen.has(norm(it.question))) continue;
+      // transaction: ép correctAnswer khớp công thức component để tránh sai số học
+      if (it.type === "transaction" && Array.isArray(it.steps)) {
+        it.correctAnswer = txBalance(it);
+      }
       seen.add(norm(it.question));
       const seq = String(existing.length + cellItems.length + 1).padStart(4, "0");
+      const score = it._score || 80;
+      delete it._score;
       cellItems.push({
+        ...it, // field model trước...
+        // ...rồi GHI ĐÈ bằng field chuẩn (không cho model phá vỡ taxonomy)
         id: `qb-${topic}-${level}-${seq}`,
         topic,
         level,
         type: it.type,
         question: it.question,
         image: it.image || "💡",
-        ...it,
         skills: it.skills || [],
         bookRefs: it.bookRefs || [],
         difficulty: it.difficulty || (level === "foundation" ? 2 : 4),
+        marketingHook: it.marketingHook || "",
+        channelHint: it.channelHint || "facebook",
         vnContext: true,
         source: "agent",
         status: "draft",
-        reviewScore: it._score || 80,
+        reviewScore: score,
         createdAt: Date.now(),
       });
       made++;

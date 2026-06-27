@@ -1,0 +1,1252 @@
+[
+  {
+    "id": "qb-money-basics-foundation-0001",
+    "topic": "money-basics",
+    "level": "foundation",
+    "type": "quiz",
+    "question": "Tiền dùng để làm gì?",
+    "image": "💵",
+    "options": [
+      {
+        "text": "Mua những thứ chúng ta cần hoặc muốn",
+        "emoji": "🛍️"
+      },
+      {
+        "text": "Chỉ để sưu tầm và ngắm",
+        "emoji": "🔍"
+      },
+      {
+        "text": "Chôn dưới đất để giữ bảo mật",
+        "emoji": "⛏️"
+      },
+      {
+        "text": "Tặng cho bạn bè hàng ngày",
+        "emoji": "🎁"
+      }
+    ],
+    "correct": 0,
+    "explanation": "Tiền là công cụ để trao đổi giá trị. Chúng ta kiếm tiền từ công việc, lao động, rồi dùng nó để mua đồ ăn, sách, đồ chơi, hoặc các dịch vụ mà mình cần.",
+    "_score": 92,
+    "difficulty": 1,
+    "skills": [
+      "needs-vs-wants",
+      "saving-habit"
+    ],
+    "bookRefs": [
+      "how-money-works"
+    ],
+    "marketingHook": "Bạn có biết? Tiền không có giá trị thật — giá trị của nó nằm ở thứ bạn đổi được bằng nó! 💡",
+    "channelHint": "tiktok",
+    "vnContext": true,
+    "source": "agent",
+    "status": "draft",
+    "reviewScore": 92,
+    "createdAt": 1782579161870
+  },
+  {
+    "id": "qb-money-basics-foundation-0002",
+    "topic": "money-basics",
+    "level": "foundation",
+    "type": "quiz",
+    "question": "Bạn có 50.000 đồng. Bạn mua một cái bánh mì giá 15.000 đồng. Bạn còn lại bao nhiêu tiền?",
+    "image": "🥖",
+    "options": [
+      {
+        "text": "35.000 đồng",
+        "emoji": "✅"
+      },
+      {
+        "text": "65.000 đồng",
+        "emoji": "❌"
+      },
+      {
+        "text": "15.000 đồng",
+        "emoji": "❌"
+      },
+      {
+        "text": "50.000 đồng",
+        "emoji": "❌"
+      }
+    ],
+    "correct": 0,
+    "explanation": "Khi chi tiêu, ta trừ số tiền đã dùng từ số tiền ban đầu. 50.000 - 15.000 = 35.000 đồng. Đây gọi là tính toán số dư (balance) của bạn.",
+    "_score": 93,
+    "difficulty": 1,
+    "skills": [
+      "budgeting",
+      "saving-habit"
+    ],
+    "bookRefs": [
+      "how-money-works"
+    ],
+    "marketingHook": "Bạn có biết? Theo dõi số dư mỗi ngày là thói quen nhỏ tạo nên người quản lý tài chính giỏi! 🧮",
+    "channelHint": "zalo",
+    "vnContext": true,
+    "source": "agent",
+    "status": "draft",
+    "reviewScore": 93,
+    "createdAt": 1782579161870
+  },
+  {
+    "id": "qb-money-basics-foundation-0003",
+    "topic": "money-basics",
+    "level": "foundation",
+    "type": "quiz",
+    "question": "Để có tiền, bạn phải làm gì trước?",
+    "image": "💼",
+    "options": [
+      {
+        "text": "Làm việc, kiếm thu nhập hoặc nhận tiền từ cha mẹ",
+        "emoji": "👨‍💼"
+      },
+      {
+        "text": "Đi xin tiền ở đường phố",
+        "emoji": "🚫"
+      },
+      {
+        "text": "Tiêu tiền mà không cần có",
+        "emoji": "🚫"
+      },
+      {
+        "text": "Chờ cho đến khi tự động xuất hiện",
+        "emoji": "⏳"
+      }
+    ],
+    "correct": 0,
+    "explanation": "Tiền không tự có được. Bạn cần làm công việc, lao động (hoặc trẻ em có thể nhận tiền từ cha mẹ). Lao động → kiếm tiền → chi tiêu là chu kỳ cơ bản.",
+    "_score": 90,
+    "difficulty": 1,
+    "skills": [
+      "saving-habit",
+      "budgeting"
+    ],
+    "bookRefs": [
+      "richest-man-babylon",
+      "rich-dad-poor-dad"
+    ],
+    "marketingHook": "Bạn có biết? Hiểu rằng tiền phải được kiếm ra là bài học tài chính số 1 cho trẻ em! 🌱",
+    "channelHint": "facebook",
+    "vnContext": true,
+    "source": "agent",
+    "status": "draft",
+    "reviewScore": 90,
+    "createdAt": 1782579161871
+  },
+  {
+    "id": "qb-money-basics-foundation-0004",
+    "topic": "money-basics",
+    "level": "foundation",
+    "type": "quiz",
+    "question": "Cơm chiều hôm nay giá 25.000 đồng. Nước cam giá 8.000 đồng. Tổng cộng bạn phải trả bao nhiêu?",
+    "image": "🍜",
+    "options": [
+      {
+        "text": "17.000 đồng",
+        "emoji": "❌"
+      },
+      {
+        "text": "33.000 đồng",
+        "emoji": "✅"
+      },
+      {
+        "text": "25.000 đồng",
+        "emoji": "❌"
+      },
+      {
+        "text": "8.000 đồng",
+        "emoji": "❌"
+      }
+    ],
+    "correct": 1,
+    "explanation": "Khi mua nhiều thứ, ta cộng giá của mỗi thứ lại. 25.000 + 8.000 = 33.000 đồng. Tổng này gọi là tổng chi tiêu (total expense).",
+    "_score": 92,
+    "difficulty": 1,
+    "skills": [
+      "budgeting",
+      "needs-vs-wants"
+    ],
+    "bookRefs": [
+      "how-money-works"
+    ],
+    "marketingHook": "Bạn có biết? Biết tính tổng chi tiêu trước khi trả tiền giúp bạn không bao giờ bị hụt ví! 🧾",
+    "channelHint": "zalo",
+    "vnContext": true,
+    "source": "agent",
+    "status": "draft",
+    "reviewScore": 92,
+    "createdAt": 1782579161871
+  },
+  {
+    "id": "qb-money-basics-foundation-0005",
+    "topic": "money-basics",
+    "level": "foundation",
+    "type": "quiz",
+    "question": "Tiết kiệm tiền nghĩa là gì?",
+    "image": "🏦",
+    "options": [
+      {
+        "text": "Không chi tiêu gì cả, luôn giữ lại tiền",
+        "emoji": "🚫"
+      },
+      {
+        "text": "Chi tiêu hết mà không để dành một đồng",
+        "emoji": "🚫"
+      },
+      {
+        "text": "Chi tiêu thông minh và để dành một phần tiền cho nhu cầu sau này",
+        "emoji": "✅"
+      },
+      {
+        "text": "Cho mọi người tiền của mình",
+        "emoji": "🚫"
+      }
+    ],
+    "correct": 2,
+    "explanation": "Tiết kiệm không phải là sống cơ cực. Đó là cân bằng: chi tiêu cho những gì cần thiết ngay bây giờ, nhưng cũng để dành một phần tiền cho tương lai (mua sách, đi chơi sau này, hoặc khi gặp khó khăn bất ngờ).",
+    "_score": 91,
+    "difficulty": 2,
+    "skills": [
+      "saving-habit",
+      "budgeting",
+      "emergency-fund"
+    ],
+    "bookRefs": [
+      "richest-man-babylon",
+      "how-money-works"
+    ],
+    "marketingHook": "Bạn có biết? Tiết kiệm không phải là nhịn — đó là trả tiền cho tương lai của chính bạn! 🐖",
+    "channelHint": "infographic",
+    "vnContext": true,
+    "source": "agent",
+    "status": "draft",
+    "reviewScore": 91,
+    "createdAt": 1782579161871
+  },
+  {
+    "id": "qb-money-basics-foundation-0006",
+    "topic": "money-basics",
+    "level": "foundation",
+    "type": "ab",
+    "question": "Em có 100.000 đồng tiền Tết từ bà. Em nên làm gì?",
+    "image": "🧧",
+    "optionA": {
+      "emoji": "🛒",
+      "title": "Tiêu hết ngay để mua đồ chơi, kẹo, game",
+      "description": "Mua những gì em muốn ngay lập tức mà không suy nghĩ"
+    },
+    "optionB": {
+      "emoji": "💰",
+      "title": "Để dành một phần, chi tiêu một phần",
+      "description": "Ví dụ: dùng 40.000 để mua đồ em thích, để dành 60.000 cho nhu cầu sau này hoặc khi cần"
+    },
+    "bestChoice": "B",
+    "explanation": "Tiền Tết là cơ hội học tiết kiệm. Nếu tiêu hết ngay, em sẽ hối tiếc khi muốn mua gì sau này nhưng không còn tiền. Cách tốt là chia: một phần để chi tiêu vui vẻ, một phần để dành phòng trường hợp.",
+    "_score": 94,
+    "difficulty": 2,
+    "skills": [
+      "saving-habit",
+      "needs-vs-wants",
+      "budgeting"
+    ],
+    "bookRefs": [
+      "richest-man-babylon",
+      "psychology-of-money"
+    ],
+    "marketingHook": "Bạn có biết? Trẻ em học chia tiền Tết 60/40 sẽ hiểu ngân sách cá nhân sớm hơn 10 năm so với bạn bè! 🧧",
+    "channelHint": "tiktok",
+    "vnContext": true,
+    "source": "agent",
+    "status": "draft",
+    "reviewScore": 94,
+    "createdAt": 1782579161871
+  },
+  {
+    "id": "qb-money-basics-foundation-0007",
+    "topic": "money-basics",
+    "level": "foundation",
+    "type": "ab",
+    "question": "Bạn thấy một chiếc áo giá 200.000 đồng. Bạn có 150.000 đồng. Bạn nên làm gì?",
+    "image": "👕",
+    "optionA": {
+      "emoji": "💳",
+      "title": "Vay tiền hoặc mượn để mua ngay",
+      "description": "Lấy tiền từ cha mẹ/bạn để mua, rồi trả sau"
+    },
+    "optionB": {
+      "emoji": "⏳",
+      "title": "Tiết kiệm thêm hoặc chọn cái áo rẻ hơn",
+      "description": "Chờ để kiếm thêm tiền, hoặc tìm cái áo khác rẻ hơn mà vẫn thích"
+    },
+    "bestChoice": "B",
+    "explanation": "Khi chưa đủ tiền mua một thứ, cách hay nhất là tiết kiệm thêm hoặc tìm lựa chọn vừa túi tiền hơn. Điều này giúp bạn tránh nợ nần và dần học được cách quản lý tài chính thông minh.",
+    "_score": 88,
+    "difficulty": 2,
+    "skills": [
+      "debt-management",
+      "needs-vs-wants",
+      "saving-habit"
+    ],
+    "bookRefs": [
+      "rich-dad-poor-dad",
+      "psychology-of-money"
+    ],
+    "marketingHook": "Bạn có biết? Mỗi lần bạn chờ tiết kiệm đủ tiền thay vì vay, bạn đang tránh bẫy nợ suốt đời! 💡",
+    "channelHint": "facebook",
+    "vnContext": true,
+    "source": "agent",
+    "status": "draft",
+    "reviewScore": 88,
+    "createdAt": 1782579161871
+  },
+  {
+    "id": "qb-money-basics-foundation-0008",
+    "topic": "money-basics",
+    "level": "foundation",
+    "type": "transaction",
+    "question": "Sau cả tuần, Lan còn bao nhiêu tiền có thể dùng hàng ngày (không tính tiền gửi tiết kiệm)?",
+    "image": "📒",
+    "scenario": "Bạn Lan là một học sinh lớp 5. Dưới đây là các giao dịch tiền trong một tuần:",
+    "startBalance": 200000,
+    "currency": "đ",
+    "steps": [
+      {
+        "description": "Thứ Hai: Cha mẹ cho tiền đi học thêm",
+        "amount": 150000,
+        "type": "income",
+        "hint": "Tiền nhận được → cộng vào"
+      },
+      {
+        "description": "Thứ Ba: Mua sách vở trường học",
+        "amount": 80000,
+        "type": "expense",
+        "hint": "Chi tiêu → trừ đi"
+      },
+      {
+        "description": "Thứ Tư: Bà cho tiền mua đồ ăn bán trú",
+        "amount": 100000,
+        "type": "income",
+        "hint": "Nhận được tiền → cộng vào"
+      },
+      {
+        "description": "Thứ Năm: Mua nước uống và bánh qua ngày",
+        "amount": 45000,
+        "type": "expense",
+        "hint": "Chi tiêu → trừ đi"
+      },
+      {
+        "description": "Thứ Sáu: Gửi tiết kiệm vào lợn đất",
+        "amount": 60000,
+        "type": "save",
+        "hint": "Để dành → trừ khỏi số tiền sử dụng hàng ngày"
+      }
+    ],
+    "correctAnswer": 385000,
+    "explanation": "Bắt đầu: 200.000đ. Cộng tiền nhận được (150.000 + 100.000 = 250.000) → Tổng: 450.000đ. Trừ chi tiêu (80.000 + 45.000 = 125.000) → Còn: 325.000đ. Trừ tiền tiết kiệm (60.000) → Còn dùng hàng ngày: 265.000đ. Tiết kiệm không phải là tiêu xài — đó là khoản để dành cho tương lai!",
+    "_score": 95,
+    "difficulty": 3,
+    "skills": [
+      "budgeting",
+      "saving-habit",
+      "emergency-fund"
+    ],
+    "bookRefs": [
+      "richest-man-babylon",
+      "how-money-works"
+    ],
+    "marketingHook": "Bạn có biết? Ghi chép thu chi từng ngày — thói quen đơn giản nhất để không bao giờ hết tiền trước cuối tháng! 📒",
+    "channelHint": "infographic",
+    "vnContext": true,
+    "source": "agent",
+    "status": "draft",
+    "reviewScore": 95,
+    "createdAt": 1782579161871
+  },
+  {
+    "id": "qb-digital-assets-advanced-0001",
+    "topic": "digital-assets",
+    "level": "advanced",
+    "type": "quiz",
+    "question": "Bạn vừa mua 2 triệu đồng tiền điện tử Bitcoin. Một tuần sau, giá Bitcoin giảm 30%. Tài sản số của bạn hiện bây giờ là bao nhiêu?",
+    "image": "📉",
+    "options": [
+      {
+        "text": "1,4 triệu đồng",
+        "emoji": "💔"
+      },
+      {
+        "text": "2 triệu đồng",
+        "emoji": "➡️"
+      },
+      {
+        "text": "2,6 triệu đồng",
+        "emoji": "📈"
+      },
+      {
+        "text": "Không thể tính được",
+        "emoji": "❓"
+      }
+    ],
+    "correct": 0,
+    "explanation": "Khi giá giảm 30%, bạn mất 30% giá trị. 2 triệu × 30% = 600k. 2 triệu − 600k = 1,4 triệu đồng. Đây là lý do chính cần cẩn thận với tài sản số: giá có thể rớt nhanh, bạn có thể mất tiền nhanh chóng.",
+    "_score": 80,
+    "skills": [],
+    "bookRefs": [],
+    "difficulty": 4,
+    "vnContext": true,
+    "source": "agent",
+    "status": "draft",
+    "reviewScore": 80,
+    "createdAt": 1782579378846,
+    "marketingHook": "Bạn có biết? 2 triệu Bitcoin giảm 30% chỉ một tuần, bạn mất ngay 600k đồng? Tài sản số rơi nhanh như thế đó!",
+    "channelHint": "tiktok"
+  },
+  {
+    "id": "qb-digital-assets-advanced-0002",
+    "topic": "digital-assets",
+    "level": "advanced",
+    "type": "quiz",
+    "question": "Ví tiền điện tử (ví kỹ thuật số lưu trữ tiền số) có điểm khác biệt gì so với ví thường?",
+    "image": "👛",
+    "options": [
+      {
+        "text": "Ví tiền điện tử có thể bị hack nếu bạn để lộ mật khẩu; ví thường chỉ cần canh chừng trộm cắp",
+        "emoji": "🔐"
+      },
+      {
+        "text": "Ví tiền điện tử có thể mang theo nhiều tiền hơn",
+        "emoji": "💰"
+      },
+      {
+        "text": "Ví tiền điện tử không cần giấu kín, ai cũng có thể xem",
+        "emoji": "👀"
+      },
+      {
+        "text": "Không có gì khác, chỉ là tên gọi khác nhau thôi",
+        "emoji": "🤷"
+      }
+    ],
+    "correct": 0,
+    "explanation": "Ví tiền điện tử lưu trữ trực tuyến (trên internet hoặc ứng dụng điện thoại). Nếu ai biết mật khẩu hay khóa riêng (một dãy ký tự bảo mật), họ có thể lấy hết tiền của bạn. Ví thường chỉ cần giữ an toàn khỏi mất cắp vật lý. Đây là rủi ro lớn của tài sản số.",
+    "_score": 80,
+    "skills": [],
+    "bookRefs": [],
+    "difficulty": 4,
+    "vnContext": true,
+    "source": "agent",
+    "status": "draft",
+    "reviewScore": 80,
+    "createdAt": 1782579378846,
+    "marketingHook": "Bạn có biết? Chỉ cần ai biết mật khẩu ví tiền điện tử, họ lấy hết tiền bạn chỉ trong giây lát?",
+    "channelHint": "facebook"
+  },
+  {
+    "id": "qb-digital-assets-advanced-0003",
+    "topic": "digital-assets",
+    "level": "advanced",
+    "type": "quiz",
+    "question": "Bạn mua NFT (một loại tài sản số đại diện cho quyền sở hữu, như chứng chỉ về bức ảnh hay tác phẩm kỹ thuật số) với giá 5 triệu đồng. Một tháng sau, nhà tạo tác phẩm bị lộ lừa đảo. NFT của bạn giảm xuống 200k. Bạn có thể làm gì?",
+    "image": "🖼️",
+    "options": [
+      {
+        "text": "Khiếu nại với ngân hàng để lấy lại tiền",
+        "emoji": "🏦"
+      },
+      {
+        "text": "Bán NFT, chịu lỗ 4,8 triệu hoặc giữ lại hy vọng giá tăng lại",
+        "emoji": "💸"
+      },
+      {
+        "text": "Liên hệ công an vì đây là hành vi lừa đảo",
+        "emoji": "👮"
+      },
+      {
+        "text": "Tất cả đều đúng",
+        "emoji": "✔️"
+      }
+    ],
+    "correct": 1,
+    "explanation": "Tài sản số (đặc biệt NFT) không được bảo vệ như tiền gửi ngân hàng. Nếu dự án thất bại hay người tạo lừa đảo, bạn chủ yếu phải tự chịu lỗ. Cảnh sát có thể điều tra nhưng khó lấy lại tiền. Đây là lý do: KHÔNG nên bỏ toàn bộ tiền vào tài sản số mà chưa hiểu rõ.",
+    "_score": 80,
+    "skills": [],
+    "bookRefs": [],
+    "difficulty": 4,
+    "vnContext": true,
+    "source": "agent",
+    "status": "draft",
+    "reviewScore": 80,
+    "createdAt": 1782579378846,
+    "marketingHook": "Bạn có biết? NFT 5 triệu đồng bốc hơi còn 200k khi dự án lừa đảo, bạn không có ai bảo vệ?",
+    "channelHint": "zalo"
+  },
+  {
+    "id": "qb-digital-assets-advanced-0004",
+    "topic": "digital-assets",
+    "level": "advanced",
+    "type": "quiz",
+    "question": "Bạn sử dụng sàn giao dịch tiền điện tử (một trang web hoặc ứng dụng cho phép mua bán tiền số). Sàn bị hacker tấn công, mất 100 tỷ đồng tiền khách hàng. Tiền của bạn (50 triệu) có được bảo vệ?",
+    "image": "🛡️",
+    "options": [
+      {
+        "text": "Có, sàn giao dịch phải bảo hiểm toàn bộ tiền khách hàng",
+        "emoji": "✅"
+      },
+      {
+        "text": "Không chắc chắn. Hầu hết sàn giao dịch tiền điện tử ở Việt Nam KHÔNG bảo hiểm tiền khách hàng",
+        "emoji": "⚠️"
+      },
+      {
+        "text": "Chỉ bảo vệ 50% số tiền",
+        "emoji": "½"
+      },
+      {
+        "text": "Ngân hàng Nhà nước sẽ bù lỗ",
+        "emoji": "🏛️"
+      }
+    ],
+    "correct": 1,
+    "explanation": "Đây là rủi ro LỚNHẤT của tài sản số: sàn giao dịch tiền điện tử thường KHÔNG bảo hiểm tiền bạn gửi, không giống ngân hàng (ngân hàng bảo hiểm lên 3 tỷ/khách hàng). Nếu sàn bị hack hay phá sản, tiền bạn có thể mất hết. Luôn chỉ giao dịch trên sàn uy tín, giới hạn số tiền.",
+    "_score": 80,
+    "skills": [],
+    "bookRefs": [],
+    "difficulty": 4,
+    "vnContext": true,
+    "source": "agent",
+    "status": "draft",
+    "reviewScore": 80,
+    "createdAt": 1782579378846,
+    "marketingHook": "Bạn có biết? Sàn tiền điện tử bị hack, 50 triệu tiền bạn có thể mất hết vì KHÔNG có bảo hiểm?",
+    "channelHint": "infographic"
+  },
+  {
+    "id": "qb-digital-assets-advanced-0005",
+    "topic": "digital-assets",
+    "level": "advanced",
+    "type": "quiz",
+    "question": "Bạn nhận được tin nhắn từ \"bạn bè\" trên Facebook yêu cầu gửi tiền vào ví tiền điện tử nói rằng sẽ nhân lên gấp đôi trong 1 tháng. Bạn nên?",
+    "image": "📲",
+    "options": [
+      {
+        "text": "Gửi 1 triệu đôi để thử trước",
+        "emoji": "🤞"
+      },
+      {
+        "text": "Gửi ngay 10 triệu vì cơ hội tốt",
+        "emoji": "💨"
+      },
+      {
+        "text": "KHÔNG gửi. Đây là lừa đảo điển hình. Tiền điện tử KHÔNG có lợi nhuận chắc chắn",
+        "emoji": "🚫"
+      },
+      {
+        "text": "Hỏi thêm người khác rồi quyết định",
+        "emoji": "🤔"
+      }
+    ],
+    "correct": 2,
+    "explanation": "Lừa đảo tài sản số rất phổ biến ở Việt Nam. Không ai có thể hứa tiền gấp đôi chỉ trong 1 tháng mà không rủi ro. Nếu quá tốt để là sự thật, nó thường LÀ lừa đảo. Sau khi bạn gửi tiền, tài khoản sẽ khóa hoặc trang web biến mất. NHỚ: tài sản số rủi ro cao, KHÔNG nên vì FOMO (sợ bỏ lỡ).",
+    "_score": 80,
+    "skills": [],
+    "bookRefs": [],
+    "difficulty": 4,
+    "vnContext": true,
+    "source": "agent",
+    "status": "draft",
+    "reviewScore": 80,
+    "createdAt": 1782579378846,
+    "marketingHook": "Bạn có biết? Nhân tiền gấp đôi trong 1 tháng là lừa đảo 99%, bạn gửi tiền là mất hết ngay?",
+    "channelHint": "tiktok"
+  },
+  {
+    "id": "qb-digital-assets-advanced-0006",
+    "topic": "digital-assets",
+    "level": "advanced",
+    "type": "ab",
+    "question": "Bạn có 10 triệu đồng tiền tiết kiệm. Bạn đang cân nhắc: nên gửi toàn bộ vào ví tiền điện tử tích lũy, hay chỉ dành một phần?",
+    "image": "⚖️",
+    "optionA": {
+      "emoji": "🔥",
+      "title": "Gửi toàn bộ 10 triệu vào tiền điện tử",
+      "description": "Nếu tăng giá 5 lần, bạn có 50 triệu. Nhưng nếu rơi 80%, chỉ còn 2 triệu. Giá tiền điện tử rất biến động."
+    },
+    "optionB": {
+      "emoji": "🛡️",
+      "title": "Chia thành: 7 triệu gửi tiết kiệm ngân hàng (ổn định, an toàn), 3 triệu vào tiền điện tử (học hỏi)",
+      "description": "Tiền ngân hàng không tăng nhiều nhưng an toàn, có bảo hiểm. Tiền điện tử có thể tăng cao, nhưng nếu mất, bạn còn 7 triệu. Cân bằng rủi ro."
+    },
+    "bestChoice": "B",
+    "explanation": "Tài sản số là khoản đầu tư có rủi ro rất cao. Nguyên tắc VÀNG: KHÔNG bao giờ bỏ toàn bộ tiền vào một tài sản quá rủi ro, đặc biệt khi bạn chưa hiểu rõ. Chia nhỏ tiền (diversify), giữ phần lớn ở chỗ an toàn, dành một phần nhỏ để học hỏi. Nếu mất 3 triệu, bạn vẫn có 7 triệu để sống, không hoảng loạn.",
+    "_score": 80,
+    "skills": [],
+    "bookRefs": [],
+    "difficulty": 4,
+    "vnContext": true,
+    "source": "agent",
+    "status": "draft",
+    "reviewScore": 80,
+    "createdAt": 1782579378847,
+    "marketingHook": "Bạn có biết? Bỏ toàn bộ 10 triệu vào tiền điện tử mất hết, bạn sẽ phá sản không thể cứu vãn?",
+    "channelHint": "facebook"
+  },
+  {
+    "id": "qb-digital-assets-advanced-0007",
+    "topic": "digital-assets",
+    "level": "advanced",
+    "type": "ab",
+    "question": "Bạn muốn bảo vệ ví tiền điện tử của mình. Bạn nên?",
+    "image": "🔐",
+    "optionA": {
+      "emoji": "📝",
+      "title": "Viết mật khẩu (seed phrase — dãy 12–24 từ bảo mật) vào một tờ giấy và cất trong tủ nhà",
+      "description": "Giấy có thể cháy, mất, hoặc người khác tìm thấy. Nhưng nếu lưu trên điện thoại, dễ bị hack."
+    },
+    "optionB": {
+      "emoji": "🏦",
+      "title": "Viết mật khẩu vào một bản sao trên cloud (Google Drive, OneDrive) để dễ truy cập mà không lo mất",
+      "description": "Rất nguy hiểm! Nếu tài khoản cloud bị hack hoặc mật khẩu cloud bị lộ, hacker có tất cả. Mật khẩu tiền điện tử KHÔNG bao giờ nên lưu trực tuyến."
+    },
+    "bestChoice": "A",
+    "explanation": "Mật khẩu ví tiền điện tử (seed phrase) là CHỈ CUỐI của lâu đài tiền của bạn. Tốt nhất: viết tay trên giấy chất lượng, giấu ở nơi an toàn (két sắt, nhà thân tin), KHÔNG bao giờ chụp ảnh hoặc gửi qua tin nhắn. Nếu mất mật khẩu, mất tiền mãi mãi, không ai giúp được.",
+    "_score": 80,
+    "skills": [],
+    "bookRefs": [],
+    "difficulty": 4,
+    "vnContext": true,
+    "source": "agent",
+    "status": "draft",
+    "reviewScore": 80,
+    "createdAt": 1782579378847,
+    "marketingHook": "Bạn có biết? Mật khẩu ví tiền điện tử là CHÌA KHÓA mọi tiền bạn, mất nó là mất vĩnh viễn?",
+    "channelHint": "zalo"
+  },
+  {
+    "id": "qb-digital-assets-advanced-0008",
+    "topic": "digital-assets",
+    "level": "advanced",
+    "type": "transaction",
+    "question": "Sau ba bước trên, Hoa còn lại bao nhiêu tiền mặt để dùng hàng ngày?",
+    "image": "💡",
+    "scenario": "Hoa là một người lao động tự do, thu nhập bất ổn. Tháng này anh kiếm được 15 triệu đồng và quyết định một phần để học về tiền điện tử.",
+    "startBalance": 15000000,
+    "currency": "đ",
+    "steps": [
+      {
+        "description": "Trích ra tiền ăn, ở, viện phí cơ bản cho tháng này",
+        "amount": 8000000,
+        "type": "expense",
+        "hint": "Chi phí sống ưu tiên trước"
+      },
+      {
+        "description": "Gửi tiết kiệm ngân hàng (an toàn, lãi suất ~5%/năm) để dành cho tháng tổn thất",
+        "amount": 4000000,
+        "type": "save",
+        "hint": "Quỹ khẩn cấp rất cần thiết vì Hoa có thu nhập bất ổn"
+      },
+      {
+        "description": "Bỏ vào ví tiền điện tử để học hỏi và có cơ hội lợi nhuận cao",
+        "amount": 3000000,
+        "type": "save",
+        "hint": "Chỉ 20% tổng thu nhập, có thể chịu mất hoàn toàn"
+      }
+    ],
+    "correctAnswer": 14000000,
+    "explanation": "15 triệu − 8 triệu (chi phí sống) − 4 triệu (tiết kiệm ngân hàng) − 3 triệu (tiền điện tử) = 0 đồng. Đây là kế hoạch an toàn: Hoa chia tiền thành 3 phần — chi phí sống (ưu tiên), tiết kiệm an toàn (dự phòng khi không có việc), và đầu tư rủi cao (học hỏi, giới hạn tổn thất tối đa 3 triệu). Hoa không nên giữ tiền mặt thêm vì thu nhập bất ổn, mọi đồng nên phục vụ mục đích cụ thể. Nếu tháng sau không có thu nhập, anh vẫn có 4 triệu từ tiết kiệm.",
+    "_score": 80,
+    "skills": [],
+    "bookRefs": [],
+    "difficulty": 4,
+    "vnContext": true,
+    "source": "agent",
+    "status": "draft",
+    "reviewScore": 80,
+    "createdAt": 1782579378847,
+    "marketingHook": "Bạn có biết? Chia tiền thành 3 phần: chi phí sống, tiết kiệm, đầu tư là cách sống an toàn nhất?",
+    "channelHint": "infographic"
+  },
+  {
+    "id": "qb-investing-advanced-0001",
+    "topic": "investing",
+    "level": "advanced",
+    "type": "quiz",
+    "question": "Bạn có 50 triệu đồng tiết kiệm. Bạn muốn đầu tư vào một quỹ ETF (chứng chỉ quỹ theo dõi chỉ số) — một rổ cổ phiếu giúp bạn chia nhỏ rủi ro mà không cần chọn từng công ty. Tuy nhiên, bạn định dùng số tiền này để mua nhà trong 3 năm tới. Hành động nào phù hợp nhất?",
+    "image": "🏠",
+    "options": [
+      {
+        "text": "Đầu tư toàn bộ 50 triệu vào ETF ngay, vì lợi suất cao",
+        "emoji": "⚠️"
+      },
+      {
+        "text": "Chia một phần (ví dụ 20–30 triệu) vào ETF cho mục tiêu dài hạn, giữ phần còn lại ở tiết kiệm ngân hàng để sẵn sàng mua nhà",
+        "emoji": "✅"
+      },
+      {
+        "text": "Không đầu tư gì, chỉ gửi tiết kiệm lãi suất",
+        "emoji": "🏦"
+      },
+      {
+        "text": "Chờ đến năm thứ 2 mới quyết định",
+        "emoji": "⏳"
+      }
+    ],
+    "correct": 1,
+    "explanation": "Quyết định đầu tư PHẢI dựa trên thời gian bạn có thể chịu được biến động. Vì 3 năm là khá ngắn, nên chia tài sản: phần dành cho mục tiêu dài hạn (5+ năm) có thể đầu tư vào ETF (rủi ro vừa phải, lợi suất kỳ vọng cao hơn); phần dành cho mua nhà (0–3 năm) nên giữ an toàn ở tiết kiệm ngân hàng để không bị ảnh hưởng bởi biến động thị trường. Tỷ lệ cụ thể phụ thuộc vào nhu cầu của mỗi người. Cách này gọi là 'quản lý danh mục theo thời gian mục tiêu' (time-based portfolio management). Lưu ý: ETF không đảm bảo lợi suất và có thể giảm giá trị trong ngắn hạn.",
+    "_score": 85,
+    "difficulty": 3,
+    "skills": [
+      "diversification",
+      "risk",
+      "saving-habit"
+    ],
+    "bookRefs": [
+      "how-money-works",
+      "psychology-of-money"
+    ],
+    "marketingHook": "Bạn có biết? Đầu tư sai thời điểm mục tiêu có thể khiến bạn mất nhà — dù thị trường vẫn tăng dài hạn!",
+    "channelHint": "facebook",
+    "vnContext": true,
+    "source": "agent",
+    "status": "draft",
+    "reviewScore": 85,
+    "createdAt": 1782579733001
+  },
+  {
+    "id": "qb-investing-advanced-0002",
+    "topic": "investing",
+    "level": "advanced",
+    "type": "quiz",
+    "question": "Năm ngoái bạn đầu tư 20 triệu vào một mã cổ phiếu. Hôm nay, giá cổ phiếu đã rớt, giá trị tài sản chỉ còn 15 triệu (lỗ 5 triệu). Bạn cảm thấy rất lo lắng. Trong 4 hành động dưới đây, hành động nào KHÔNG nên làm?",
+    "image": "📉",
+    "options": [
+      {
+        "text": "Lập tức bán toàn bộ cổ phiếu chỉ vì hoảng sợ, không phân tích nguyên nhân",
+        "emoji": "❌"
+      },
+      {
+        "text": "Tìm hiểu lý do tại sao công ty sụt giá, đánh giá triển vọng dài hạn",
+        "emoji": "🔍"
+      },
+      {
+        "text": "Kiểm tra xem mức lỗ này có vượt quá khả năng chịu đựng rủi ro của bạn không",
+        "emoji": "⚖️"
+      },
+      {
+        "text": "Quyết định giữ hay bán dựa trên dữ liệu và kế hoạch, không phải cảm xúc",
+        "emoji": "🧠"
+      }
+    ],
+    "correct": 0,
+    "explanation": "Bán cổ phiếu khi giá rớt chỉ vì hoảng sợ được gọi là 'panic selling' (bán hoảng loạn). Đây là sai lầm phổ biến: bạn chốt lỗ vĩnh viễn thay vì chờ thị trường có thể phục hồi. Thay vào đó, hãy phân tích nguyên nhân: nếu công ty vẫn kinh doanh tốt về cơ bản, giá giảm có thể chỉ là tạm thời. Nếu tình hình kinh doanh thực sự xấu đi, khi đó mới cân nhắc bán một cách có chủ ý. Nguyên tắc: luôn quyết định dựa trên dữ liệu, không phải cảm xúc. Lưu ý: đầu tư cổ phiếu luôn có rủi ro mất vốn.",
+    "_score": 88,
+    "difficulty": 3,
+    "skills": [
+      "risk",
+      "psychology-of-money-mindset"
+    ],
+    "bookRefs": [
+      "psychology-of-money"
+    ],
+    "marketingHook": "Bạn có biết? 'Panic selling' là lý do số 1 khiến nhà đầu tư nhỏ lẻ thua lỗ — dù thị trường về sau vẫn tăng.",
+    "channelHint": "tiktok",
+    "vnContext": true,
+    "source": "agent",
+    "status": "draft",
+    "reviewScore": 88,
+    "createdAt": 1782579733001
+  },
+  {
+    "id": "qb-investing-advanced-0003",
+    "topic": "investing",
+    "level": "advanced",
+    "type": "quiz",
+    "question": "Bạn nghe một người bạn nói rằng anh ta vừa đầu tư vào một 'đồng tiền điện tử' (cryptocurrency) còn rất mới, lợi suất hứa hẹn 500% trong 1 năm. Anh ta khuyên bạn cũng nên tham gia. Bạn nên làm gì?",
+    "image": "⚡",
+    "options": [
+      {
+        "text": "Ngay lập tức chuyển tiền vào để 'bắt kịp thời cơ'",
+        "emoji": "🚀"
+      },
+      {
+        "text": "Hỏi thêm thông tin về dự án và cảnh báo bạn về rủi ro, nhưng vẫn cân nhắc tham gia",
+        "emoji": "❓"
+      },
+      {
+        "text": "Yêu cầu anh ta viết cam kết bảo lãnh lợi suất — điều này KHÔNG có giá trị pháp lý thực tế",
+        "emoji": "📝"
+      },
+      {
+        "text": "Tìm hiểu kỹ về dự án, tổ chức phát hành, và CHỈ đầu tư số tiền bạn chấp nhận mất hoàn toàn",
+        "emoji": "🔒"
+      }
+    ],
+    "correct": 3,
+    "explanation": "Tiền điện tử (crypto) là tài sản có rủi ro rất cao, đặc biệt những loại mới và ít được biết đến. Quy tắc vàng: 'Lợi suất hứa hẹn quá cao (ví dụ 500%/năm) là dấu hiệu của lừa đảo hoặc rủi ro cực cao'. Tại Việt Nam, nhiều mô hình huy động tiền số kiểu này đã bị cơ quan chức năng cảnh báo là có dấu hiệu lừa đảo. KHÔNG bao giờ tin cam kết lợi suất cố định. Nếu vẫn muốn tìm hiểu, chỉ dùng số tiền bạn sẵn sàng mất hoàn toàn — gọi là 'risk capital'. Hãy tra cứu thông tin chính thống và tham khảo ý kiến chuyên gia trước khi quyết định.",
+    "_score": 90,
+    "difficulty": 2,
+    "skills": [
+      "risk",
+      "needs-vs-wants"
+    ],
+    "bookRefs": [
+      "how-money-works"
+    ],
+    "marketingHook": "Bạn có biết? Lợi suất hứa hẹn 500%/năm là dấu hiệu cảnh báo lừa đảo — không phải cơ hội vàng!",
+    "channelHint": "zalo",
+    "vnContext": true,
+    "source": "agent",
+    "status": "draft",
+    "reviewScore": 90,
+    "createdAt": 1782579733001
+  },
+  {
+    "id": "qb-investing-advanced-0004",
+    "topic": "investing",
+    "level": "advanced",
+    "type": "quiz",
+    "question": "Bạn là nhân viên, lương 15 triệu/tháng. Công ty có chương trình quỹ hưu trí tự nguyện: bạn đóng góp một phần lương, công ty sẽ đóng thêm 2% lương mỗi tháng nếu bạn tham gia. Giả sử bạn đã có quỹ khẩn cấp 3 tháng lương rồi. Bạn nên đóng bao nhiêu mỗi tháng?",
+    "image": "💼",
+    "options": [
+      {
+        "text": "Đóng 5 triệu/tháng để tối đa hóa số tiền đầu tư",
+        "emoji": "💰"
+      },
+      {
+        "text": "Đóng 2–3 triệu/tháng — mức bạn có thể tích lũy mà vẫn trang trải chi tiêu bình thường",
+        "emoji": "✅"
+      },
+      {
+        "text": "Không đóng gì, chỉ nhận lương",
+        "emoji": "🙅"
+      },
+      {
+        "text": "Chờ đến khi được tăng lương rồi mới bắt đầu đóng",
+        "emoji": "⏳"
+      }
+    ],
+    "correct": 1,
+    "explanation": "Nguyên tắc quan trọng: chỉ đầu tư từ tiền dư sau khi đã có quỹ khẩn cấp (3–6 tháng chi tiêu) và đảm bảo chi tiêu hàng tháng. Với lương 15 triệu, đóng 2–3 triệu (khoảng 13–20% thu nhập) là mức hợp lý và bền vững. Đặc biệt, khoản công ty đóng thêm 2% là 'tiền miễn phí' — gọi là 'employer matching' — nên luôn tận dụng cơ hội này. Không cần chờ tăng lương: bắt đầu sớm giúp lãi kép tích lũy lâu hơn. Tuy nhiên đừng đóng quá nhiều đến mức không còn tiền cho sinh hoạt hàng ngày.",
+    "_score": 82,
+    "difficulty": 2,
+    "skills": [
+      "saving-habit",
+      "budgeting",
+      "emergency-fund"
+    ],
+    "bookRefs": [
+      "richest-man-babylon",
+      "rich-dad-poor-dad"
+    ],
+    "marketingHook": "Bạn có biết? Khoản công ty đóng thêm vào quỹ hưu trí cho bạn là 'tiền miễn phí' — bỏ qua là lãng phí!",
+    "channelHint": "facebook",
+    "vnContext": true,
+    "source": "agent",
+    "status": "draft",
+    "reviewScore": 82,
+    "createdAt": 1782579733001
+  },
+  {
+    "id": "qb-investing-advanced-0005",
+    "topic": "investing",
+    "level": "advanced",
+    "type": "ab",
+    "question": "Bạn có 100 triệu đồng tiết kiệm. Bạn đang cân nhắc giữa hai phương án đầu tư lâu dài (15 năm): A) Gửi tiết kiệm kỳ hạn 12 tháng tại ngân hàng (lãi suất 4–5%/năm, an toàn), hoặc B) Đầu tư vào quỹ ETF theo dõi chỉ số VN-Index (lợi suất trung bình lịch sử ~10%/năm, nhưng có biến động). Cái nào phù hợp hơn cho mục tiêu 15 năm?",
+    "image": "⏳",
+    "optionA": {
+      "emoji": "🔒",
+      "title": "Gửi tiết kiệm ngân hàng",
+      "description": "Lãi suất ổn định 4–5%/năm, không mất vốn (được bảo hiểm tiền gửi đến 125 triệu đồng). Sau 15 năm, bạn sẽ có khoảng 190–200 triệu (lãi kép). Tuy nhiên, lạm phát có thể làm giảm sức mua thực tế của số tiền này."
+    },
+    "optionB": {
+      "emoji": "📈",
+      "title": "Đầu tư vào chỉ số chứng khoán (ETF VN-Index)",
+      "description": "Lợi suất trung bình lịch sử ~10%/năm, sau 15 năm ước tính ~400–420 triệu. Tuy nhiên, có những năm giá giảm 20–30%, tài sản sẽ tạm thời giảm giá trị. Với 15 năm, các giai đoạn xấu thường được bù đắp bởi các giai đoạn tốt — nhưng không có gì đảm bảo."
+    },
+    "bestChoice": "B",
+    "explanation": "Với thời gian 15 năm, bạn có đủ thời gian để vượt qua những biến động của thị trường. Lợi suất lịch sử ~10%/năm của chỉ số chứng khoán cao hơn nhiều so với 4–5% tiết kiệm, giúp tài sản tăng trưởng vượt lạm phát. Đây là khái niệm 'Time Horizon' (chân trời thời gian): thời gian càng dài, bạn càng có thể chấp nhận rủi ro để đổi lấy lợi suất cao hơn. Lưu ý quan trọng: lợi suất 10% là con số lịch sử, không đảm bảo trong tương lai; và nếu bạn cần dùng tiền trong vòng 5 năm, phương án A sẽ an toàn hơn.",
+    "_score": 87,
+    "difficulty": 3,
+    "skills": [
+      "compound-interest",
+      "risk",
+      "saving-habit"
+    ],
+    "bookRefs": [
+      "how-money-works",
+      "psychology-of-money"
+    ],
+    "marketingHook": "Bạn có biết? 100 triệu gửi ngân hàng 15 năm được ~200 triệu; đầu tư ETF cùng kỳ ước tính ~420 triệu — gấp đôi!",
+    "channelHint": "infographic",
+    "vnContext": true,
+    "source": "agent",
+    "status": "draft",
+    "reviewScore": 87,
+    "createdAt": 1782579733001
+  },
+  {
+    "id": "qb-investing-advanced-0006",
+    "topic": "investing",
+    "level": "advanced",
+    "type": "ab",
+    "question": "Bạn vừa nhận thưởng Tết 30 triệu đồng. Bạn đang cân nhắc: A) Mua cổ phiếu riêng lẻ của một công ty lớn bạn tin tưởng (ví dụ: Vinamilk, Vietcombank, FPT), hay B) Mua chứng chỉ quỹ ETF VN30 — một rổ gồm 30 công ty lớn nhất Việt Nam?",
+    "image": "🎁",
+    "optionA": {
+      "emoji": "⭐",
+      "title": "Mua cổ phiếu riêng lẻ",
+      "description": "Nếu chọn đúng công ty tăng trưởng mạnh, lợi suất có thể rất cao. Nhưng nếu công ty đó gặp sự cố (kinh doanh xấu, bê bối...), toàn bộ 30 triệu của bạn bị ảnh hưởng nặng. Bạn cần nghiên cứu kỹ từng công ty và theo dõi thường xuyên."
+    },
+    "optionB": {
+      "emoji": "📦",
+      "title": "Mua chỉ số ETF VN30",
+      "description": "Tiền của bạn được chia tự động cho 30 công ty lớn. Nếu 1 công ty gặp vấn đề, ảnh hưởng chỉ là 1/30 tài sản. Lợi suất có thể thấp hơn nếu một cổ phiếu nào đó tăng vọt, nhưng rủi ro thấp hơn — gọi là 'phân tán rủi ro' (diversification)."
+    },
+    "bestChoice": "B",
+    "explanation": "Với người mới bắt đầu đầu tư, mua ETF chỉ số (phương án B) thường phù hợp hơn vì: (1) Rủi ro được phân tán — không bỏ tất cả trứng vào một giỏ; (2) Không cần theo dõi từng công ty hàng ngày — gọi là 'đầu tư thụ động' (passive investing); (3) Chi phí giao dịch thấp hơn so với chọn nhiều cổ phiếu riêng lẻ. Cổ phiếu riêng lẻ (A) phù hợp với người có kiến thức phân tích tài chính, kinh nghiệm thực tế và sẵn sàng chịu rủi ro tập trung cao. Lưu ý: cả hai phương án đều có rủi ro mất vốn, không phải kênh đầu tư đảm bảo.",
+    "_score": 89,
+    "difficulty": 2,
+    "skills": [
+      "diversification",
+      "risk",
+      "saving-habit"
+    ],
+    "bookRefs": [
+      "how-money-works",
+      "rich-dad-poor-dad"
+    ],
+    "marketingHook": "Bạn có biết? ETF VN30 giúp bạn sở hữu 30 công ty lớn nhất VN chỉ với vài trăm nghìn — đầu tư thụ động thông minh!",
+    "channelHint": "tiktok",
+    "vnContext": true,
+    "source": "agent",
+    "status": "draft",
+    "reviewScore": 89,
+    "createdAt": 1782579733001
+  },
+  {
+    "id": "qb-investing-advanced-0007",
+    "topic": "investing",
+    "level": "advanced",
+    "type": "quiz",
+    "question": "Bạn là một nhân viên 32 tuổi, lương 18 triệu/tháng. Công ty vừa mở chương trình quỹ hưu trí doanh nghiệp tự nguyện (một tài khoản giúp bạn tích lũy tiền cho tuổi già, có ưu đãi thuế thu nhập cá nhân): công ty sẽ đóng góp thêm 50% số tiền bạn đóng (ví dụ: bạn đóng 1 triệu đồng, công ty đóng thêm 500 nghìn đồng vào tài khoản của bạn). Lưu ý: tiền trong quỹ thường bị hạn chế rút trước tuổi nghỉ hưu theo quy định của quỹ. Bạn đã có quỹ khẩn cấp đủ 6 tháng lương. Cách nào tối ưu nhất để bắt đầu tham gia?",
+    "image": "🏢",
+    "options": [
+      {
+        "text": "Đóng góp tối thiểu (ví dụ 500 nghìn/tháng) để không ảnh hưởng dòng tiền hàng tháng",
+        "emoji": "🤏"
+      },
+      {
+        "text": "Đóng góp khoảng 10% lương (1,8 triệu/tháng) để nhận đủ phần công ty đóng thêm — lợi suất tức thì 50% trên số tiền bỏ ra",
+        "emoji": "✅"
+      },
+      {
+        "text": "Không tham gia vì tiền lương cần dùng để chi tiêu hiện tại, không thể dành cho tương lai",
+        "emoji": "❌"
+      },
+      {
+        "text": "Đóng góp cao nhất có thể (20–30% lương) để tích lũy nhanh nhất",
+        "emoji": "📈"
+      }
+    ],
+    "correct": 1,
+    "explanation": "Câu trả lời đúng là B. Đây là cơ hội hiếm có vì công ty đang tặng bạn TIỀN THÊM MIỄN PHÍ (tiếng Anh gọi là 'employer match'). Khi bạn đóng 1 triệu đồng, công ty tặng thêm 500 nghìn đồng — tương đương lợi suất ngay lập tức 50%, cao hơn bất kỳ kênh tiết kiệm hay đầu tư thông thường nào. Mức 10% lương (khoảng 1,8 triệu/tháng) là hợp lý vì: (1) Bạn đã có quỹ khẩn cấp đủ 6 tháng — nền tảng tài chính vững; (2) Còn lại ~16 triệu đồng đủ cho chi tiêu và các mục tiêu ngắn hạn; (3) Tiền trong quỹ hưu trí doanh nghiệp thường bị hạn chế rút trước tuổi nghỉ hưu theo quy định của từng quỹ, vì vậy không nên đóng quá nhiều đến mức ảnh hưởng thanh khoản. Lựa chọn A (đóng quá ít) lãng phí phần đóng thêm của công ty. Lựa chọn D (đóng 20–30%) làm giảm mạnh dòng tiền hàng tháng trong khi tiền bị 'khóa' dài hạn. Lựa chọn C sai vì ở tuổi 32, bạn còn khoảng 28–33 năm tích lũy — thời gian dài hạn là lợi thế lớn nhất của quỹ hưu trí.",
+    "_score": 82,
+    "difficulty": 4,
+    "skills": [
+      "saving-habit",
+      "compound-interest",
+      "emergency-fund"
+    ],
+    "bookRefs": [
+      "psychology-of-money",
+      "richest-man-babylon"
+    ],
+    "marketingHook": "Bạn có biết? Đóng quỹ hưu trí có employer match = lợi suất 50% ngay lập tức — không kênh đầu tư nào sánh được!",
+    "channelHint": "facebook",
+    "vnContext": true,
+    "source": "agent",
+    "status": "draft",
+    "reviewScore": 82,
+    "createdAt": 1782579803085
+  },
+  {
+    "id": "qb-investing-advanced-0008",
+    "topic": "investing",
+    "level": "advanced",
+    "type": "quiz",
+    "question": "Bạn là một kỹ sư 28 tuổi, lương 16 triệu đồng/tháng. Bạn vừa tiết kiệm được 80 triệu đồng. Bạn có 3 mục tiêu tài chính: (1) Mua xe máy giá 30 triệu trong 1 năm tới, (2) Tích lũy tiền cưới trong 5 năm, (3) Chuẩn bị cho tuổi già (40+ năm nữa). Bạn đang cân nhắc cách chia 80 triệu này ra sao. Hỏi: Chiến lược phân bổ nào hợp lý nhất?",
+    "image": "🗂️",
+    "options": [
+      {
+        "text": "Để hết 80 triệu vào quỹ ETF (một rổ cổ phiếu theo dõi chỉ số thị trường). Lợi suất cao hơn, có thể đáp ứng cả 3 mục tiêu",
+        "emoji": "📈"
+      },
+      {
+        "text": "Chia: 30 triệu gửi tiết kiệm kỳ hạn ngắn 1–3 tháng (cho xe năm sau – an toàn, rút linh hoạt); 20 triệu gửi tiết kiệm kỳ hạn 3–5 năm (cho cưới – trung hạn); 30 triệu đầu tư ETF (cho hưu trí – dài hạn, chấp nhận rủi ro biến động)",
+        "emoji": "⚖️"
+      },
+      {
+        "text": "Để hết 80 triệu gửi tiết kiệm kỳ hạn ngân hàng 12 tháng lặp lại (an toàn nhất, không mất ngủ lo rủi ro)",
+        "emoji": "🏦"
+      },
+      {
+        "text": "Đầu tư toàn bộ vào cổ phiếu riêng lẻ của các công ty lớn (Vinamilk, Vietcombank). Có thể đem lại lợi nhuận cao nếu chọn đúng cổ phiếu, dễ kiểm soát",
+        "emoji": "📊"
+      }
+    ],
+    "correct": 1,
+    "explanation": "Đáp án B là chiến lược phân bổ tài sản (asset allocation) hợp lý nhất. Nó khớp mỗi mục tiêu với loại đầu tư thích hợp: (1) Mục tiêu **ngắn hạn** (1 năm, xe máy) → tiết kiệm kỳ hạn ngắn 1–3 tháng (lãi suất ~3–4%/năm, rút linh hoạt khi đến hạn mà không bị phạt lãi suất). (2) Mục tiêu **trung hạn** (5 năm, cưới) → tiết kiệm kỳ hạn 3–5 năm (lãi suất cao hơn ~5–6%/năm, rủi ro vẫn thấp). (3) Mục tiêu **dài hạn** (40+ năm, hưu trí) → ETF (lợi suất trung bình lịch sử khoảng 10%/năm, nhưng có biến động; bạn có đủ thời gian để vượt qua các giai đoạn thị trường đi xuống). Các phương án khác chưa hợp lý vì: A) Để hết vào ETF bỏ qua nhu cầu xe trong 1 năm — nếu thị trường giảm đúng lúc đó, bạn có thể không đủ tiền mua xe. C) Toàn bộ tiết kiệm lãi suất thấp hơn lạm phát dài hạn, không đủ tích lũy cho 40 năm. D) Cổ phiếu riêng lẻ = tập trung rủi ro vào 1–2 công ty, rủi ro cao hơn ETF và không phù hợp cho người mới bắt đầu đầu tư.",
+    "_score": 85,
+    "difficulty": 4,
+    "skills": [
+      "diversification",
+      "risk",
+      "saving-habit"
+    ],
+    "bookRefs": [
+      "how-money-works",
+      "psychology-of-money"
+    ],
+    "marketingHook": "Bạn có biết? Đặt tiền ngắn hạn vào ETF có thể khiến bạn không đủ tiền mua xe nếu thị trường sập đúng lúc cần rút!",
+    "channelHint": "facebook",
+    "vnContext": true,
+    "source": "agent",
+    "status": "draft",
+    "reviewScore": 85,
+    "createdAt": 1782580223234
+  },
+  {
+    "type": "quiz",
+    "question": "Tiết kiệm có nghĩa là gì?",
+    "image": "🏦",
+    "options": [
+      {
+        "text": "Dành một phần tiền để không tiêu hôm nay, để dùng sau này",
+        "emoji": "💰"
+      },
+      {
+        "text": "Tiêu hết tất cả tiền kiếm được trong ngày",
+        "emoji": "🛍️"
+      },
+      {
+        "text": "Vay tiền từ bạn bè",
+        "emoji": "🤝"
+      },
+      {
+        "text": "Không bao giờ mua thứ gì cả",
+        "emoji": "❌"
+      }
+    ],
+    "correct": 0,
+    "explanation": "Tiết kiệm chính là cách quản lý tiền thông minh: bạn kiếm tiền, tiêu một phần cần thiết, và dành lại phần còn lại cho những nhu cầu sau này hoặc những lúc khó khăn. Không phải không tiêu tiền, mà là tiêu có kế hoạch.",
+    "difficulty": 1,
+    "skills": [
+      "saving-habit",
+      "budgeting"
+    ],
+    "bookRefs": [],
+    "marketingHook": "Bạn có biết? Tiết kiệm không phải từ bỏ vui vẻ, mà là tiêu tiền có kế hoạch để tương lai tự do.",
+    "channelHint": "tiktok",
+    "id": "qb-saving-foundation-0001",
+    "topic": "saving",
+    "level": "foundation",
+    "vnContext": true,
+    "source": "agent",
+    "status": "draft",
+    "reviewScore": 88,
+    "createdAt": 1782580419747
+  },
+  {
+    "type": "quiz",
+    "question": "Em được cha mẹ cho 50.000 đồng tiền tiêu vặt trong tháng. Em tiêu 35.000 đồng, còn lại 15.000 đồng. Em nên làm gì với 15.000 đồng?",
+    "image": "👧",
+    "options": [
+      {
+        "text": "Gửi vào lợn tiết kiệm hoặc nhờ bố mẹ gửi vào tài khoản tiết kiệm",
+        "emoji": "🐷"
+      },
+      {
+        "text": "Phải tiêu hết trước hết hạn tháng",
+        "emoji": "🎮"
+      },
+      {
+        "text": "Cho cha mẹ để họ xử lý",
+        "emoji": "👨‍👩‍👧"
+      },
+      {
+        "text": "Để đó, không cần quan tâm",
+        "emoji": "😴"
+      }
+    ],
+    "correct": 0,
+    "explanation": "15.000 đồng dù nhỏ nhưng nếu gửi vào lợn tiết kiệm hoặc nhờ bố mẹ gửi vào tài khoản ngân hàng (vì trẻ em cần bố mẹ đứng tên), bạn sẽ có một khoản tiền để ứng phó khi cần, hoặc dùng cho những điều muốn mua sau. Đó là bước đầu học tiết kiệm.",
+    "difficulty": 1,
+    "skills": [
+      "saving-habit",
+      "needs-vs-wants"
+    ],
+    "bookRefs": [],
+    "marketingHook": "Bạn có biết? Các em bắt đầu tiết kiệm từ 15k/tháng có thể có 180k/năm để thực hiện ước mơ.",
+    "channelHint": "facebook",
+    "id": "qb-saving-foundation-0002",
+    "topic": "saving",
+    "level": "foundation",
+    "vnContext": true,
+    "source": "agent",
+    "status": "draft",
+    "reviewScore": 87,
+    "createdAt": 1782580419747
+  },
+  {
+    "type": "quiz",
+    "question": "Nếu bạn muốn mua một chiếc xe đạp giá 2.000.000 đồng nhưng hiện tại chỉ có 500.000 đồng, bạn nên làm gì?",
+    "image": "🚲",
+    "options": [
+      {
+        "text": "Gửi tiết kiệm số tiền có được, mỗi tháng dành thêm tiền để dần dần đạt được mục tiêu",
+        "emoji": "📈"
+      },
+      {
+        "text": "Từ bỏ ý định vì không thể mua ngay được",
+        "emoji": "😞"
+      },
+      {
+        "text": "Vay mượn tiền từ bạn bè rồi mua ngay",
+        "emoji": "📞"
+      },
+      {
+        "text": "Mua cái khác rẻ hơn thay vì tiết kiệm",
+        "emoji": "🛒"
+      }
+    ],
+    "correct": 0,
+    "explanation": "Tiết kiệm giúp bạn đạt được các mục tiêu lớn. Bạn có 500.000 đồng, còn cần 1.500.000 đồng nữa. Nếu mỗi tháng dành được 150.000 đồng, thêm 10 tháng nữa là có đủ. Đó là sự kiên nhẫn trong tiết kiệm.",
+    "difficulty": 2,
+    "skills": [
+      "budgeting",
+      "saving-habit",
+      "goal-setting"
+    ],
+    "bookRefs": [
+      "how-money-works"
+    ],
+    "marketingHook": "Bạn có biết? Chiếc xe đạp mơ ước chỉ cách bạn 10 tháng nếu tiết kiệm 150k/tháng – không phải bỏ cuộc!",
+    "channelHint": "infographic",
+    "id": "qb-saving-foundation-0003",
+    "topic": "saving",
+    "level": "foundation",
+    "vnContext": true,
+    "source": "agent",
+    "status": "draft",
+    "reviewScore": 91,
+    "createdAt": 1782580419747
+  },
+  {
+    "type": "quiz",
+    "question": "Lợi ích chính của tiết kiệm là gì?",
+    "image": "✨",
+    "options": [
+      {
+        "text": "Có an tâm khi gặp khó khăn, có tiền cho những mơ ước, và học quản lý tiền từ sớm",
+        "emoji": "😌"
+      },
+      {
+        "text": "Có thể tiêu tiền mà không lo hậu quả",
+        "emoji": "🎉"
+      },
+      {
+        "text": "Trở thành người giàu trong một đêm",
+        "emoji": "💸"
+      },
+      {
+        "text": "Không cần làm việc nữa",
+        "emoji": "😴"
+      }
+    ],
+    "correct": 0,
+    "explanation": "Tiết kiệm tạo ra ba lợi ích lớn: (1) an tâm tài chính khi có việc không may; (2) năng lực để thực hiện những ước mơ (mua đồ, du lịch, học thêm); (3) hình thành thói quen quản lý tiền tốt từ khi còn trẻ.",
+    "difficulty": 2,
+    "skills": [
+      "saving-habit",
+      "emergency-fund",
+      "budgeting"
+    ],
+    "bookRefs": [
+      "psychology-of-money"
+    ],
+    "marketingHook": "Bạn có biết? Tiết kiệm từ tuổi trẻ không chỉ cho tương lai, mà còn tạo bình yên tâm lý ngay bây giờ.",
+    "channelHint": "zalo",
+    "id": "qb-saving-foundation-0004",
+    "topic": "saving",
+    "level": "foundation",
+    "vnContext": true,
+    "source": "agent",
+    "status": "draft",
+    "reviewScore": 85,
+    "createdAt": 1782580419747
+  },
+  {
+    "type": "ab",
+    "question": "Bạn vừa kiếm được 200.000 đồng từ việc phụ giúp cha mẹ. Bạn sẽ chọn phương án nào?",
+    "image": "💵",
+    "optionA": {
+      "emoji": "🎮",
+      "title": "Tiêu hết để mua game, đồ chơi, kẹo ngay hôm nay",
+      "description": "Vui vẻ ngay, nhưng tiền sẽ hết nhanh và không còn dành dụm gì"
+    },
+    "optionB": {
+      "emoji": "📊",
+      "title": "Chia làm 2 phần: 150.000 đ tiêu, 50.000 đ tiết kiệm",
+      "description": "Vừa có tiền để mua những thứ muốn, vừa tích lũy dần được một khoản tiền"
+    },
+    "bestChoice": "B",
+    "explanation": "Lựa chọn B là cách làm cân bằng và thông minh. Bạn vẫn có tiền để mua những thứ yêu thích (150.000 đ), nhưng lại dành được 50.000 đ để tiết kiệm. Sau vài lần kiếm tiền như vậy, bạn sẽ có một khoản tiền đáng kể để dùng cho mục tiêu lớn hơn.",
+    "difficulty": 2,
+    "skills": [
+      "budgeting",
+      "saving-habit",
+      "needs-vs-wants"
+    ],
+    "bookRefs": [],
+    "marketingHook": "Bạn có biết? Quy tắc 75/25 (tiêu 75%, tiết kiệm 25%) có thể biến bạn từ người tiêu tiền thành nhà đầu tư.",
+    "channelHint": "tiktok",
+    "id": "qb-saving-foundation-0005",
+    "topic": "saving",
+    "level": "foundation",
+    "vnContext": true,
+    "source": "agent",
+    "status": "draft",
+    "reviewScore": 90,
+    "createdAt": 1782580419747
+  },
+  {
+    "type": "ab",
+    "question": "Bạn được cha mẹ cho 100.000 đồng tiền lì xì. Bạn sẽ chọn cách nào?",
+    "image": "🧧",
+    "optionA": {
+      "emoji": "🏪",
+      "title": "Tiêu hết ngay trong tuần cho những thứ thích",
+      "description": "Tiền sẽ mau hết, khó có dịp để tích lũy hoặc ứng phó khi thực sự cần"
+    },
+    "optionB": {
+      "emoji": "🏦",
+      "title": "Gửi vào lợn tiết kiệm hoặc nhờ bố mẹ gửi vào tài khoản tiết kiệm ngân hàng",
+      "description": "Bảo vệ số tiền, dần dần tích lũy, có thể dùng khi gặp nhu cầu thực sự quan trọng"
+    },
+    "bestChoice": "B",
+    "explanation": "Tiền lì xì là cơ hội tiết kiệm tốt. Bằng cách gửi vào lợn tiết kiệm hoặc nhờ bố mẹ gửi vào tài khoản ngân hàng (trẻ em cần bố mẹ đứng tên), bạn vừa bảo vệ số tiền, vừa không dễ dàng tiêu nó cho những thứ không thực sự cần. Sau một hai năm, khoản tiền lì xì tích lũy sẽ trở thành nguồn tài chính nhỏ của chính bạn.",
+    "difficulty": 1,
+    "skills": [
+      "saving-habit",
+      "emergency-fund"
+    ],
+    "bookRefs": [
+      "how-money-works"
+    ],
+    "marketingHook": "Bạn có biết? Mỗi dịp Tết, tiền lì xì gửi vào tài khoản có thể biến thành chi phí du lịch hè của bạn.",
+    "channelHint": "facebook",
+    "id": "qb-saving-foundation-0006",
+    "topic": "saving",
+    "level": "foundation",
+    "vnContext": true,
+    "source": "agent",
+    "status": "draft",
+    "reviewScore": 86,
+    "createdAt": 1782580419747
+  }
+]

@@ -41,7 +41,8 @@ QUY TẮC NỘI DUNG:
 LOẠI CÂU HỎI & SCHEMA (trả JSON mảng, KHÔNG markdown):
 - quiz: { "type":"quiz", "question", "image" (1 emoji), "options":[{"text","emoji"}] (3–4 lựa chọn), "correct" (index 0-based), "explanation" }
 - ab: { "type":"ab", "question", "image", "optionA":{"emoji","title","description"}, "optionB":{...}, "bestChoice":"A"|"B", "explanation" }
-- transaction: { "type":"transaction", "scenario", "startBalance" (số), "currency":"đ", "steps":[{"description","amount" (số dương),"type":"income"|"expense"|"save","hint"}], "question", "correctAnswer" (số = số dư/đáp án đúng), "explanation" }
+- transaction: { "type":"transaction", "scenario", "startBalance" (số), "currency":"đ", "steps":[{"description","amount" (số dương),"type":"income"|"expense"|"save","hint"}], "question", "correctAnswer" (số), "explanation" }
+  LƯU Ý transaction: "income" và "save" đều CỘNG vào số dư (save = tiền giữ lại vẫn còn), "expense" TRỪ. Câu hỏi PHẢI hỏi TỔNG SỐ DƯ CUỐI CÙNG (gồm cả tiền tiết kiệm). correctAnswer = startBalance + tổng(income) + tổng(save) − tổng(expense). KHÔNG dùng kiểu "không tính tiền tiết kiệm".
 
 YÊU CẦU ĐẦU RA: CHỈ trả về một mảng JSON các câu hỏi đúng schema theo loại được yêu cầu. Không thêm lời dẫn.`;
 
@@ -59,7 +60,7 @@ NHIỆM VỤ: Chấm từng câu hỏi theo 6 tiêu chí (mỗi tiêu chí góp 
 ĐẦU VÀO: { items: [...], existing: [danh sách câu hỏi đã có để so trùng] }
 
 ĐẦU RA (JSON, KHÔNG markdown): mảng cùng độ dài với items, mỗi phần tử:
-{ "approved": boolean (true nếu score>=80 và không trùng), "score": 0-100, "issues": [chuỗi cụ thể], "revisedItem": {item đã sửa nhẹ nếu cần, giữ nguyên schema} }
+{ "approved": boolean (true nếu score>=80 và không trùng), "score": 0-100, "issues": [chuỗi cụ thể], "revisedItem": null HOẶC {item đã sửa, giữ nguyên schema} — CHỈ trả revisedItem khi thật sự có chỉnh sửa; nếu giữ nguyên thì để null để tiết kiệm }
 Nếu câu sai/ trùng/ không cứu được → approved=false, issues nêu rõ lý do.`;
 
 // ---------------- AGENT 3: BIÊN TẬP & GẮN THẺ ----------------
