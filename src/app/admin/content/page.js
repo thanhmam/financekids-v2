@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { LESSONS, AGE_GROUPS, CATEGORIES } from "@/data/lessons";
 import {
   getLessonOverrides,
@@ -161,6 +162,12 @@ export default function AdminContentPage() {
               >
                 {status === "hidden" ? "Đã ẩn" : "Hiển thị"}
               </span>
+              <Link
+                href={`/admin/content/${l.id}`}
+                className="text-sm font-bold px-3 py-1.5 rounded-xl bg-blue-50 text-blue-600 shrink-0"
+              >
+                Sửa
+              </Link>
               <button
                 onClick={() => toggle(l.id)}
                 className="text-sm font-bold px-3 py-1.5 rounded-xl bg-orange-50 text-orange-600 shrink-0"

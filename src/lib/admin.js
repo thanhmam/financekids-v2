@@ -226,4 +226,86 @@ export async function sendNotification({ title, message, target }) {
   return record;
 }
 
+// ========== 5. SỬA NỘI DUNG CÂU HỎI / BÀI HỌC (override) ==========
+// Override lưu đè lên dữ liệu tĩnh; app đọc và áp khi render.
+const Q_OVERRIDE_KEY = "fk_admin_question_overrides"; // { "lessonId::questionId": {patch} }
+const L_META_KEY = "fk_admin_lesson_meta"; // { lessonId: {category, level, topic, title...} }
+
+export async function getQuestionOverrides() {
+  if (useFirestore()) {
+    try {
+      const snap = await getDocs(collection(db, "question_overrides"));
+      const map = {};
+      snap.forEach((d) => (map[d.id.replace("__", "::")] = d.data()));
+      return map;
+    } catch (e) {
+      console.warn("getQuestionOverrides lỗi:", e.message);
+    }
+  }
+  return lsGet(Q_OVERRIDE_KEY, {});
+}
+
+export async function saveQuestionOverride(lessonId, questionId, patch) {
+  if (useFirestore()) {
+    try {
+      await setDoc(
+        doc(db, "question_overrides", `${lessonId}__${questionId}`),
+        { ...patch, updatedAt: serverTimestamp() },
+        { merge: true }
+      );
+      return;
+    } catch (e) {
+      console.warn("saveQuestionOverride lỗi:", e.message);
+    }
+  }
+  const all = lsGet(Q_OVERRIDE_KEY, {});
+  all[`${lessonId}::${questionId}`] = { ...(all[`${lessonId}::${questionId}`] || {}), ...patch };
+  lsSet(Q_OVERRIDE_KEY, all);
+}
+
+export async function getLessonMeta() {
+  if (useFirestore()) {
+    try {
+      const snap = await getDocs(collection(db, "lesson_meta"));
+      const map = {};
+      snap.forEach((d) => (map[d.id] = d.data()));
+      return map;
+    } catch (e) {
+      console.warn("getLessonMeta lỗi:", e.message);
+    }
+  }
+  return lsGet(L_META_KEY, {});
+}
+
+export async function saveLessonMeta(lessonId, patch) {
+  if (useFirestore()) {
+    try {
+      await setDoc(
+        doc(db, "lesson_meta", lessonId),
+        { ...patch, updatedAt: serverTimestamp() },
+        { merge: true }
+      );
+      return;
+    } catch (e) {
+      console.warn("saveLessonMeta lỗi:", e.message);
+    }
+  }
+  const all = lsGet(L_META_KEY, {});
+  all[lessonId] = { ...(all[lessonId] || {}), ...patch };
+  lsSet(L_META_KEY, all);
+}
+
+// Áp override lên 1 lesson (dùng ở app ngoài lẫn admin)
+export function applyLessonOverrides(lesson, qOverrides = {}, lMeta = {}) {
+  const meta = lMeta[lesson.id] || {};
+  return {
+    ...lesson,
+    ...meta,
+    questions: lesson.questions.map((q) => ({
+      ...q,
+      ...(qOverrides[`${lesson.id}::${q.id}`] || {}),
+    })),
+  };
+}
+
 export { useFirestore };

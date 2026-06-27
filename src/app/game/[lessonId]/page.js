@@ -95,7 +95,24 @@ function OutOfHeartsModal({ onRefill, onPractice, onHome, refillTimer }) {
 export default function GamePage() {
   const params = useParams();
   const router = useRouter();
-  const lesson = getLessonById(params.lessonId);
+  const baseLesson = getLessonById(params.lessonId);
+
+  // Áp các chỉnh sửa nội dung từ Admin (override) nếu có
+  const [lesson, setLesson] = useState(baseLesson);
+  useEffect(() => {
+    let active = true;
+    if (!baseLesson) return;
+    (async () => {
+      try {
+        const { getQuestionOverrides, getLessonMeta, applyLessonOverrides } = await import("@/lib/admin");
+        const [qo, lm] = [await getQuestionOverrides(), await getLessonMeta()];
+        if (active) setLesson(applyLessonOverrides(baseLesson, qo, lm));
+      } catch {
+        if (active) setLesson(baseLesson);
+      }
+    })();
+    return () => { active = false; };
+  }, [params.lessonId]);
 
   const { completeLesson, newBadges, clearNewBadges } = useProgress();
   const [currentQuestion, setCurrentQuestion] = useState(0);

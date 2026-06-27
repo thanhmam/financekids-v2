@@ -95,6 +95,18 @@ export default function GameQuiz({ question, onAnswer, onNext }) {
             <span style={{ fontSize: 18 }}>{isCorrect ? "🎉" : "💡"}</span>
             <p style={{ font: "600 13px 'Nunito'", color: "#34453B", lineHeight: 1.5 }}>{question.explanation}</p>
           </div>
+          {question.marketingHook && (
+            <div style={{ marginTop: 10, paddingTop: 10, borderTop: "1px dashed #D7E3DA", font: "700 12px 'Nunito'", color: "#0E7A4E", lineHeight: 1.5 }}>
+              {question.marketingHook}
+            </div>
+          )}
+          {Array.isArray(question.skills) && question.skills.length > 0 && (
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 5, marginTop: 8 }}>
+              {question.skills.map((s) => (
+                <span key={s} style={{ background: "#fff", border: "1px solid #D7E3DA", color: "#5B7065", borderRadius: 20, padding: "2px 8px", font: "700 10px 'Nunito'" }}>#{s}</span>
+              ))}
+            </div>
+          )}
         </div>
       )}
 

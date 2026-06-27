@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { CATEGORIES } from "@/data/lessons";
+import { CATEGORIES, LEVELS, TOPICS } from "@/data/lessons";
 
 const AGE_CHIP = {
   "6-8":   { bg: "#E3F7EC", color: "#0E9E5C", label: "6-8 tuổi" },
@@ -9,9 +9,16 @@ const AGE_CHIP = {
   "13-16": { bg: "#F1E9FF", color: "#7C4DEC", label: "13-16 tuổi" },
 };
 
+const LEVEL_CHIP = {
+  foundation: { bg: "#EAFBF1", color: "#0E9E5C" },
+  advanced:   { bg: "#F1E9FF", color: "#7C4DEC" },
+};
+
 export default function LessonCard({ lesson, isCompleted }) {
   const category = CATEGORIES[lesson.category];
   const age = AGE_CHIP[lesson.ageGroup];
+  const lvl = lesson.level && LEVELS?.[lesson.level];
+  const lvlChip = lesson.level && LEVEL_CHIP[lesson.level];
 
   return (
     <Link href={`/game/${lesson.id}`}>
@@ -47,9 +54,16 @@ export default function LessonCard({ lesson, isCompleted }) {
           {lesson.subtitle}
         </div>
 
-        {/* Age chip */}
-        <div style={{ display: "inline-block", background: age.bg, color: age.color, borderRadius: 20, padding: "3px 9px", font: "700 10px 'Nunito'", marginBottom: 10 }}>
-          {age.label}
+        {/* Chips: cấp độ (bài kho) + tuổi */}
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 5, marginBottom: 10 }}>
+          {lvl && lvlChip && (
+            <span style={{ display: "inline-block", background: lvlChip.bg, color: lvlChip.color, borderRadius: 20, padding: "3px 9px", font: "700 10px 'Nunito'" }}>
+              {lvl.emoji} {lvl.label}
+            </span>
+          )}
+          <span style={{ display: "inline-block", background: age.bg, color: age.color, borderRadius: 20, padding: "3px 9px", font: "700 10px 'Nunito'" }}>
+            {age.label}
+          </span>
         </div>
 
         {/* Footer */}
