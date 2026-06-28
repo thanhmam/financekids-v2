@@ -254,7 +254,7 @@ export default function GamePage() {
 
         <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
           {[
-            { icon: "⌂", label: "Học",       path: "/" },
+            { icon: "⌂", label: "Học",       path: "/learn" },
             { icon: "◆", label: "Khám phá",  path: "/explore" },
             { icon: "▲", label: "Nhiệm vụ",  path: "/tasks" },
             { icon: "♛", label: "Xếp hạng", path: "/leaderboard" },

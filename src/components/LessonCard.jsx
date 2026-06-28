@@ -14,14 +14,13 @@ const LEVEL_CHIP = {
   advanced:   { bg: "#F1E9FF", color: "#7C4DEC" },
 };
 
-export default function LessonCard({ lesson, isCompleted }) {
+export default function LessonCard({ lesson, isCompleted, guest = false, onGuestClick }) {
   const category = CATEGORIES[lesson.category];
   const age = AGE_CHIP[lesson.ageGroup];
   const lvl = lesson.level && LEVELS?.[lesson.level];
   const lvlChip = lesson.level && LEVEL_CHIP[lesson.level];
 
-  return (
-    <Link href={`/game/${lesson.id}`}>
+  const cardInner = (
       <div
         className="lesson-card"
         style={{
@@ -70,10 +69,24 @@ export default function LessonCard({ lesson, isCompleted }) {
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <span style={{ font: "600 11px 'Nunito'", color: "#9AA89E" }}>⭐ +{lesson.xp} XP</span>
           <span style={{ font: "800 12px 'Baloo 2'", color: isCompleted ? "#0E9E5C" : "#16C172" }}>
-            {isCompleted ? "Chơi lại" : "Học →"}
+            {isCompleted ? "Chơi lại" : guest ? "🔒 Học →" : "Học →"}
           </span>
         </div>
       </div>
+  );
+
+  // Khách: chặn điều hướng, mở yêu cầu đăng nhập
+  if (guest) {
+    return (
+      <div onClick={onGuestClick} style={{ display: "block", height: "100%", cursor: "pointer" }}>
+        {cardInner}
+      </div>
+    );
+  }
+
+  return (
+    <Link href={`/game/${lesson.id}`}>
+      {cardInner}
     </Link>
   );
 }

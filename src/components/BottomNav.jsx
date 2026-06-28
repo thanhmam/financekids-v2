@@ -3,7 +3,7 @@
 import { usePathname, useRouter } from "next/navigation";
 
 const TABS = [
-  { icon: "⌂", path: "/", activeBg: "#16C172", shape: "square" },
+  { icon: "⌂", path: "/learn", activeBg: "#16C172", shape: "square" },
   { icon: "◆", path: "/explore", activeBg: "#16C172", shape: "square" },
   { icon: "▲", path: "/tasks", activeBg: "#FF8A3D", shape: "square" },
   { icon: "♛", path: "/leaderboard", activeBg: "#8B5CF6", shape: "square" },
@@ -22,7 +22,7 @@ export default function BottomNav() {
       padding: "10px 0 14px", zIndex: 40,
     }}>
       {TABS.map(tab => {
-        const isActive = pathname === tab.path;
+        const isActive = pathname === tab.path || (tab.path === "/learn" && pathname === "/");
         if (tab.icon === "profile") {
           return (
             <button key={tab.path} onClick={() => router.push(tab.path)}

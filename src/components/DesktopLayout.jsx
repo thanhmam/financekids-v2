@@ -8,7 +8,7 @@ import XuXuMascot from "@/components/XuXuMascot";
 import UpgradeModal from "@/components/UpgradeModal";
 
 const NAV_ITEMS = [
-  { icon: "⌂", label: "Học",       path: "/" },
+  { icon: "⌂", label: "Học",       path: "/learn" },
   { icon: "◆", label: "Khám phá",  path: "/explore" },
   { icon: "▲", label: "Nhiệm vụ",  path: "/tasks" },
   { icon: "♛", label: "Xếp hạng", path: "/leaderboard" },
@@ -70,7 +70,7 @@ export default function DesktopLayout({ children }) {
         {/* Nav items */}
         <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
           {NAV_ITEMS.map(item => {
-            const isActive = pathname === item.path;
+            const isActive = pathname === item.path || (item.path === "/learn" && pathname === "/");
             return (
               <button
                 key={item.path}
