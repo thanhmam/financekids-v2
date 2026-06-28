@@ -49,6 +49,12 @@ const TARGET_GROUPS = [
   { emoji: "📚", label: "Ai muốn hiểu về tiền", desc: "Chưa biết bắt đầu từ đâu? XuXu giúp bạn từng bước — không cần nền tảng kinh tế.", bg: "#F1E9FF", ink: "#6B36C9" },
 ];
 
+const HERO_PILLS = [
+  { emoji: "⏱️", text: "10–15 phút/ngày" },
+  { emoji: "🎮", text: "Học mà như chơi" },
+  { emoji: "🌱", text: "Nền tảng vững chắc" },
+];
+
 function Section({ children, style }) {
   return (
     <section style={{ maxWidth: 1080, margin: "0 auto", padding: "0 20px", ...style }}>
@@ -94,22 +100,23 @@ export default function Landing() {
       </header>
 
       {/* ── HERO ── */}
-      <Section style={{ paddingTop: 56, paddingBottom: 48 }}>
+      <Section style={{ paddingTop: 48, paddingBottom: 40 }}>
         <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 40, justifyContent: "center" }}>
+
           {/* Copy */}
-          <div style={{ flex: "1 1 420px", maxWidth: 560 }}>
+          <div style={{ flex: "1 1 380px", maxWidth: 540 }}>
             <div style={{ display: "inline-flex", alignItems: "center", gap: 7, background: "#fff", border: `2px solid ${C.border}`, borderRadius: 20, padding: "6px 14px", marginBottom: 18 }}>
               <span style={{ fontSize: 15 }}>✨</span>
               <span style={{ font: "700 12px 'Nunito'", color: C.muted }}>Học tài chính — vui, đơn giản, mỗi ngày 10 phút</span>
             </div>
-            <h1 style={{ font: "800 clamp(34px, 5vw, 52px)/1.08 'Baloo 2'", color: C.ink, marginBottom: 18 }}>
+            <h1 style={{ font: "800 clamp(32px, 5vw, 52px)/1.1 'Baloo 2'", color: C.ink, marginBottom: 16 }}>
               Hiểu về <span style={{ color: C.green }}>Tiền</span> theo cách{" "}
               <span style={{ position: "relative", whiteSpace: "nowrap" }}>
                 vui nhất
                 <span style={{ position: "absolute", left: 0, right: 0, bottom: 2, height: 10, background: "#FFE08A", borderRadius: 6, zIndex: -1 }} />
               </span>
             </h1>
-            <p style={{ font: "600 clamp(15px, 2vw, 18px)/1.6 'Nunito'", color: C.muted, marginBottom: 28, maxWidth: 480 }}>
+            <p style={{ font: "600 clamp(15px, 2vw, 17px)/1.6 'Nunito'", color: C.muted, marginBottom: 24, maxWidth: 460 }}>
               XuXu giúp bạn hiểu về tiền, tiết kiệm, đầu tư qua các khái niệm đơn giản và mini-game thú vị.
               Chỉ 10–15 phút mỗi ngày để xây nền tảng tài chính vững chắc cho tương lai.
             </p>
@@ -129,37 +136,40 @@ export default function Landing() {
                 Đăng nhập
               </button>
             </div>
-            <div style={{ display: "flex", gap: 22, marginTop: 30, flexWrap: "wrap" }}>
-              {[
-                { num: `${LESSONS.length}`, label: "bài học" },
-                { num: `${topicKeys.length}`, label: "chủ đề" },
-                { num: "10+", label: "phút/ngày" },
-              ].map(s => (
-                <div key={s.label}>
-                  <div style={{ font: "800 24px 'Baloo 2'", color: C.ink }}>{s.num}+</div>
-                  <div style={{ font: "600 12px 'Nunito'", color: C.faint }}>{s.label}</div>
+            {/* 3 benefit pills — centered */}
+            <div style={{ display: "flex", gap: 10, marginTop: 24, flexWrap: "wrap", justifyContent: "center" }}>
+              {HERO_PILLS.map(p => (
+                <div key={p.text} style={{ display: "flex", alignItems: "center", gap: 6, background: "#fff", border: `2px solid ${C.border}`, borderRadius: 20, padding: "8px 14px", font: "700 13px 'Nunito'", color: C.ink }}>
+                  <span>{p.emoji}</span>
+                  <span>{p.text}</span>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Visual */}
-          <div style={{ flex: "0 1 360px", display: "flex", justifyContent: "center" }}>
-            <div style={{ position: "relative", width: 320, height: 320 }}>
-              <div style={{ position: "absolute", inset: 0, borderRadius: "50%", background: "radial-gradient(circle at 50% 45%, #DCF7E8, #F4F8EF 70%)" }} />
-              <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", animation: "float 3s ease-in-out infinite" }}>
-                <XuXuMascot size={170} mood="excited" />
+          {/* Visual — mascot + chips stacked cleanly */}
+          <div style={{ flex: "0 1 300px", display: "flex", flexDirection: "column", alignItems: "center", gap: 16 }}>
+            {/* Top chip */}
+            <div style={{ background: "#fff", borderRadius: 16, padding: "8px 14px", boxShadow: "0 6px 18px rgba(21,57,42,.12)", font: "800 13px 'Baloo 2'", color: C.ink, display: "flex", alignItems: "center", gap: 6, animation: "float 3.4s ease-in-out infinite" }}>
+              💰 +100 XP
+            </div>
+
+            {/* Mascot with side chips */}
+            <div style={{ position: "relative", display: "inline-block" }}>
+              <div style={{ width: 200, height: 200, borderRadius: "50%", background: "radial-gradient(circle at 50% 45%, #DCF7E8, #F4F8EF 75%)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <div style={{ animation: "float 3s ease-in-out infinite" }}>
+                  <XuXuMascot size={150} mood="excited" />
+                </div>
               </div>
-              {/* Floating chips */}
-              <div style={{ position: "absolute", top: 18, left: 6, background: "#fff", borderRadius: 16, padding: "8px 12px", boxShadow: "0 6px 18px rgba(21,57,42,.12)", font: "800 13px 'Baloo 2'", color: C.ink, display: "flex", alignItems: "center", gap: 6, animation: "float 3.4s ease-in-out infinite" }}>
-                💰 +100 XP
-              </div>
-              <div style={{ position: "absolute", bottom: 30, right: 0, background: "#fff", borderRadius: 16, padding: "8px 12px", boxShadow: "0 6px 18px rgba(21,57,42,.12)", font: "800 13px 'Baloo 2'", color: C.orange, display: "flex", alignItems: "center", gap: 6, animation: "float 2.6s ease-in-out infinite" }}>
+              {/* Side chip left */}
+              <div style={{ position: "absolute", top: "50%", right: -8, transform: "translateY(-50%)", background: "#fff", borderRadius: 16, padding: "7px 11px", boxShadow: "0 6px 18px rgba(21,57,42,.12)", font: "800 12px 'Baloo 2'", color: C.orange, display: "flex", alignItems: "center", gap: 5, animation: "float 2.6s ease-in-out infinite", whiteSpace: "nowrap" }}>
                 🔥 Streak 7
               </div>
-              <div style={{ position: "absolute", bottom: 6, left: 24, background: "#fff", borderRadius: 16, padding: "8px 12px", boxShadow: "0 6px 18px rgba(21,57,42,.12)", font: "800 13px 'Baloo 2'", color: C.purple, display: "flex", alignItems: "center", gap: 6, animation: "float 3.1s ease-in-out infinite" }}>
-                🏆 Hạng Vàng
-              </div>
+            </div>
+
+            {/* Bottom chip */}
+            <div style={{ background: "#fff", borderRadius: 16, padding: "8px 14px", boxShadow: "0 6px 18px rgba(21,57,42,.12)", font: "800 13px 'Baloo 2'", color: C.purple, display: "flex", alignItems: "center", gap: 6, animation: "float 3.1s ease-in-out infinite" }}>
+              🏆 Hạng Vàng
             </div>
           </div>
         </div>
@@ -170,10 +180,10 @@ export default function Landing() {
         <h2 style={{ font: "800 clamp(24px,3.5vw,34px) 'Baloo 2'", color: C.ink, textAlign: "center", marginBottom: 8 }}>
           Bạn sẽ học gì ở XuXu?
         </h2>
-        <p style={{ font: "600 15px 'Nunito'", color: C.muted, textAlign: "center", marginBottom: 30 }}>
+        <p style={{ font: "600 15px 'Nunito'", color: C.muted, textAlign: "center", marginBottom: 28 }}>
           7 chủ đề tài chính, từ những đồng xu đầu tiên đến đầu tư &amp; tài sản số.
         </p>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 14 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))", gap: 12 }}>
           {topicKeys.map(key => {
             const m = TOPIC_META[key] || { emoji: "📚", color: "#fff", ink: C.ink };
             return (
@@ -181,13 +191,12 @@ export default function Landing() {
                 key={key}
                 onClick={enterApp}
                 className="btn-press"
-                style={{ textAlign: "left", background: "#fff", border: `2px solid ${C.border}`, borderBottomWidth: 4, borderRadius: 18, padding: 18, cursor: "pointer" }}
+                style={{ textAlign: "left", background: "#fff", border: `2px solid ${C.border}`, borderBottomWidth: 4, borderRadius: 18, padding: "16px 14px", cursor: "pointer" }}
               >
-                <div style={{ width: 46, height: 46, borderRadius: 14, background: m.color, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 24, marginBottom: 12 }}>
+                <div style={{ width: 42, height: 42, borderRadius: 12, background: m.color, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22, marginBottom: 10 }}>
                   {m.emoji}
                 </div>
-                <div style={{ font: "800 16px 'Baloo 2'", color: C.ink, marginBottom: 4 }}>{TOPICS[key]}</div>
-                <div style={{ font: "800 12px 'Baloo 2'", color: m.ink }}>Khám phá →</div>
+                <div style={{ font: "800 14px 'Baloo 2'", color: C.ink, lineHeight: 1.3 }}>{TOPICS[key]}</div>
               </button>
             );
           })}
@@ -195,10 +204,10 @@ export default function Landing() {
           <button
             onClick={enterApp}
             className="btn-press"
-            style={{ background: C.ink, border: "none", borderRadius: 18, padding: 18, cursor: "pointer", color: "#fff", textAlign: "left", display: "flex", flexDirection: "column", justifyContent: "center" }}
+            style={{ background: C.ink, border: "none", borderRadius: 18, padding: "16px 14px", cursor: "pointer", color: "#fff", textAlign: "left", display: "flex", flexDirection: "column", justifyContent: "center", minHeight: 100 }}
           >
-            <div style={{ font: "800 17px 'Baloo 2'", marginBottom: 4 }}>Xem tất cả bài học</div>
-            <div style={{ font: "700 12px 'Nunito'", color: "rgba(255,255,255,.75)" }}>Vào dashboard để khám phá →</div>
+            <div style={{ font: "800 15px 'Baloo 2'", marginBottom: 4 }}>Xem tất cả →</div>
+            <div style={{ font: "700 11px 'Nunito'", color: "rgba(255,255,255,.7)" }}>Vào dashboard khám phá</div>
           </button>
         </div>
       </Section>
@@ -289,15 +298,60 @@ export default function Landing() {
       </Section>
 
       {/* ── FOOTER ── */}
-      <footer style={{ borderTop: `1px solid ${C.border}`, background: "#fff" }}>
-        <Section style={{ paddingTop: 24, paddingBottom: 24, display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
-            <XuXuMascot size={28} />
-            <span style={{ font: "800 17px 'Baloo 2'", color: C.green }}>XuXu</span>
-            <span style={{ font: "600 12px 'Nunito'", color: C.faint }}>· Học tài chính vui vẻ</span>
+      <footer style={{ borderTop: `2px solid ${C.border}`, background: "#fff" }}>
+        <Section style={{ paddingTop: 32, paddingBottom: 32 }}>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 28, justifyContent: "space-between", alignItems: "flex-start" }}>
+
+            {/* Brand */}
+            <div>
+              <div style={{ display: "flex", alignItems: "center", gap: 9, marginBottom: 6 }}>
+                <XuXuMascot size={30} />
+                <span style={{ font: "800 20px 'Baloo 2'", color: C.green }}>XuXu</span>
+              </div>
+              <div style={{ font: "600 13px 'Nunito'", color: C.faint, lineHeight: 1.6 }}>
+                Học tài chính — vui, đơn giản, mỗi ngày.
+              </div>
+            </div>
+
+            {/* Contact */}
+            <div>
+              <div style={{ font: "800 14px 'Baloo 2'", color: C.ink, marginBottom: 10 }}>Liên hệ</div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
+                <div style={{ font: "700 13px 'Nunito'", color: C.muted }}>👤 Thành Mắm</div>
+                <a href="mailto:i.thanhnt@gmail.com" style={{ font: "600 13px 'Nunito'", color: C.muted, textDecoration: "none", display: "flex", alignItems: "center", gap: 6 }}>
+                  ✉️ i.thanhnt@gmail.com
+                </a>
+                {/* Social */}
+                <div style={{ display: "flex", gap: 10, marginTop: 2 }}>
+                  <a
+                    href="https://tiktok.com/@thanhmam.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ display: "flex", alignItems: "center", gap: 5, background: "#000", color: "#fff", borderRadius: 10, padding: "6px 11px", font: "700 12px 'Nunito'", textDecoration: "none" }}
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.77a4.85 4.85 0 0 1-1.01-.08z"/>
+                    </svg>
+                    @thanhmam.com
+                  </a>
+                  <a
+                    href="https://facebook.com/i.thanhmam"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ display: "flex", alignItems: "center", gap: 5, background: "#1877F2", color: "#fff", borderRadius: 10, padding: "6px 11px", font: "700 12px 'Nunito'", textDecoration: "none" }}
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                    </svg>
+                    @i.thanhmam
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
-          <div style={{ font: "600 12px 'Nunito'", color: C.faint }}>
-            © {new Date().getFullYear()} XuXu · Học tài chính mỗi ngày
+
+          <div style={{ borderTop: `1px solid ${C.border}`, marginTop: 24, paddingTop: 16, font: "600 12px 'Nunito'", color: C.faint, textAlign: "center" }}>
+            © {new Date().getFullYear()} XuXu · Made with ❤️ by Thành Mắm
           </div>
         </Section>
       </footer>
