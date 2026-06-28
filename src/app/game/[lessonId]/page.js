@@ -199,123 +199,93 @@ export default function GamePage() {
     return ans.isCorrect ? "correct" : "wrong";
   };
 
-  return (
-    <div style={{ minHeight: "100vh", background: "#fff", display: "flex" }}>
+  // Shared question list for right panel
+  const QuestionList = () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+      {lesson.questions.map((q, i) => {
+        const status = questionStatus(i);
+        const bg = status === "correct" ? "#EAFBF1" : status === "wrong" ? "#FFE3E7" : status === "current" ? "#fff" : "#fff";
+        const border = status === "correct" ? "#16C172" : status === "wrong" ? "#FF5366" : status === "current" ? "#16C172" : "#ECF1E6";
+        const textColor = status === "correct" ? "#0E9E5C" : status === "wrong" ? "#C0283A" : "#15392A";
+        return (
+          <div key={q.id} style={{
+            display: "flex", alignItems: "center", gap: 9,
+            padding: "8px 10px", borderRadius: 12,
+            background: bg, border: `2px solid ${border}`,
+            boxShadow: status === "current" ? "0 2px 8px rgba(22,193,114,.15)" : "none",
+            transition: "all .2s",
+          }}>
+            <div style={{
+              width: 24, height: 24, borderRadius: 8, flexShrink: 0,
+              display: "flex", alignItems: "center", justifyContent: "center",
+              font: "800 11px 'Baloo 2'",
+              background: status === "correct" ? "#16C172" : status === "wrong" ? "#FF5366" : status === "current" ? "#16C172" : "#ECF1E6",
+              color: status === "pending" ? "#9AA89E" : "#fff",
+            }}>
+              {status === "correct" ? "✓" : status === "wrong" ? "✗" : i + 1}
+            </div>
+            <div style={{ font: "600 12px 'Nunito'", color: textColor, lineHeight: 1.3, flex: 1, minWidth: 0 }} className="line-clamp-2">
+              {q.question?.slice(0, 44)}{q.question?.length > 44 ? "…" : ""}
+            </div>
+            <span style={{
+              font: "700 15px 'Baloo 2'", flexShrink: 0,
+              color: status === "correct" ? "#FF5366" : status === "wrong" ? "#ECF1E6" : "#ECF1E6",
+            }}>♥</span>
+          </div>
+        );
+      })}
+    </div>
+  );
 
-      {/* ── Desktop left sidebar ── */}
+  return (
+    <div style={{ minHeight: "100vh", background: "#F4F8EF", display: "flex" }}>
+
+      {/* ── LEFT: Nav sidebar (same as home) ── */}
       <aside className="hidden md:flex flex-col" style={{
-        width: 252, minHeight: "100vh", background: "#fff",
+        width: 236, minHeight: "100vh", background: "#fff",
         borderRight: "2px solid #ECF1E6", padding: "22px 16px",
-        position: "sticky", top: 0, alignSelf: "flex-start", height: "100vh",
+        position: "sticky", top: 0, height: "100vh",
         overflowY: "auto", flexShrink: 0,
       }}>
-        {/* XuXu logo — same as home */}
-        <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "0 6px 18px" }}>
-          <XuXuMascot size={36} />
-          <div style={{ font: "800 22px 'Baloo 2'", color: "#16C172" }}>XuXu</div>
+        <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "0 6px 22px" }}>
+          <XuXuMascot size={38} />
+          <div style={{ font: "800 24px 'Baloo 2'", color: "#16C172" }}>XuXu</div>
         </div>
 
-        {/* Nav items — same as home */}
-        {[
-          { icon: "⌂", label: "Học",       path: "/" },
-          { icon: "◆", label: "Khám phá",  path: "/explore" },
-          { icon: "▲", label: "Nhiệm vụ",  path: "/tasks" },
-          { icon: "♛", label: "Xếp hạng", path: "/leaderboard" },
-          { icon: "◉", label: "Cửa hàng", path: "/shop" },
-          { icon: "☺", label: "Hồ sơ",    path: "/profile" },
-        ].map(item => (
-          <button
-            key={item.label}
-            onClick={() => router.push(item.path)}
-            style={{
-              display: "flex", alignItems: "center", gap: 13,
-              background: "transparent",
-              border: "2px solid transparent",
-              borderRadius: 14, padding: "10px 14px",
-              cursor: "pointer", textAlign: "left", width: "100%",
-            }}
-          >
-            <span style={{ color: "#9AA89E", font: "800 17px 'Baloo 2'", width: 22, textAlign: "center" }}>{item.icon}</span>
-            <span style={{ font: "800 14px 'Baloo 2'", color: "#5B7065" }}>{item.label}</span>
-          </button>
-        ))}
-
-        {/* Divider */}
-        <div style={{ height: 2, background: "#ECF1E6", margin: "14px 4px" }} />
-
-        {/* Back button */}
-        <button
-          onClick={() => router.push("/")}
-          style={{ display: "flex", alignItems: "center", gap: 8, background: "none", border: "none", cursor: "pointer", marginBottom: 14, padding: "4px 4px" }}
-        >
-          <span style={{ display: "flex", alignItems: "center", justifyContent: "center", width: 28, height: 28, borderRadius: 9, background: "#F4F8EF", border: "2px solid #ECF1E6" }}>
-            <BackIcon />
-          </span>
-          <span style={{ font: "700 12px 'Nunito'", color: "#5B7065" }}>Trang chủ</span>
-        </button>
-
-        {/* Lesson title + score */}
-        <div style={{ marginBottom: 14, padding: "0 4px" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
-            <span style={{ fontSize: 24 }}>{lesson.icon}</span>
-            <div style={{ font: "800 13px 'Baloo 2'", color: "#15392A", lineHeight: 1.3 }}>{lesson.title}</div>
-          </div>
-          <div style={{ font: "600 11px 'Nunito'", color: "#5B7065" }}>
-            {answers.filter(a => a.isCorrect).length}/{lesson.questions.length} câu đúng
-          </div>
-        </div>
-
-        {/* Question list — hearts on the right of each item */}
-        <div style={{ font: "700 10px 'Nunito'", color: "#9AA89E", textTransform: "uppercase", letterSpacing: 1, marginBottom: 8, padding: "0 4px" }}>
-          Câu hỏi
-        </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
-          {lesson.questions.map((q, i) => {
-            const status = questionStatus(i);
-            const bg = status === "correct" ? "#EAFBF1" : status === "wrong" ? "#FFE3E7" : status === "current" ? "#fff" : "#fff";
-            const border = status === "correct" ? "#16C172" : status === "wrong" ? "#FF5366" : status === "current" ? "#16C172" : "#ECF1E6";
-            const textColor = status === "correct" ? "#0E9E5C" : status === "wrong" ? "#C0283A" : "#15392A";
-            return (
-              <div key={q.id} style={{
-                display: "flex", alignItems: "center", gap: 8,
-                padding: "7px 10px", borderRadius: 12,
-                background: bg, border: `2px solid ${border}`,
-                boxShadow: status === "current" ? "0 2px 8px rgba(22,193,114,.15)" : "none",
-                transition: "all .2s",
-              }}>
-                <div style={{
-                  width: 22, height: 22, borderRadius: 7, flexShrink: 0,
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  font: "800 10px 'Baloo 2'",
-                  background: status === "correct" ? "#16C172" : status === "wrong" ? "#FF5366" : status === "current" ? "#16C172" : "#ECF1E6",
-                  color: status === "pending" ? "#9AA89E" : "#fff",
-                }}>
-                  {status === "correct" ? "✓" : status === "wrong" ? "✗" : i + 1}
-                </div>
-                <div style={{ font: "600 11px 'Nunito'", color: textColor, lineHeight: 1.3, flex: 1, minWidth: 0 }} className="line-clamp-2">
-                  {q.question?.slice(0, 40)}{q.question?.length > 40 ? "…" : ""}
-                </div>
-                {/* Heart on the right */}
-                <span style={{
-                  font: "700 14px 'Baloo 2'", flexShrink: 0,
-                  color: status === "wrong" ? "#ECF1E6" : status === "correct" ? "#FF5366" : "#ECF1E6",
-                }}>♥</span>
-              </div>
-            );
-          })}
+        <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+          {[
+            { icon: "⌂", label: "Học",       path: "/" },
+            { icon: "◆", label: "Khám phá",  path: "/explore" },
+            { icon: "▲", label: "Nhiệm vụ",  path: "/tasks" },
+            { icon: "♛", label: "Xếp hạng", path: "/leaderboard" },
+            { icon: "◉", label: "Cửa hàng", path: "/shop" },
+            { icon: "☺", label: "Hồ sơ",    path: "/profile" },
+          ].map(item => (
+            <button
+              key={item.label}
+              onClick={() => router.push(item.path)}
+              style={{
+                display: "flex", alignItems: "center", gap: 13,
+                background: "transparent", border: "2px solid transparent",
+                borderRadius: 14, padding: "11px 14px",
+                cursor: "pointer", textAlign: "left", width: "100%",
+              }}
+            >
+              <span style={{ color: "#9AA89E", font: "800 18px 'Baloo 2'", width: 22, textAlign: "center" }}>{item.icon}</span>
+              <span style={{ font: "800 15px 'Baloo 2'", color: "#5B7065" }}>{item.label}</span>
+            </button>
+          ))}
         </div>
       </aside>
 
-      {/* ── Main content ── */}
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+      {/* ── CENTER: Main quiz content ── */}
+      <div style={{ flex: 1, display: "flex", flexDirection: "column", minHeight: "100vh", background: "#fff" }}>
 
-        {/* Header (mobile: back + progress + hearts | desktop: just progress) */}
+        {/* Header: back + progress + hearts */}
         <div style={{ padding: "14px 20px 12px", background: "#fff", display: "flex", alignItems: "center", gap: 14, position: "sticky", top: 0, zIndex: 20, borderBottom: "2px solid #F4F8EF" }}>
-          {/* Back button – mobile only */}
           <button
-            className="flex md:hidden"
             onClick={() => router.push("/")}
-            style={{ width: 40, height: 40, borderRadius: 12, background: "#F4F8EF", border: "2px solid #ECF1E6", alignItems: "center", justifyContent: "center", cursor: "pointer", flexShrink: 0, padding: 0 }}
+            style={{ width: 40, height: 40, borderRadius: 12, background: "#F4F8EF", border: "2px solid #ECF1E6", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", flexShrink: 0, padding: 0 }}
           >
             <BackIcon />
           </button>
@@ -324,8 +294,8 @@ export default function GamePage() {
             <div style={{ width: `${progress}%`, height: "100%", borderRadius: 9, background: "#16C172", boxShadow: "inset 0 3px 0 rgba(255,255,255,.35)", transition: "width .5s ease" }} />
           </div>
 
-          {/* Hearts display – mobile only (desktop shows in sidebar) */}
-          <div className="flex md:hidden" style={{ alignItems: "center", gap: 3, flexShrink: 0 }}>
+          {/* Hearts: show on mobile always, on desktop only when no right panel */}
+          <div style={{ display: "flex", alignItems: "center", gap: 3, flexShrink: 0 }}>
             {Array.from({ length: MAX_HEARTS }).map((_, i) => (
               <span key={i} style={{ color: i < hearts ? "#FF5366" : "#ECF1E6", font: "800 16px 'Baloo 2'", transition: "color .2s" }}>♥</span>
             ))}
@@ -334,7 +304,7 @@ export default function GamePage() {
 
         {/* Game content */}
         <div
-          className={`flex-1 max-w-2xl w-full mx-auto px-5 py-5 flex flex-col transition-all duration-300 ${
+          className={`flex-1 max-w-2xl w-full mx-auto px-5 py-6 flex flex-col transition-all duration-300 ${
             showTransition ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"
           }`}
         >
@@ -349,6 +319,37 @@ export default function GamePage() {
           )}
         </div>
       </div>
+
+      {/* ── RIGHT: Lesson panel (desktop only) ── */}
+      <aside className="hidden md:flex flex-col" style={{
+        width: 260, minHeight: "100vh", background: "#fff",
+        borderLeft: "2px solid #ECF1E6", padding: "24px 18px",
+        position: "sticky", top: 0, height: "100vh",
+        overflowY: "auto", flexShrink: 0,
+      }}>
+        {/* Lesson title + score */}
+        <div style={{ display: "flex", alignItems: "center", gap: 9, marginBottom: 6 }}>
+          <span style={{ fontSize: 26 }}>{lesson.icon}</span>
+          <div style={{ font: "800 15px 'Baloo 2'", color: "#15392A", lineHeight: 1.3 }}>{lesson.title}</div>
+        </div>
+        <div style={{ font: "600 12px 'Nunito'", color: "#5B7065", marginBottom: 18 }}>
+          {answers.filter(a => a.isCorrect).length}/{lesson.questions.length} câu đúng
+        </div>
+
+        {/* Hearts row */}
+        <div style={{ display: "flex", gap: 5, marginBottom: 18 }}>
+          {Array.from({ length: MAX_HEARTS }).map((_, i) => (
+            <span key={i} style={{ color: i < hearts ? "#FF5366" : "#ECF1E6", font: "700 20px 'Baloo 2'", transition: "color .2s" }}>♥</span>
+          ))}
+        </div>
+
+        {/* Question list label */}
+        <div style={{ font: "700 11px 'Nunito'", color: "#9AA89E", textTransform: "uppercase", letterSpacing: 1, marginBottom: 10 }}>
+          Câu hỏi
+        </div>
+
+        <QuestionList />
+      </aside>
 
       {/* Out of Hearts modal */}
       {showOutOfHearts && (
