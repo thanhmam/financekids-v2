@@ -13,7 +13,7 @@ import {
 } from "@/lib/admin";
 
 const inputCls =
-  "w-full px-3 py-2 rounded-xl border border-gray-200 focus:border-orange-400 outline-none text-sm";
+  "w-full px-3 py-2 rounded-xl border border-gray-200 focus:border-[#16C172] outline-none text-sm";
 
 export default function LessonEditorPage() {
   const params = useParams();
@@ -78,7 +78,7 @@ export default function LessonEditorPage() {
     <div className="max-w-3xl">
       <button
         onClick={() => router.push("/admin/content")}
-        className="text-sm font-bold text-gray-400 hover:text-orange-500 mb-3"
+        className="text-sm font-bold text-gray-400 hover:text-[#16C172] mb-3"
       >
         ← Danh sách bài học
       </button>
@@ -151,7 +151,7 @@ export default function LessonEditorPage() {
       {lesson.questions.map((q, qi) => (
         <div key={q.id} className="bg-white rounded-2xl shadow-sm p-4 mb-4">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-black text-orange-600">
+            <span className="text-xs font-black text-[#0E9E5C]">
               Câu {qi + 1} · {q.type}
             </span>
           </div>
@@ -313,7 +313,7 @@ export default function LessonEditorPage() {
       <div className="sticky bottom-0 bg-[#FFF9F0] py-3">
         <button
           onClick={saveAll}
-          className="w-full py-3 rounded-2xl font-black text-white bg-orange-500 active:scale-95 transition-transform"
+          className="w-full py-3 rounded-2xl font-black text-white bg-[#16C172] shadow-[0_4px_0_#0E9E5C] active:translate-y-[3px] active:shadow-none transition-all"
         >
           {saved ? "✓ Đã lưu — áp dụng trên app" : "Lưu tất cả thay đổi"}
         </button>

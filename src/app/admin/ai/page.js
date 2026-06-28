@@ -2,16 +2,14 @@
 
 import { useState } from "react";
 import { saveDraftLesson } from "@/lib/admin";
+import { TOPICS, LEVELS } from "@/data/lessons";
 
-const AGE_GROUPS = [
-  { value: "6-8", label: "6-8 tuổi 🌱" },
-  { value: "9-12", label: "9-12 tuổi 🌿" },
-  { value: "13-16", label: "13-16 tuổi 🌳" },
-];
+const baloo = (size) => ({ font: `800 ${size}px 'Baloo 2'` });
 
 export default function AdminAiPage() {
-  const [ageGroup, setAgeGroup] = useState("6-8");
-  const [topic, setTopic] = useState("");
+  const [level, setLevel] = useState("foundation");
+  const [topicKey, setTopicKey] = useState("money-basics");
+  const [detail, setDetail] = useState("");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
@@ -19,21 +17,26 @@ export default function AdminAiPage() {
   const [saved, setSaved] = useState(false);
 
   const saveDraft = async () => {
-    await saveDraftLesson({ ...result, ageGroup });
+    await saveDraftLesson({ ...result, level, topic: topicKey });
     setSaved(true);
     setTimeout(() => setSaved(false), 2000);
   };
 
   const run = async () => {
-    if (!topic.trim()) return;
+    if (!detail.trim()) return;
     setLoading(true);
     setError(null);
     setResult(null);
     try {
+      const audience =
+        level === "advanced" ? "Vững vàng (đã có nền tảng tài chính)" : "Khởi đầu (người mới bắt đầu)";
       const res = await fetch("/api/agents/orchestrate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ageGroup, topic: topic.trim() }),
+        body: JSON.stringify({
+          ageGroup: audience,
+          topic: `${TOPICS[topicKey]} — ${detail.trim()}`,
+        }),
       });
       const data = await res.json();
       if (!res.ok || data.success === false) {
@@ -57,81 +60,97 @@ export default function AdminAiPage() {
   return (
     <div>
       <div className="max-w-2xl mx-auto">
-        <h1 className="text-2xl font-black text-gray-800 mb-1">🤖 AI Pipeline tạo bài học</h1>
-        <p className="text-sm text-gray-500 mb-6">
+        <h1 style={baloo(26)} className="text-[#15392A] mb-1">🤖 AI Pipeline tạo bài học</h1>
+        <p style={{ font: "600 14px 'Nunito'" }} className="text-[#9AA89E] mb-6">
           3-agent: Content → Review → Design. Kết quả là JSON theo schema bài học.
         </p>
 
-        <div className="bg-white rounded-3xl shadow-sm p-5 space-y-4">
+        <div className="bg-white rounded-[18px] border-2 border-[#ECF1E6] p-5 space-y-4">
+          {/* Cấp độ */}
           <div>
-            <label className="block text-sm font-bold text-gray-700 mb-2">Độ tuổi</label>
+            <label style={baloo(13)} className="block text-[#15392A] mb-2">Cấp độ</label>
             <div className="flex gap-2 flex-wrap">
-              {AGE_GROUPS.map((g) => (
-                <button
-                  key={g.value}
-                  onClick={() => setAgeGroup(g.value)}
-                  className={`px-4 py-2 rounded-full font-bold text-sm transition-all ${
-                    ageGroup === g.value
-                      ? "bg-orange-500 text-white"
-                      : "bg-gray-100 text-gray-600"
-                  }`}
-                >
-                  {g.label}
-                </button>
-              ))}
+              {Object.entries(LEVELS).map(([key, v]) => {
+                const active = level === key;
+                return (
+                  <button
+                    key={key}
+                    onClick={() => setLevel(key)}
+                    className="px-4 py-2 rounded-full text-sm transition-all"
+                    style={{
+                      font: "800 13px 'Baloo 2'",
+                      background: active ? "#16C172" : "#F4F8EF",
+                      color: active ? "#fff" : "#5B7065",
+                      boxShadow: active ? "0 3px 0 #0E9E5C" : "none",
+                    }}
+                  >
+                    {v.emoji} {v.label}
+                  </button>
+                );
+              })}
             </div>
           </div>
 
+          {/* Chủ đề */}
           <div>
-            <label className="block text-sm font-bold text-gray-700 mb-2">Chủ đề bài học</label>
+            <label style={baloo(13)} className="block text-[#15392A] mb-2">Chủ đề</label>
+            <select
+              value={topicKey}
+              onChange={(e) => setTopicKey(e.target.value)}
+              style={{ font: "700 14px 'Nunito'" }}
+              className="w-full px-4 py-3 rounded-[14px] border-2 border-[#ECF1E6] text-[#15392A] focus:border-[#16C172] outline-none bg-white"
+            >
+              {Object.entries(TOPICS).map(([key, label]) => (
+                <option key={key} value={key}>{label}</option>
+              ))}
+            </select>
+          </div>
+
+          {/* Nội dung cụ thể */}
+          <div>
+            <label style={baloo(13)} className="block text-[#15392A] mb-2">Nội dung cụ thể của bài</label>
             <input
-              value={topic}
-              onChange={(e) => setTopic(e.target.value)}
+              value={detail}
+              onChange={(e) => setDetail(e.target.value)}
               placeholder="VD: Tiết kiệm tiền mừng tuổi"
-              className="w-full px-4 py-3 rounded-2xl border border-gray-200 focus:border-orange-400 outline-none"
+              style={{ font: "700 14px 'Nunito'" }}
+              className="w-full px-4 py-3 rounded-[14px] border-2 border-[#ECF1E6] focus:border-[#16C172] outline-none"
             />
           </div>
 
           <button
             onClick={run}
-            disabled={loading || !topic.trim()}
-            className="w-full py-4 rounded-2xl font-black text-white text-lg bg-orange-500 disabled:bg-gray-300 active:scale-95 transition-transform"
+            disabled={loading || !detail.trim()}
+            style={baloo(17)}
+            className="w-full py-4 rounded-[16px] text-white bg-[#16C172] shadow-[0_5px_0_#0E9E5C] disabled:bg-gray-300 disabled:shadow-none active:translate-y-[3px] active:shadow-none transition-all"
           >
             {loading ? "Đang chạy pipeline…" : "Chạy 3-Agent Pipeline ▶"}
           </button>
         </div>
 
         {error && (
-          <div className="mt-4 bg-red-50 border border-red-200 rounded-2xl p-4 text-sm text-red-700 whitespace-pre-wrap">
+          <div className="mt-4 bg-red-50 border-2 border-red-200 rounded-[18px] p-4 text-sm text-red-700 whitespace-pre-wrap">
             ❌ {error}
           </div>
         )}
 
         {result && (
-          <div className="mt-4 bg-white rounded-3xl shadow-sm p-5">
+          <div className="mt-4 bg-white rounded-[18px] border-2 border-[#ECF1E6] p-5">
             <div className="flex items-center justify-between mb-3">
-              <span className="font-black text-gray-800">
-                {result.icon} {result.title}
-              </span>
+              <span style={baloo(16)} className="text-[#15392A]">{result.icon} {result.title}</span>
               <div className="flex gap-2">
-                <button
-                  onClick={saveDraft}
-                  className="text-sm font-bold px-3 py-1.5 rounded-xl bg-green-50 text-green-700"
-                >
+                <button onClick={saveDraft} style={baloo(13)} className="px-3 py-1.5 rounded-xl bg-[#EAFBF1] text-[#0E9E5C]">
                   {saved ? "✓ Đã lưu nháp" : "Lưu vào nháp →"}
                 </button>
-                <button
-                  onClick={copyJson}
-                  className="text-sm font-bold px-3 py-1.5 rounded-xl bg-orange-50 text-orange-600"
-                >
+                <button onClick={copyJson} style={baloo(13)} className="px-3 py-1.5 rounded-xl bg-[#FFF3DC] text-[#C25E18]">
                   {copied ? "✓ Đã copy" : "Copy JSON"}
                 </button>
               </div>
             </div>
-            <p className="text-xs text-gray-400 mb-2">
+            <p style={{ font: "600 12px 'Nunito'" }} className="text-[#9AA89E] mb-2">
               Bài lưu nháp sẽ xuất hiện ở mục <b>Nội dung bài học</b> để duyệt.
             </p>
-            <pre className="text-xs bg-gray-50 rounded-2xl p-4 overflow-auto max-h-96">
+            <pre className="text-xs bg-[#F4F8EF] rounded-[14px] p-4 overflow-auto max-h-96">
               {JSON.stringify(result, null, 2)}
             </pre>
           </div>

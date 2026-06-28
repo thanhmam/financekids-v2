@@ -67,7 +67,7 @@ export default function AdminMechanicsPage() {
                   type="number"
                   value={config[f.key]}
                   onChange={(e) => set(f.key, e.target.value)}
-                  className="w-24 px-3 py-2 rounded-xl border border-gray-200 focus:border-orange-400 outline-none text-right font-bold"
+                  className="w-24 px-3 py-2 rounded-xl border border-gray-200 focus:border-[#16C172] outline-none text-right font-bold"
                 />
                 <span className="text-xs text-gray-400 w-14">{f.suffix}</span>
               </div>
@@ -77,7 +77,7 @@ export default function AdminMechanicsPage() {
           <div className="flex gap-3 pt-2">
             <button
               onClick={save}
-              className="flex-1 py-3 rounded-2xl font-black text-white bg-orange-500 active:scale-95 transition-transform"
+              className="flex-1 py-3 rounded-2xl font-black text-white bg-[#16C172] shadow-[0_4px_0_#0E9E5C] active:translate-y-[3px] active:shadow-none transition-all"
             >
               {saved ? "✓ Đã lưu" : "Lưu cấu hình"}
             </button>

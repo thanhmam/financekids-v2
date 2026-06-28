@@ -7,17 +7,15 @@ import {
   listUsers,
   useFirestore,
 } from "@/lib/admin";
+import { LEVELS } from "@/data/lessons";
 
-const AGE_OPTIONS = [
-  { value: "6-8", label: "6-8 tuổi" },
-  { value: "9-12", label: "9-12 tuổi" },
-  { value: "13-16", label: "13-16 tuổi" },
-];
+const baloo = (size) => ({ font: `800 ${size}px 'Baloo 2'` });
+const LEVEL_OPTIONS = Object.entries(LEVELS).map(([value, v]) => ({ value, label: `${v.emoji} ${v.label}` }));
 
 function targetLabel(t, users) {
   if (!t) return "—";
   if (t.type === "all") return "🌍 Tất cả người dùng";
-  if (t.type === "ageGroup") return `🎯 Nhóm ${t.value}`;
+  if (t.type === "level") return `🎯 ${LEVELS[t.value]?.label || t.value}`;
   if (t.type === "user") {
     const u = users.find((x) => x.id === t.value);
     return `👤 ${u?.displayName || t.value}`;
@@ -46,7 +44,7 @@ export default function AdminNotificationsPage() {
     title.trim() &&
     message.trim() &&
     (targetType !== "user" || targetValue) &&
-    (targetType !== "ageGroup" || targetValue);
+    (targetType !== "level" || targetValue);
 
   const send = async () => {
     if (!canSend) return;
@@ -64,47 +62,52 @@ export default function AdminNotificationsPage() {
 
   return (
     <div className="max-w-3xl">
-      <h1 className="text-2xl font-black text-gray-800 mb-1">🔔 Thông báo</h1>
-      <p className="text-sm text-gray-500 mb-6">
-        Gửi thông báo tới một người, tất cả, hoặc theo nhóm tuổi.
+      <h1 style={baloo(26)} className="text-[#15392A] mb-1">🔔 Thông báo</h1>
+      <p style={{ font: "600 14px 'Nunito'" }} className="text-[#9AA89E] mb-6">
+        Gửi thông báo tới một người, tất cả, hoặc theo cấp độ.
       </p>
 
-      <div className="bg-white rounded-3xl shadow-sm p-5 space-y-4">
+      <div className="bg-white rounded-[18px] border-2 border-[#ECF1E6] p-5 space-y-4">
         <div>
-          <label className="block text-sm font-bold text-gray-700 mb-2">
+          <label style={baloo(13)} className="block text-[#15392A] mb-2">
             Gửi tới
           </label>
           <div className="flex gap-2 flex-wrap">
             {[
               { v: "all", l: "🌍 Tất cả" },
-              { v: "ageGroup", l: "🎯 Theo nhóm tuổi" },
+              { v: "level", l: "🎯 Theo cấp độ" },
               { v: "user", l: "👤 Một người" },
-            ].map((o) => (
-              <button
-                key={o.v}
-                onClick={() => {
-                  setTargetType(o.v);
-                  setTargetValue("");
-                }}
-                className={`px-4 py-2 rounded-full font-bold text-sm ${
-                  targetType === o.v
-                    ? "bg-orange-500 text-white"
-                    : "bg-gray-100 text-gray-600"
-                }`}
-              >
-                {o.l}
-              </button>
-            ))}
+            ].map((o) => {
+              const active = targetType === o.v;
+              return (
+                <button
+                  key={o.v}
+                  onClick={() => {
+                    setTargetType(o.v);
+                    setTargetValue("");
+                  }}
+                  className="px-4 py-2 rounded-full text-sm"
+                  style={{
+                    font: "800 13px 'Baloo 2'",
+                    background: active ? "#16C172" : "#F4F8EF",
+                    color: active ? "#fff" : "#5B7065",
+                    boxShadow: active ? "0 3px 0 #0E9E5C" : "none",
+                  }}
+                >
+                  {o.l}
+                </button>
+              );
+            })}
           </div>
 
-          {targetType === "ageGroup" && (
+          {targetType === "level" && (
             <select
               value={targetValue}
               onChange={(e) => setTargetValue(e.target.value)}
-              className="mt-3 w-full px-4 py-2.5 rounded-2xl border border-gray-200 outline-none"
+              className="mt-3 w-full px-4 py-2.5 rounded-[14px] border-2 border-[#ECF1E6] outline-none focus:border-[#16C172]"
             >
-              <option value="">— Chọn nhóm tuổi —</option>
-              {AGE_OPTIONS.map((a) => (
+              <option value="">— Chọn cấp độ —</option>
+              {LEVEL_OPTIONS.map((a) => (
                 <option key={a.value} value={a.value}>
                   {a.label}
                 </option>
@@ -116,7 +119,7 @@ export default function AdminNotificationsPage() {
             <select
               value={targetValue}
               onChange={(e) => setTargetValue(e.target.value)}
-              className="mt-3 w-full px-4 py-2.5 rounded-2xl border border-gray-200 outline-none"
+              className="mt-3 w-full px-4 py-2.5 rounded-[14px] border-2 border-[#ECF1E6] outline-none focus:border-[#16C172]"
             >
               <option value="">
                 {users.length ? "— Chọn người dùng —" : "Chưa có người dùng"}
@@ -131,19 +134,19 @@ export default function AdminNotificationsPage() {
         </div>
 
         <div>
-          <label className="block text-sm font-bold text-gray-700 mb-2">
+          <label style={baloo(13)} className="block text-[#15392A] mb-2">
             Tiêu đề
           </label>
           <input
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="VD: Bài học mới đã sẵn sàng!"
-            className="w-full px-4 py-3 rounded-2xl border border-gray-200 focus:border-orange-400 outline-none"
+            className="w-full px-4 py-3 rounded-[14px] border-2 border-[#ECF1E6] focus:border-[#16C172] outline-none"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-bold text-gray-700 mb-2">
+          <label style={baloo(13)} className="block text-[#15392A] mb-2">
             Nội dung
           </label>
           <textarea
@@ -151,41 +154,42 @@ export default function AdminNotificationsPage() {
             onChange={(e) => setMessage(e.target.value)}
             rows={3}
             placeholder="Nội dung thông báo…"
-            className="w-full px-4 py-3 rounded-2xl border border-gray-200 focus:border-orange-400 outline-none resize-none"
+            className="w-full px-4 py-3 rounded-[14px] border-2 border-[#ECF1E6] focus:border-[#16C172] outline-none resize-none"
           />
         </div>
 
         <button
           onClick={send}
           disabled={!canSend}
-          className="w-full py-4 rounded-2xl font-black text-white text-lg bg-orange-500 disabled:bg-gray-300 active:scale-95 transition-transform"
+          style={baloo(17)}
+          className="w-full py-4 rounded-[16px] text-white bg-[#16C172] shadow-[0_5px_0_#0E9E5C] disabled:bg-gray-300 disabled:shadow-none active:translate-y-[3px] active:shadow-none transition-all"
         >
           {sent ? "✓ Đã gửi" : "Gửi thông báo ▶"}
         </button>
       </div>
 
       {/* Lịch sử */}
-      <h2 className="font-black text-gray-800 mt-8 mb-3">Lịch sử thông báo</h2>
+      <h2 style={baloo(16)} className="text-[#15392A] mt-8 mb-3">Lịch sử thông báo</h2>
       {history.length === 0 ? (
-        <p className="text-sm text-gray-400">Chưa gửi thông báo nào.</p>
+        <p style={{ font: "600 14px 'Nunito'" }} className="text-[#9AA89E]">Chưa gửi thông báo nào.</p>
       ) : (
         <div className="space-y-2">
           {history.map((n) => (
-            <div key={n.id} className="bg-white rounded-2xl shadow-sm p-4">
+            <div key={n.id} className="bg-white rounded-[18px] border-2 border-[#ECF1E6] p-4">
               <div className="flex items-center justify-between gap-2">
-                <span className="font-bold text-gray-800">{n.title}</span>
-                <span className="text-xs text-gray-400 shrink-0">
+                <span style={{ font: "700 15px 'Nunito'" }} className="text-[#15392A]">{n.title}</span>
+                <span style={{ font: "600 12px 'Nunito'" }} className="text-[#9AA89E] shrink-0">
                   {targetLabel(n.target, users)}
                 </span>
               </div>
-              <p className="text-sm text-gray-500 mt-1">{n.message}</p>
+              <p style={{ font: "600 14px 'Nunito'" }} className="text-[#5B7065] mt-1">{n.message}</p>
             </div>
           ))}
         </div>
       )}
 
       {!useFirestore() && (
-        <p className="text-xs text-gray-400 mt-4">
+        <p style={{ font: "600 12px 'Nunito'" }} className="text-[#9AA89E] mt-4">
           * Chế độ demo: thông báo lưu tạm trên trình duyệt, chưa thực sự gửi tới
           thiết bị người dùng. Cần Firebase (+ Cloud Messaging) để gửi thật.
         </p>

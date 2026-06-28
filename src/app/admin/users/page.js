@@ -28,8 +28,8 @@ export default function AdminUsersPage() {
 
   return (
     <div className="max-w-5xl">
-      <h1 className="text-2xl font-black text-gray-800 mb-1">👥 Người dùng</h1>
-      <p className="text-sm text-gray-500 mb-6">
+      <h1 style={{ font: "800 26px 'Baloo 2'" }} className="text-[#15392A] mb-1">👥 Người dùng</h1>
+      <p style={{ font: "600 14px 'Nunito'" }} className="text-[#9AA89E] mb-6">
         Tên, cách đăng nhập, hoạt động và thành tích của người dùng.
       </p>
 
@@ -37,7 +37,7 @@ export default function AdminUsersPage() {
         value={q}
         onChange={(e) => setQ(e.target.value)}
         placeholder="🔍 Tìm theo tên…"
-        className="w-full max-w-sm mb-4 px-4 py-2.5 rounded-2xl border border-gray-200 focus:border-orange-400 outline-none text-sm"
+        className="w-full max-w-sm mb-4 px-4 py-2.5 rounded-[14px] border-2 border-[#ECF1E6] focus:border-[#16C172] outline-none text-sm"
       />
 
       {!loaded ? (
@@ -59,7 +59,7 @@ export default function AdminUsersPage() {
               <tr className="text-left text-gray-400 border-b border-gray-100">
                 <th className="p-4 font-bold">Người dùng</th>
                 <th className="p-4 font-bold">Đăng nhập</th>
-                <th className="p-4 font-bold">Nhóm tuổi</th>
+                <th className="p-4 font-bold">Streak</th>
                 <th className="p-4 font-bold">XP</th>
                 <th className="p-4 font-bold">Đã học</th>
                 <th className="p-4 font-bold">Huy hiệu</th>
@@ -76,8 +76,8 @@ export default function AdminUsersPage() {
                   <td className="p-4 text-gray-500">
                     {u.isAnonymous ? "Ẩn danh" : "Google"}
                   </td>
-                  <td className="p-4 text-gray-500">{u.ageGroup || "—"}</td>
-                  <td className="p-4 font-black text-orange-600">
+                  <td className="p-4 text-gray-500">🔥 {u.streak || 0}</td>
+                  <td className="p-4 font-black text-[#0E9E5C]">
                     {u.totalXP || 0}
                   </td>
                   <td className="p-4 text-gray-600">

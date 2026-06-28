@@ -1,7 +1,18 @@
 # XuXu — Project Spec & Requirements
 
 > Tài liệu nội bộ: yêu cầu, quyết định thiết kế, và trạng thái phát triển.
-> Cập nhật lần cuối: 2026-06-25
+> Cập nhật lần cuối: 2026-06-28
+> 📚 Xem thêm: [docs/FEATURES.md](docs/FEATURES.md) · [docs/DESIGN_SYSTEM.md](docs/DESIGN_SYSTEM.md)
+
+## Phân loại nội dung (Taxonomy — thống nhất 2026-06-28)
+
+> **Đã bỏ phân loại theo nhóm tuổi** (6-8/9-12/13-16). Phân loại theo **Chủ đề + Cấp độ**, đồng bộ ở app lẫn admin.
+
+- **7 Chủ đề** (`TOPICS`): money-basics, saving, personal-finance, borrowing, investing, stocks, digital-assets
+- **2 Cấp độ** (`LEVELS`): foundation 🌱 Khởi đầu · advanced 🌳 Vững vàng
+- **4 Loại** (`CATEGORIES`): concept 💡 · compare ⚖️ · choice 🎯 · transaction 💳
+
+*(Field `ageGroup` trong `lessons.js` còn tồn tại nhưng deprecated — không dùng để lọc/hiển thị nữa.)*
 
 ---
 
@@ -347,6 +358,14 @@ vercel --prod
 ---
 
 ## Changelog
+
+### 2026-06-28
+- Landing page mới (Duolingo handoff) + responsive mobile; bỏ V1/V2 toggle
+- **Taxonomy thống nhất**: bỏ nhóm tuổi → Chủ đề + Cấp độ (đồng bộ app + admin)
+- Cửa hàng sách (Shopee affiliate): `data/books.js`, `BookCover`, `/shop` section, `/shop/book/[id]`, `/admin/books` CRUD
+- Dashboard: bỏ tag tuổi, right panel đầy đủ
+- Admin restyle theo XuXu Design System (xanh `#16C172`, Baloo 2, logo coin); sync tag chủ đề/cấp độ; thông báo target theo cấp độ
+- Tài liệu: `docs/FEATURES.md`, `docs/DESIGN_SYSTEM.md`; cập nhật README + PROJECT
 
 ### 2026-06-26
 - Upload XuXu Design System v1 vào `design-system/` (tokens, 11 components, guidelines, UI kit)

@@ -1,8 +1,10 @@
 # XuXu — Học Tài Chính Cùng XuXu 🟡
 
-Web app gamification học tài chính cho trẻ em 6–16 tuổi. Giao diện theo phong cách Duolingo với mascot XuXu, hệ thống tim, XP, streak, huy hiệu và bảng xếp hạng.
+Web app gamification giúp **mọi người** (trẻ em, người trẻ, ai muốn tìm hiểu về tiền) học tài chính — mỗi ngày 5–10 phút. Giao diện theo phong cách Duolingo với mascot XuXu, hệ thống tim, XP, streak, huy hiệu và bảng xếp hạng.
 
 **Live:** [money.thanhmam.com](https://money.thanhmam.com) · **Repo:** [github.com/thanhmam/financekids-v2](https://github.com/thanhmam/financekids-v2)
+
+> 📚 **Tài liệu chi tiết**: [docs/FEATURES.md](docs/FEATURES.md) (tính năng đầy đủ) · [docs/DESIGN_SYSTEM.md](docs/DESIGN_SYSTEM.md) (design system)
 
 ---
 
@@ -128,8 +130,11 @@ src/
 │       └── prompts.js
 │
 └── data/
-    └── lessons.js                 # 45 bài học tĩnh (3 nhóm tuổi)
+    ├── lessons.js                 # Bài học tĩnh (chủ đề + cấp độ) + TOPICS/LEVELS/CATEGORIES
+    └── books.js                   # Catalog sách tài chính (Shopee affiliate)
 ```
+
+> Trang mới: `/` landing marketing · `/learn` dashboard (guest preview) · `/shop/book/[id]` chi tiết sách · `/admin/books` quản lý cửa hàng sách.
 
 ---
 
@@ -172,15 +177,21 @@ src/
 
 ---
 
-## Bài học (45 bài, 3 nhóm tuổi)
+## Phân loại nội dung (Taxonomy)
 
-| Nhóm | Số bài | Chủ đề |
-|---|---|---|
-| 6–8 tuổi | 15 | Tiền là gì, Cần/Muốn, Heo Đất, Đếm tiền... |
-| 9–12 tuổi | 15 | Thu nhập, Ngân hàng, Chi tiêu thông minh... |
-| 13–16 tuổi | 15 | Lãi kép, Đầu tư, Nợ & tín dụng, 50/30/20... |
+> **Đã bỏ phân loại theo nhóm tuổi.** Nội dung phân loại theo **Chủ đề** + **Cấp độ** (đồng bộ ở app lẫn admin).
 
-3 loại câu hỏi: `quiz` (trắc nghiệm) · `ab` (chọn A/B) · `transaction` (mô phỏng giao dịch)
+**7 Chủ đề** (`TOPICS`): Cơ bản về tiền · Tiết kiệm · Quản lý tài chính cá nhân · Vay · Đầu tư · Chứng khoán · Tài sản số
+
+**2 Cấp độ** (`LEVELS`): 🌱 Khởi đầu (`foundation`) · 🌳 Vững vàng (`advanced`)
+
+**4 Loại bài** (`CATEGORIES`): 💡 Khái niệm · ⚖️ Phân biệt · 🎯 Lựa chọn · 💳 Giao dịch
+
+3 loại mini-game: `quiz` (trắc nghiệm) · `ab` (chọn A/B) · `transaction` (mô phỏng giao dịch)
+
+## Cửa hàng sách (Shopee affiliate)
+
+Sách tài chính kinh điển (`src/data/books.js`) bán qua link Shopee affiliate. Hiển thị ở Landing + `/shop`, trang chi tiết `/shop/book/[bookId]` với nút "Mua sách trên Shopee". Admin quản lý CRUD tại `/admin/books` (bìa, giá, giảm giá, link). Xem [docs/FEATURES.md](docs/FEATURES.md).
 
 ---
 
@@ -198,6 +209,14 @@ src/
 ---
 
 ## Changelog
+
+### 2026-06-28
+- **Landing page mới** (Duolingo handoff): hero minh hoạ động, feature rows, "Học theo chủ đề", "Học theo sách", responsive mobile
+- **Bỏ phân loại nhóm tuổi** → taxonomy **Chủ đề + Cấp độ**, đồng bộ ở app lẫn admin
+- **Cửa hàng sách** (Shopee affiliate): `/shop` section, `/shop/book/[id]`, admin `/admin/books`
+- **Dashboard**: bỏ tag tuổi ở LessonCard, right panel hiển thị đầy đủ (leaderboard + mục tiêu + streak 7 ngày)
+- **Admin** restyle theo XuXu Design System (xanh `#16C172`, Baloo 2, logo coin) + đồng bộ tag chủ đề/cấp độ
+- Thêm `docs/FEATURES.md` + `docs/DESIGN_SYSTEM.md`; `LoginModal` modal giữa màn hình + nút đóng
 
 ### 2026-06-25
 - Thêm trang `/tasks` — Nhiệm vụ hằng ngày (progress bar + NHẬN thưởng) và tuần

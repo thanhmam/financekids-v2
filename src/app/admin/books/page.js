@@ -117,7 +117,7 @@ export default function AdminBooksPage() {
     <div className="max-w-5xl">
       <div className="flex items-center justify-between mb-1">
         <h1 className="text-2xl font-black text-gray-800">📚 Cửa hàng sách</h1>
-        <button onClick={openNew} className="px-4 py-2.5 rounded-2xl font-black text-white bg-orange-500 active:scale-95 transition-transform">
+        <button onClick={openNew} className="px-4 py-2.5 rounded-2xl font-black text-white bg-[#16C172] shadow-[0_4px_0_#0E9E5C] active:translate-y-[3px] active:shadow-none transition-all">
           + Thêm sách
         </button>
       </div>
