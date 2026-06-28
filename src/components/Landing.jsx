@@ -63,7 +63,7 @@ function Section({ children, style }) {
   );
 }
 
-export default function Landing() {
+export default function Landing({ onSwitchVersion }) {
   const router = useRouter();
   const [showLogin, setShowLogin] = useState(false);
 
@@ -81,6 +81,17 @@ export default function Landing() {
             <span style={{ font: "800 22px 'Baloo 2'", color: C.green }}>XuXu</span>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            {/* Dev version toggle */}
+            {onSwitchVersion && (
+              <button
+                onClick={onSwitchVersion}
+                style={{ background: "#F4F8EF", border: "2px solid #ECF1E6", borderRadius: 20, padding: "5px 12px", font: "700 11px 'Nunito'", color: C.muted, cursor: "pointer", display: "flex", alignItems: "center", gap: 5 }}
+              >
+                <span style={{ background: C.green, borderRadius: 10, padding: "1px 7px", color: "#fff", fontSize: 10 }}>V1</span>
+                <span style={{ background: "#ECF1E6", borderRadius: 10, padding: "1px 7px", color: "#9AA89E", fontSize: 10 }}>V2</span>
+                <span style={{ fontSize: 10 }}>🔧 dev</span>
+              </button>
+            )}
             <button
               onClick={() => setShowLogin(true)}
               className="btn-press"
