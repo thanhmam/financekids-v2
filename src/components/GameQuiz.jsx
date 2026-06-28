@@ -110,8 +110,12 @@ export default function GameQuiz({ question, onAnswer, onNext }) {
         </div>
       )}
 
-      {/* Action button */}
-      <div style={{ marginTop: 16, paddingBottom: 4 }}>
+      {/* Spacer so content doesn't hide under floating button on mobile */}
+      <div className="block md:hidden" style={{ height: 88 }} />
+
+      {/* Action button — fixed on mobile, inline on desktop */}
+      <div className="fixed bottom-0 left-0 right-0 md:static md:mt-4 bg-white md:bg-transparent border-t border-gray-100 md:border-0" style={{ padding: "12px 20px 20px", paddingBottom: "calc(12px + env(safe-area-inset-bottom, 0px))" }}>
+        <div className="md:hidden" style={{ marginBottom: 0 }} />
         {!revealed ? (
           <button
             onClick={handleCheck}

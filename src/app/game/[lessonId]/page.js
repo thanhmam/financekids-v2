@@ -191,51 +191,129 @@ export default function GamePage() {
     );
   }
 
-  return (
-    <div style={{ minHeight: "100vh", background: "#fff", display: "flex", flexDirection: "column" }}>
+  // Question status for sidebar
+  const questionStatus = (index) => {
+    if (index === currentQuestion) return "current";
+    const ans = answers[index];
+    if (!ans) return "pending";
+    return ans.isCorrect ? "correct" : "wrong";
+  };
 
-      {/* Header */}
-      <div style={{ padding: "14px 20px 12px", background: "#fff", display: "flex", alignItems: "center", gap: 14, position: "sticky", top: 0, zIndex: 20, borderBottom: "2px solid #F4F8EF" }}>
+  return (
+    <div style={{ minHeight: "100vh", background: "#fff", display: "flex" }}>
+
+      {/* ── Desktop left sidebar ── */}
+      <aside className="hidden md:flex flex-col" style={{
+        width: 240, minHeight: "100vh", background: "#F4F8EF",
+        borderRight: "2px solid #ECF1E6", padding: "24px 16px",
+        position: "sticky", top: 0, alignSelf: "flex-start", height: "100vh",
+        overflowY: "auto",
+      }}>
+        {/* Back button */}
         <button
           onClick={() => router.push("/")}
-          style={{ width: 40, height: 40, borderRadius: 12, background: "#F4F8EF", border: "2px solid #ECF1E6", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", flexShrink: 0, padding: 0 }}
+          style={{ display: "flex", alignItems: "center", gap: 8, background: "none", border: "none", cursor: "pointer", marginBottom: 20, padding: "6px 4px" }}
         >
-          <BackIcon />
+          <span style={{ display: "flex", alignItems: "center", justifyContent: "center", width: 32, height: 32, borderRadius: 10, background: "#fff", border: "2px solid #ECF1E6" }}>
+            <BackIcon />
+          </span>
+          <span style={{ font: "700 13px 'Nunito'", color: "#5B7065" }}>Trang chủ</span>
         </button>
 
-        <div style={{ flex: 1, height: 14, borderRadius: 9, background: "#ECF1E6", overflow: "hidden" }}>
-          <div style={{ width: `${progress}%`, height: "100%", borderRadius: 9, background: "#16C172", boxShadow: "inset 0 3px 0 rgba(255,255,255,.35)", transition: "width .5s ease" }} />
+        {/* Lesson title */}
+        <div style={{ marginBottom: 20 }}>
+          <div style={{ fontSize: 32, marginBottom: 6 }}>{lesson.icon}</div>
+          <div style={{ font: "800 14px 'Baloo 2'", color: "#15392A", lineHeight: 1.4 }}>{lesson.title}</div>
+          <div style={{ font: "600 12px 'Nunito'", color: "#5B7065", marginTop: 4 }}>
+            {answers.filter(a => a.isCorrect).length}/{lesson.questions.length} câu đúng
+          </div>
         </div>
 
-        {/* Hearts display */}
-        <div style={{ display: "flex", alignItems: "center", gap: 3, flexShrink: 0 }}>
+        {/* Hearts */}
+        <div style={{ display: "flex", gap: 4, marginBottom: 20 }}>
           {Array.from({ length: MAX_HEARTS }).map((_, i) => (
-            <span key={i} style={{
-              color: i < hearts ? "#FF5366" : "#ECF1E6",
-              font: "800 16px 'Baloo 2'",
-              transition: "color .2s",
-            }}>
-              ♥
-            </span>
+            <span key={i} style={{ color: i < hearts ? "#FF5366" : "#ECF1E6", font: "700 18px 'Baloo 2'", transition: "color .2s" }}>♥</span>
           ))}
         </div>
-      </div>
 
-      {/* Game content */}
-      <div
-        className={`flex-1 max-w-2xl w-full mx-auto px-5 py-5 flex flex-col transition-all duration-300 ${
-          showTransition ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"
-        }`}
-      >
-        {question.type === "quiz" && (
-          <GameQuiz key={currentQuestion} question={question} lessonColor={lesson.color} onAnswer={handleAnswer} onNext={handleNext} />
-        )}
-        {question.type === "ab" && (
-          <GameAB key={currentQuestion} question={question} lessonColor={lesson.color} onAnswer={handleAnswer} onNext={handleNext} />
-        )}
-        {question.type === "transaction" && (
-          <GameTransaction key={currentQuestion} question={question} lessonColor={lesson.color} onAnswer={handleAnswer} onNext={handleNext} />
-        )}
+        {/* Question list */}
+        <div style={{ font: "700 11px 'Nunito'", color: "#9AA89E", textTransform: "uppercase", letterSpacing: 1, marginBottom: 10 }}>
+          Câu hỏi
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+          {lesson.questions.map((q, i) => {
+            const status = questionStatus(i);
+            const bg = status === "correct" ? "#EAFBF1" : status === "wrong" ? "#FFE3E7" : status === "current" ? "#fff" : "#fff";
+            const border = status === "correct" ? "#16C172" : status === "wrong" ? "#FF5366" : status === "current" ? "#16C172" : "#ECF1E6";
+            const textColor = status === "correct" ? "#0E9E5C" : status === "wrong" ? "#C0283A" : "#15392A";
+            return (
+              <div key={q.id} style={{
+                display: "flex", alignItems: "center", gap: 10,
+                padding: "8px 10px", borderRadius: 12,
+                background: bg, border: `2px solid ${border}`,
+                boxShadow: status === "current" ? "0 2px 8px rgba(22,193,114,.15)" : "none",
+                transition: "all .2s",
+              }}>
+                <div style={{
+                  width: 24, height: 24, borderRadius: 8, flexShrink: 0,
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  font: "800 11px 'Baloo 2'",
+                  background: status === "correct" ? "#16C172" : status === "wrong" ? "#FF5366" : status === "current" ? "#16C172" : "#ECF1E6",
+                  color: status === "pending" ? "#9AA89E" : "#fff",
+                }}>
+                  {status === "correct" ? "✓" : status === "wrong" ? "✗" : i + 1}
+                </div>
+                <div style={{ font: "600 12px 'Nunito'", color: textColor, lineHeight: 1.3, flex: 1, minWidth: 0 }} className="line-clamp-2">
+                  {q.question?.slice(0, 48)}{q.question?.length > 48 ? "…" : ""}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </aside>
+
+      {/* ── Main content ── */}
+      <div style={{ flex: 1, display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+
+        {/* Header (mobile: back + progress + hearts | desktop: just progress) */}
+        <div style={{ padding: "14px 20px 12px", background: "#fff", display: "flex", alignItems: "center", gap: 14, position: "sticky", top: 0, zIndex: 20, borderBottom: "2px solid #F4F8EF" }}>
+          {/* Back button – mobile only */}
+          <button
+            className="flex md:hidden"
+            onClick={() => router.push("/")}
+            style={{ width: 40, height: 40, borderRadius: 12, background: "#F4F8EF", border: "2px solid #ECF1E6", alignItems: "center", justifyContent: "center", cursor: "pointer", flexShrink: 0, padding: 0 }}
+          >
+            <BackIcon />
+          </button>
+
+          <div style={{ flex: 1, height: 14, borderRadius: 9, background: "#ECF1E6", overflow: "hidden" }}>
+            <div style={{ width: `${progress}%`, height: "100%", borderRadius: 9, background: "#16C172", boxShadow: "inset 0 3px 0 rgba(255,255,255,.35)", transition: "width .5s ease" }} />
+          </div>
+
+          {/* Hearts display – mobile only (desktop shows in sidebar) */}
+          <div className="flex md:hidden" style={{ alignItems: "center", gap: 3, flexShrink: 0 }}>
+            {Array.from({ length: MAX_HEARTS }).map((_, i) => (
+              <span key={i} style={{ color: i < hearts ? "#FF5366" : "#ECF1E6", font: "800 16px 'Baloo 2'", transition: "color .2s" }}>♥</span>
+            ))}
+          </div>
+        </div>
+
+        {/* Game content */}
+        <div
+          className={`flex-1 max-w-2xl w-full mx-auto px-5 py-5 flex flex-col transition-all duration-300 ${
+            showTransition ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"
+          }`}
+        >
+          {question.type === "quiz" && (
+            <GameQuiz key={currentQuestion} question={question} lessonColor={lesson.color} onAnswer={handleAnswer} onNext={handleNext} />
+          )}
+          {question.type === "ab" && (
+            <GameAB key={currentQuestion} question={question} lessonColor={lesson.color} onAnswer={handleAnswer} onNext={handleNext} />
+          )}
+          {question.type === "transaction" && (
+            <GameTransaction key={currentQuestion} question={question} lessonColor={lesson.color} onAnswer={handleAnswer} onNext={handleNext} />
+          )}
+        </div>
       </div>
 
       {/* Out of Hearts modal */}
@@ -243,12 +321,10 @@ export default function GamePage() {
         <OutOfHeartsModal
           refillTimer={formatTimer(refillSecs)}
           onRefill={() => {
-            // UI-only: refill hearts and continue
             setHearts(MAX_HEARTS);
             setShowOutOfHearts(false);
           }}
           onPractice={() => {
-            // Restart current lesson
             setCurrentQuestion(0);
             setScore(0);
             setAnswers([]);
