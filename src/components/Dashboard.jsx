@@ -149,6 +149,31 @@ export default function Dashboard({ guest = false }) {
     </div>
   );
 
+  // CTA "Cá nhân hóa" — khung 3 cách học (chủ đề · cấp độ · cá nhân hóa)
+  const PersonalizeCTA = () => (
+    <button
+      onClick={() => router.push("/personalize")}
+      className="btn-press"
+      style={{
+        width: "100%", textAlign: "left", display: "flex", alignItems: "center", gap: 12,
+        background: "linear-gradient(135deg, #8B5CF6, #7C4DEC)", border: "none", borderRadius: 16,
+        padding: "13px 16px", marginBottom: 12, cursor: "pointer", boxShadow: "0 4px 0 #6B30C9",
+      }}
+    >
+      <span style={{ fontSize: 24, flexShrink: 0 }}>✨</span>
+      <span style={{ flex: 1 }}>
+        <span style={{ display: "flex", alignItems: "center", gap: 7 }}>
+          <span style={{ font: "800 15px 'Baloo 2'", color: "#fff" }}>Cá nhân hóa lộ trình</span>
+          <span style={{ background: "rgba(255,255,255,.25)", color: "#fff", borderRadius: 7, padding: "1px 7px", font: "800 10px 'Baloo 2'" }}>MỚI</span>
+        </span>
+        <span style={{ display: "block", font: "600 12px 'Nunito'", color: "rgba(255,255,255,.85)", marginTop: 2 }}>
+          Trả lời 3 câu, XuXu thiết kế lộ trình riêng cho bạn
+        </span>
+      </span>
+      <span style={{ color: "#fff", font: "800 18px 'Baloo 2'", flexShrink: 0 }}>→</span>
+    </button>
+  );
+
   return (
     <>
       {/* ═══════════════════════════════════════════════
@@ -270,6 +295,7 @@ export default function Dashboard({ guest = false }) {
           {/* Lessons section */}
           <div style={{ marginBottom: 4 }}>
             <h2 style={{ font: "800 18px 'Baloo 2'", color: "#15392A", marginBottom: 10 }}>📚 Tất cả bài học</h2>
+            <PersonalizeCTA />
             <AgeFilterBar />
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
               {filteredLessons.map(lesson => (
@@ -444,6 +470,7 @@ export default function Dashboard({ guest = false }) {
           {/* Lessons section */}
           <div>
             <div style={{ font: "800 16px 'Baloo 2'", color: "#15392A", marginBottom: 12 }}>Lộ trình của bạn</div>
+            <PersonalizeCTA />
             <AgeFilterBar />
             <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12 }}>
               {filteredLessons.map(lesson => (
