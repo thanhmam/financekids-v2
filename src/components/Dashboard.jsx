@@ -279,7 +279,7 @@ export default function Dashboard({ guest = false }) {
           </div>
 
           <div style={{ textAlign: "center", padding: "20px 0 4px", font: "600 11px 'Nunito'", color: "#C2CDBA" }}>
-            XuXu ✨ · {LESSONS.length} bài học · 3 nhóm tuổi
+            XuXu ✨ · {LESSONS.length} bài học · 7 chủ đề tài chính
           </div>
         </div>
 

@@ -4,17 +4,10 @@ import { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import XuXuMascot from "@/components/XuXuMascot";
 
-const AGE_OPTIONS = [
-  { value: "6-8",   label: "6-8 tuổi",   emoji: "🌱", desc: "Tiểu học" },
-  { value: "9-12",  label: "9-12 tuổi",  emoji: "🌿", desc: "Tiểu học lớn" },
-  { value: "13-16", label: "13-16 tuổi", emoji: "🌳", desc: "Trung học" },
-];
-
 export default function LoginModal({ onClose }) {
   const { loginWithGoogle, loginAnonymous } = useAuth();
   const [step, setStep] = useState("choose");
   const [nickname, setNickname] = useState("");
-  const [ageGroup, setAgeGroup] = useState("9-12");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -42,7 +35,7 @@ export default function LoginModal({ onClose }) {
     setLoading(true);
     setError("");
     try {
-      await loginAnonymous(nickname.trim(), ageGroup);
+      await loginAnonymous(nickname.trim(), "general");
       onClose();
     } catch {
       setError("Có lỗi xảy ra. Thử lại nhé!");
@@ -52,10 +45,19 @@ export default function LoginModal({ onClose }) {
   };
 
   return (
-    <div style={{ position: "fixed", inset: 0, zIndex: 50, display: "flex", alignItems: "flex-end", justifyContent: "center", background: "rgba(21,32,26,.45)", backdropFilter: "blur(4px)", padding: "0 0" }}>
+    <div
+      style={{ position: "fixed", inset: 0, zIndex: 50, display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(21,32,26,.45)", backdropFilter: "blur(4px)", padding: "16px" }}
+      onClick={e => { if (e.target === e.currentTarget) onClose(); }}
+    >
       <div
-        style={{ width: "100%", maxWidth: 420, background: "#fff", borderRadius: "28px 28px 0 0", overflow: "hidden", animation: "slideUp .35s ease" }}
+        style={{ width: "100%", maxWidth: 420, background: "#fff", borderRadius: 28, overflow: "hidden", animation: "slideUp .3s ease", position: "relative" }}
       >
+        {/* Close button */}
+        <button
+          onClick={onClose}
+          style={{ position: "absolute", top: 14, right: 14, zIndex: 10, background: "rgba(255,255,255,.25)", border: "none", borderRadius: "50%", width: 32, height: 32, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", font: "800 16px 'Baloo 2'", color: "#fff", lineHeight: 1 }}
+        >✕</button>
+
         {/* Header */}
         <div style={{ background: "linear-gradient(135deg,#16C172,#0E9E5C)", padding: "28px 24px 24px", textAlign: "center" }}>
           <div style={{ display: "flex", justifyContent: "center", marginBottom: 12, animation: "float 2.5s ease-in-out infinite" }}>
@@ -132,22 +134,6 @@ export default function LoginModal({ onClose }) {
                   onFocus={e => e.target.style.borderColor = "#16C172"}
                   onBlur={e => e.target.style.borderColor = "#ECF1E6"}
                 />
-              </div>
-
-              <div style={{ marginBottom: 18 }}>
-                <label style={{ display: "block", font: "800 13px 'Baloo 2'", color: "#15392A", marginBottom: 7 }}>Bạn bao nhiêu tuổi? 🎂</label>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8 }}>
-                  {AGE_OPTIONS.map(opt => (
-                    <button
-                      key={opt.value}
-                      onClick={() => setAgeGroup(opt.value)}
-                      style={{ padding: "12px 4px", borderRadius: 14, border: `2px solid ${ageGroup === opt.value ? "#16C172" : "#ECF1E6"}`, background: ageGroup === opt.value ? "#E3F7EC" : "#fff", cursor: "pointer", textAlign: "center", transition: "all .15s" }}
-                    >
-                      <div style={{ fontSize: 22, marginBottom: 4 }}>{opt.emoji}</div>
-                      <div style={{ font: "800 11px 'Baloo 2'", color: "#15392A" }}>{opt.label}</div>
-                    </button>
-                  ))}
-                </div>
               </div>
 
               {error && <p style={{ font: "600 12px 'Nunito'", color: "#FF5366", marginBottom: 10 }}>{error}</p>}

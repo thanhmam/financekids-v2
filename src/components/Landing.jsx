@@ -37,16 +37,16 @@ const STEPS = [
 ];
 
 const FEATURES = [
-  { emoji: "🧩", title: "Khái niệm đơn giản", body: "Biến kiến thức tài chính phức tạp thành câu chuyện dễ hiểu cho mọi lứa tuổi." },
-  { emoji: "🎯", title: "Học qua trò chơi", body: "Quiz, tình huống mua sắm, so sánh lựa chọn — học mà như chơi." },
-  { emoji: "🌱", title: "Theo từng độ tuổi", body: "Nội dung phù hợp 6–8, 9–12 và 13–16 tuổi, đi từ dễ đến nâng cao." },
-  { emoji: "🔥", title: "Tạo thói quen", body: "Streak hằng ngày, huy hiệu và mục tiêu giúp bạn học đều đặn." },
+  { emoji: "🧩", title: "Khái niệm đơn giản", body: "Biến kiến thức tài chính phức tạp thành câu chuyện dễ hiểu — dù bạn chưa biết gì về tiền." },
+  { emoji: "📖", title: "Học từ sách bestseller", body: "Tinh hoa từ Rich Dad Poor Dad, The Psychology of Money, Think and Grow Rich… qua quiz và khái niệm cốt lõi." },
+  { emoji: "⏱️", title: "Chỉ 10–15 phút mỗi ngày", body: "Mỗi bài học ngắn gọn, phù hợp giờ nghỉ trưa hoặc trước khi ngủ. Đều đặn mỗi ngày, vững nền tài chính cả đời." },
+  { emoji: "🔥", title: "Tạo thói quen tài chính", body: "Streak hằng ngày, huy hiệu và mục tiêu giúp bạn duy trì đà học liên tục." },
 ];
 
-const AGE_GROUPS = [
-  { emoji: "🌱", label: "6–8 tuổi", desc: "Làm quen với tiền, tiết kiệm và chia sẻ.", bg: "#EAFBF1", ink: "#0E9E5C" },
-  { emoji: "🌿", label: "9–12 tuổi", desc: "Quản lý tiền tiêu vặt, phân biệt cần & muốn.", bg: "#EAF1FF", ink: "#3457B2" },
-  { emoji: "🌳", label: "13–16 tuổi", desc: "Đầu tư, chứng khoán và tài sản số nhập môn.", bg: "#F1E9FF", ink: "#6B36C9" },
+const TARGET_GROUPS = [
+  { emoji: "🧒", label: "Trẻ em & học sinh", desc: "Làm quen với tiền, tiết kiệm và những quyết định tài chính đầu tiên.", bg: "#EAFBF1", ink: "#0E9E5C" },
+  { emoji: "🧑", label: "Người trẻ", desc: "Xây nền tảng tài chính vững: quản lý thu chi, đầu tư và lập kế hoạch tương lai.", bg: "#EAF1FF", ink: "#3457B2" },
+  { emoji: "📚", label: "Ai muốn hiểu về tiền", desc: "Chưa biết bắt đầu từ đâu? XuXu giúp bạn từng bước — không cần nền tảng kinh tế.", bg: "#F1E9FF", ink: "#6B36C9" },
 ];
 
 function Section({ children, style }) {
@@ -100,7 +100,7 @@ export default function Landing() {
           <div style={{ flex: "1 1 420px", maxWidth: 560 }}>
             <div style={{ display: "inline-flex", alignItems: "center", gap: 7, background: "#fff", border: `2px solid ${C.border}`, borderRadius: 20, padding: "6px 14px", marginBottom: 18 }}>
               <span style={{ fontSize: 15 }}>✨</span>
-              <span style={{ font: "700 12px 'Nunito'", color: C.muted }}>Học tài chính cho trẻ 6–16 tuổi</span>
+              <span style={{ font: "700 12px 'Nunito'", color: C.muted }}>Học tài chính — vui, đơn giản, mỗi ngày 10 phút</span>
             </div>
             <h1 style={{ font: "800 clamp(34px, 5vw, 52px)/1.08 'Baloo 2'", color: C.ink, marginBottom: 18 }}>
               Hiểu về <span style={{ color: C.green }}>Tiền</span> theo cách{" "}
@@ -110,8 +110,8 @@ export default function Landing() {
               </span>
             </h1>
             <p style={{ font: "600 clamp(15px, 2vw, 18px)/1.6 'Nunito'", color: C.muted, marginBottom: 28, maxWidth: 480 }}>
-              XuXu giúp bạn nhỏ học về tiền, tiết kiệm, chi tiêu và đầu tư qua những
-              khái niệm đơn giản và mini-game thú vị. Mỗi ngày một chút, hiểu tài chính cả đời.
+              XuXu giúp bạn hiểu về tiền, tiết kiệm, đầu tư qua các khái niệm đơn giản và mini-game thú vị.
+              Chỉ 10–15 phút mỗi ngày để xây nền tảng tài chính vững chắc cho tương lai.
             </p>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
               <button
@@ -133,7 +133,7 @@ export default function Landing() {
               {[
                 { num: `${LESSONS.length}`, label: "bài học" },
                 { num: `${topicKeys.length}`, label: "chủ đề" },
-                { num: "3", label: "nhóm tuổi" },
+                { num: "10+", label: "phút/ngày" },
               ].map(s => (
                 <div key={s.label}>
                   <div style={{ font: "800 24px 'Baloo 2'", color: C.ink }}>{s.num}+</div>
@@ -225,10 +225,10 @@ export default function Landing() {
       {/* ── FEATURES ── */}
       <Section style={{ paddingTop: 48, paddingBottom: 48 }}>
         <h2 style={{ font: "800 clamp(24px,3.5vw,34px) 'Baloo 2'", color: C.ink, textAlign: "center", marginBottom: 8 }}>
-          Vì sao trẻ thích học cùng XuXu?
+          Vì sao mọi người thích học cùng XuXu?
         </h2>
         <p style={{ font: "600 15px 'Nunito'", color: C.muted, textAlign: "center", marginBottom: 30 }}>
-          Tài chính không còn khô khan — mà là một cuộc phiêu lưu.
+          Tài chính không còn khô khan — mà là một cuộc phiêu lưu mỗi ngày.
         </p>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 16 }}>
           {FEATURES.map(f => (
@@ -241,13 +241,13 @@ export default function Landing() {
         </div>
       </Section>
 
-      {/* ── AGE GROUPS ── */}
+      {/* ── TARGET GROUPS ── */}
       <Section style={{ paddingBottom: 56 }}>
         <h2 style={{ font: "800 clamp(22px,3vw,30px) 'Baloo 2'", color: C.ink, textAlign: "center", marginBottom: 26 }}>
-          Phù hợp với mọi lứa tuổi
+          XuXu dành cho ai?
         </h2>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 16 }}>
-          {AGE_GROUPS.map(a => (
+          {TARGET_GROUPS.map(a => (
             <div key={a.label} style={{ background: a.bg, borderRadius: 20, padding: 22, textAlign: "center" }}>
               <div style={{ fontSize: 40, marginBottom: 10 }}>{a.emoji}</div>
               <div style={{ font: "800 18px 'Baloo 2'", color: a.ink, marginBottom: 6 }}>{a.label}</div>
@@ -297,7 +297,7 @@ export default function Landing() {
             <span style={{ font: "600 12px 'Nunito'", color: C.faint }}>· Học tài chính vui vẻ</span>
           </div>
           <div style={{ font: "600 12px 'Nunito'", color: C.faint }}>
-            © {new Date().getFullYear()} XuXu · Dành cho trẻ 6–16 tuổi
+            © {new Date().getFullYear()} XuXu · Học tài chính mỗi ngày
           </div>
         </Section>
       </footer>
