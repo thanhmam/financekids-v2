@@ -2,370 +2,467 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { LESSONS, TOPICS } from "@/data/lessons";
-import XuXuMascot from "@/components/XuXuMascot";
+import { TOPICS } from "@/data/lessons";
 import LoginModal from "@/components/LoginModal";
 
-/* ── Brand tokens ── */
-const C = {
-  green: "#16C172",
-  greenDark: "#0E9E5C",
-  ink: "#15392A",
-  bg: "#F4F8EF",
-  border: "#ECF1E6",
-  yellow: "#FFC93C",
-  orange: "#FF8A3D",
-  purple: "#8B5CF6",
-  muted: "#5B7065",
-  faint: "#9AA89E",
-};
+/* ─── Animations (injected once) ─── */
+const KEYFRAMES = `
+@keyframes bob  { 0%,100%{transform:translateY(0)}         50%{transform:translateY(-12px)} }
+@keyframes bob2 { 0%,100%{transform:translateY(0) rotate(-4deg)} 50%{transform:translateY(-9px) rotate(4deg)} }
+@keyframes bob3 { 0%,100%{transform:translateY(0) rotate(6deg)}  50%{transform:translateY(-14px) rotate(-3deg)} }
+@keyframes pop  { 0%{transform:scale(.92)} 50%{transform:scale(1.04)} 100%{transform:scale(.92)} }
+@keyframes drift{ 0%,100%{transform:translate(0,0)} 50%{transform:translate(6px,-10px)} }
+.btn3d{transition:transform .08s,box-shadow .08s;cursor:pointer;}
+.btn3d:active{transform:translateY(3px);}
+`;
 
-const TOPIC_META = {
-  "money-basics":     { emoji: "💰", color: "#FFF3DC", ink: "#9A6A0E" },
-  "saving":           { emoji: "🐷", color: "#FFE9EE", ink: "#C0283A" },
-  "personal-finance": { emoji: "📒", color: "#EAF1FF", ink: "#3457B2" },
-  "borrowing":        { emoji: "🤝", color: "#EAFBF1", ink: "#0E7A4E" },
-  "investing":        { emoji: "📈", color: "#FFF0E3", ink: "#C25E18" },
-  "stocks":           { emoji: "📊", color: "#F1E9FF", ink: "#6B36C9" },
-  "digital-assets":   { emoji: "🪙", color: "#E6FBF6", ink: "#0A8C76" },
-};
-
-const STEPS = [
-  { n: "1", emoji: "🧭", title: "Chọn chủ đề", body: "Từ tiền cơ bản, tiết kiệm đến đầu tư — chọn điều bạn tò mò." },
-  { n: "2", emoji: "🎮", title: "Chơi quiz & mini-game", body: "Học khái niệm qua câu hỏi vui, tình huống thực tế, lựa chọn A/B." },
-  { n: "3", emoji: "🏆", title: "Nhận XP & huy hiệu", body: "Trả lời đúng để ghi điểm, giữ streak và leo bảng xếp hạng." },
-];
-
-const FEATURES = [
-  { emoji: "🧩", title: "Khái niệm đơn giản", body: "Biến kiến thức tài chính phức tạp thành câu chuyện dễ hiểu — dù bạn chưa biết gì về tiền." },
-  { emoji: "📖", title: "Học từ sách bestseller", body: "Tinh hoa từ Rich Dad Poor Dad, The Psychology of Money, Think and Grow Rich… qua quiz và khái niệm cốt lõi." },
-  { emoji: "⏱️", title: "Chỉ 10–15 phút mỗi ngày", body: "Mỗi bài học ngắn gọn, phù hợp giờ nghỉ trưa hoặc trước khi ngủ. Đều đặn mỗi ngày, vững nền tài chính cả đời." },
-  { emoji: "🔥", title: "Tạo thói quen tài chính", body: "Streak hằng ngày, huy hiệu và mục tiêu giúp bạn duy trì đà học liên tục." },
-];
-
-const TARGET_GROUPS = [
-  { emoji: "🧒", label: "Trẻ em & học sinh", desc: "Làm quen với tiền, tiết kiệm và những quyết định tài chính đầu tiên.", bg: "#EAFBF1", ink: "#0E9E5C" },
-  { emoji: "🧑", label: "Người trẻ", desc: "Xây nền tảng tài chính vững: quản lý thu chi, đầu tư và lập kế hoạch tương lai.", bg: "#EAF1FF", ink: "#3457B2" },
-  { emoji: "📚", label: "Ai muốn hiểu về tiền", desc: "Chưa biết bắt đầu từ đâu? XuXu giúp bạn từng bước — không cần nền tảng kinh tế.", bg: "#F1E9FF", ink: "#6B36C9" },
-];
-
-const HERO_PILLS = [
-  { emoji: "⏱️", text: "10–15 phút/ngày" },
-  { emoji: "🎮", text: "Học mà như chơi" },
-  { emoji: "🌱", text: "Nền tảng vững chắc" },
-];
-
-function Section({ children, style }) {
+/* ─── Xu Coin Character ─── */
+function XuCoin({ size = 184 }) {
+  const s = size / 184;
   return (
-    <section style={{ maxWidth: 1080, margin: "0 auto", padding: "0 20px", ...style }}>
-      {children}
-    </section>
+    <div style={{ position: "relative", width: size, height: size + 20 * s, flexShrink: 0 }}>
+      {/* legs */}
+      <div style={{ position: "absolute", bottom: 6 * s, left: 58 * s, width: 20 * s, height: 30 * s, background: "#E8A317", borderRadius: 10 * s, zIndex: 0 }} />
+      <div style={{ position: "absolute", bottom: 6 * s, right: 58 * s, width: 20 * s, height: 30 * s, background: "#E8A317", borderRadius: 10 * s, zIndex: 0 }} />
+      <div style={{ position: "absolute", bottom: 0, left: 50 * s, width: 34 * s, height: 16 * s, background: "#C98A12", borderRadius: 12 * s }} />
+      <div style={{ position: "absolute", bottom: 0, right: 50 * s, width: 34 * s, height: 16 * s, background: "#C98A12", borderRadius: 12 * s }} />
+      {/* body */}
+      <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: size, borderRadius: "50%", background: "radial-gradient(circle at 38% 30%,#FFEFA8,#FFC93C 56%,#EFAE20)", border: `${8 * s}px solid #E8A317`, boxShadow: `0 ${10 * s}px 0 #C98A12,inset 0 ${-8 * s}px ${16 * s}px rgba(180,120,0,.25)`, zIndex: 2 }}>
+        <div style={{ position: "absolute", inset: 18 * s, borderRadius: "50%", border: `${4 * s}px dashed rgba(180,120,0,.32)` }} />
+        <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", font: `800 ${70 * s}px 'Baloo 2'`, color: "rgba(154,106,0,.14)" }}>₫</div>
+        {/* eyes */}
+        <div style={{ position: "absolute", top: 62 * s, left: 48 * s, width: 18 * s, height: 25 * s, background: "#3A2A00", borderRadius: "50%" }} />
+        <div style={{ position: "absolute", top: 62 * s, right: 48 * s, width: 18 * s, height: 25 * s, background: "#3A2A00", borderRadius: "50%" }} />
+        <div style={{ position: "absolute", top: 65 * s, left: 53 * s, width: 7 * s, height: 7 * s, background: "#fff", borderRadius: "50%" }} />
+        <div style={{ position: "absolute", top: 65 * s, right: 62 * s, width: 7 * s, height: 7 * s, background: "#fff", borderRadius: "50%" }} />
+        {/* smile */}
+        <div style={{ position: "absolute", top: 104 * s, left: "50%", transform: "translateX(-50%)", width: 48 * s, height: 26 * s, border: `${6 * s}px solid #3A2A00`, borderTop: "none", borderRadius: `0 0 ${50 * s}px ${50 * s}px` }} />
+        {/* cheeks */}
+        <div style={{ position: "absolute", top: 98 * s, left: 30 * s, width: 20 * s, height: 12 * s, background: "rgba(255,120,120,.5)", borderRadius: "50%" }} />
+        <div style={{ position: "absolute", top: 98 * s, right: 30 * s, width: 20 * s, height: 12 * s, background: "rgba(255,120,120,.5)", borderRadius: "50%" }} />
+      </div>
+      {/* arms */}
+      <div style={{ position: "absolute", top: 96 * s, left: -14 * s, width: 30 * s, height: 13 * s, background: "#FFC93C", border: `${4 * s}px solid #E8A317`, borderRadius: 10 * s, transform: "rotate(30deg)", zIndex: 1 }} />
+      <div style={{ position: "absolute", top: 74 * s, right: -18 * s, width: 30 * s, height: 13 * s, background: "#FFC93C", border: `${4 * s}px solid #E8A317`, borderRadius: 10 * s, transform: "rotate(-38deg)", zIndex: 3 }} />
+    </div>
   );
 }
 
-export default function Landing({ onSwitchVersion }) {
+function XuCoinSmall() {
+  return (
+    <div style={{ position: "relative", width: 96, height: 96, borderRadius: "50%", background: "radial-gradient(circle at 38% 30%,#FFEFA8,#FFC93C 56%,#EFAE20)", border: "6px solid #fff", boxShadow: "0 9px 0 rgba(0,0,0,.18)", animation: "bob 4s ease-in-out infinite" }}>
+      <div style={{ position: "absolute", top: 34, left: 22, color: "#3A2A00", font: "800 16px 'Baloo 2'" }}>★</div>
+      <div style={{ position: "absolute", top: 34, right: 22, color: "#3A2A00", font: "800 16px 'Baloo 2'" }}>★</div>
+      <div style={{ position: "absolute", top: 54, left: "50%", transform: "translateX(-50%)", width: 32, height: 17, background: "#3A2A00", borderRadius: "0 0 32px 32px" }} />
+      <div style={{ position: "absolute", top: 50, left: 14, width: 12, height: 8, background: "rgba(255,120,120,.55)", borderRadius: "50%" }} />
+      <div style={{ position: "absolute", top: 50, right: 14, width: 12, height: 8, background: "rgba(255,120,120,.55)", borderRadius: "50%" }} />
+    </div>
+  );
+}
+
+/* ─── Hero illustration scene ─── */
+function HeroScene() {
+  return (
+    <div style={{ position: "relative", height: 520 }}>
+      {/* ground shadow */}
+      <div style={{ position: "absolute", left: "50%", bottom: 74, transform: "translateX(-50%)", width: 380, height: 46, borderRadius: "50%", background: "radial-gradient(ellipse,rgba(20,60,35,.13),transparent 70%)" }} />
+
+      {/* floating coin */}
+      <div style={{ position: "absolute", top: 42, left: 30, animation: "bob 4s ease-in-out infinite" }}>
+        <div style={{ width: 46, height: 46, borderRadius: "50%", background: "radial-gradient(circle at 38% 30%,#FFE594,#FFC93C 60%,#EFAE20)", border: "3px solid #E8A317", boxShadow: "0 4px 0 #C98A12", display: "flex", alignItems: "center", justifyContent: "center", font: "800 18px 'Baloo 2'", color: "#9A6A00" }}>₫</div>
+      </div>
+
+      {/* gem */}
+      <div style={{ position: "absolute", top: 18, right: 64, animation: "bob3 5s ease-in-out infinite" }}>
+        <div style={{ width: 0, height: 0, borderLeft: "18px solid transparent", borderRight: "18px solid transparent", borderTop: "26px solid #8B5CF6", filter: "drop-shadow(0 4px 4px rgba(110,70,200,.3))" }} />
+        <div style={{ width: 36, height: 13, background: "#A981FF", borderRadius: "3px 3px 0 0", marginTop: -26, clipPath: "polygon(0 100%,18% 0,82% 0,100% 100%)" }} />
+      </div>
+
+      {/* flame */}
+      <div style={{ position: "absolute", top: 120, right: 18, animation: "bob2 4.5s ease-in-out .6s infinite" }}>
+        <div style={{ width: 40, height: 48, background: "linear-gradient(180deg,#FFB23D,#FF6A2E)", borderRadius: "50% 50% 50% 50%/60% 60% 40% 40%", boxShadow: "inset 0 -6px 8px rgba(200,60,0,.3)", position: "relative" }}>
+          <div style={{ position: "absolute", inset: "8px 9px 6px", background: "linear-gradient(180deg,#FFE08A,#FFB347)", borderRadius: "50% 50% 50% 50%/60% 60% 40% 40%" }} />
+        </div>
+      </div>
+
+      {/* chart card */}
+      <div style={{ position: "absolute", bottom: 120, left: 0, animation: "drift 6s ease-in-out infinite" }}>
+        <div style={{ width: 78, height: 64, background: "#fff", border: "3px solid #E0E8DA", borderRadius: 14, boxShadow: "0 6px 0 #E0E8DA", display: "flex", alignItems: "flex-end", gap: 6, padding: 10 }}>
+          <div style={{ flex: 1, height: "40%", background: "#7BE0A8", borderRadius: "4px 4px 0 0" }} />
+          <div style={{ flex: 1, height: "65%", background: "#16C172", borderRadius: "4px 4px 0 0" }} />
+          <div style={{ flex: 1, height: "95%", background: "#0E9E5C", borderRadius: "4px 4px 0 0" }} />
+        </div>
+      </div>
+
+      {/* heart */}
+      <div style={{ position: "absolute", bottom: 96, right: 36, animation: "bob 3.6s ease-in-out .3s infinite" }}>
+        <div style={{ position: "relative", width: 34, height: 30 }}>
+          <div style={{ position: "absolute", width: 20, height: 32, left: 7, top: 0, background: "#FF5366", borderRadius: "10px 10px 0 0", transform: "rotate(-45deg)", transformOrigin: "bottom" }} />
+          <div style={{ position: "absolute", width: 20, height: 32, left: 7, top: 0, background: "#FF5366", borderRadius: "10px 10px 0 0", transform: "rotate(45deg)", transformOrigin: "bottom" }} />
+        </div>
+      </div>
+
+      {/* sparkles */}
+      <div style={{ position: "absolute", top: 80, left: 160, color: "#FFC93C", font: "800 22px 'Baloo 2'", animation: "pop 3s ease-in-out infinite" }}>✦</div>
+      <div style={{ position: "absolute", bottom: 170, right: 120, color: "#16C172", font: "800 16px 'Baloo 2'", animation: "pop 3.4s ease-in-out .5s infinite" }}>✦</div>
+
+      {/* Buddy: green sprout */}
+      <div style={{ position: "absolute", left: 34, bottom: 96, animation: "bob2 5.2s ease-in-out infinite" }}>
+        <div style={{ position: "relative", width: 92, height: 92, borderRadius: "50%", background: "radial-gradient(circle at 38% 30%,#5BE89A,#22C46F 62%,#13A258)", border: "5px solid #0E9E5C", boxShadow: "0 7px 0 rgba(10,110,60,.4)" }}>
+          <div style={{ position: "absolute", top: -20, left: "50%", transform: "translateX(-50%) rotate(-12deg)", width: 14, height: 24, background: "#1FBF6E", borderRadius: "60% 0 60% 0" }} />
+          <div style={{ position: "absolute", top: 50, left: 24, width: 9, height: 13, background: "#0A3A22", borderRadius: "50%" }} />
+          <div style={{ position: "absolute", top: 50, right: 24, width: 9, height: 13, background: "#0A3A22", borderRadius: "50%" }} />
+          <div style={{ position: "absolute", top: 65, left: "50%", transform: "translateX(-50%)", width: 22, height: 11, border: "3px solid #0A3A22", borderTop: "none", borderRadius: "0 0 26px 26px" }} />
+          <div style={{ position: "absolute", top: 46, left: -13, width: 18, height: 9, background: "#22C46F", border: "2px solid #0E9E5C", borderRadius: 8, transform: "rotate(24deg)" }} />
+          <div style={{ position: "absolute", top: 46, right: -13, width: 18, height: 9, background: "#22C46F", border: "2px solid #0E9E5C", borderRadius: 8, transform: "rotate(-24deg)" }} />
+        </div>
+      </div>
+
+      {/* Buddy: purple gem */}
+      <div style={{ position: "absolute", right: 46, bottom: 104, animation: "bob 4.6s ease-in-out .4s infinite" }}>
+        <div style={{ position: "relative", width: 82, height: 82, borderRadius: 24, background: "linear-gradient(160deg,#B493FF,#8B5CF6 60%,#6F3CE0)", border: "4px solid #6F3CE0", boxShadow: "0 7px 0 rgba(80,40,170,.4)", transform: "rotate(-6deg)" }}>
+          <div style={{ position: "absolute", top: 14, left: 14, right: 14, height: 16, background: "rgba(255,255,255,.28)", borderRadius: 8 }} />
+          <div style={{ position: "absolute", top: 40, left: 20, width: 8, height: 12, background: "#2C1660", borderRadius: "50%" }} />
+          <div style={{ position: "absolute", top: 40, right: 20, width: 8, height: 12, background: "#2C1660", borderRadius: "50%" }} />
+          <div style={{ position: "absolute", top: 56, left: "50%", transform: "translateX(-50%)", width: 18, height: 9, border: "3px solid #2C1660", borderTop: "none", borderRadius: "0 0 20px 20px" }} />
+        </div>
+      </div>
+
+      {/* Main Xu (front center) */}
+      <div style={{ position: "absolute", left: "50%", bottom: 60, transform: "translateX(-50%)", animation: "bob 5s ease-in-out infinite", zIndex: 4 }}>
+        <XuCoin size={184} />
+      </div>
+
+      {/* Coin stack */}
+      <div style={{ position: "absolute", left: 96, bottom: 58, zIndex: 5, animation: "drift 5.5s ease-in-out .8s infinite" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 3, alignItems: "center" }}>
+          <div style={{ width: 54, height: 14, borderRadius: "50%/100%", background: "linear-gradient(180deg,#FFE08A,#FFC93C)", border: "2px solid #E8A317" }} />
+          <div style={{ width: 60, height: 15, borderRadius: "50%/100%", background: "linear-gradient(180deg,#FFE08A,#FFC93C)", border: "2px solid #E8A317", marginTop: -2 }} />
+          <div style={{ width: 66, height: 16, borderRadius: "50%/100%", background: "linear-gradient(180deg,#FFE08A,#FFC93C)", border: "2px solid #E8A317", marginTop: -2 }} />
+        </div>
+      </div>
+
+      {/* Piggy bank */}
+      <div style={{ position: "absolute", right: 66, bottom: 56, zIndex: 5, animation: "bob2 5.8s ease-in-out .2s infinite" }}>
+        <div style={{ position: "relative", width: 78, height: 60, background: "linear-gradient(160deg,#FF9FC4,#FF6FA8)", borderRadius: "50% 50% 46% 46%/56% 56% 44% 44%", boxShadow: "0 6px 0 #E04A86" }}>
+          <div style={{ position: "absolute", top: -8, left: "50%", transform: "translateX(-50%)", width: 18, height: 6, background: "#E04A86", borderRadius: 4 }} />
+          <div style={{ position: "absolute", top: 22, left: 14, width: 6, height: 8, background: "#7A1F45", borderRadius: "50%" }} />
+          <div style={{ position: "absolute", left: -7, top: 26, width: 16, height: 16, background: "#FF6FA8", border: "2px solid #E04A86", borderRadius: "50%" }} />
+          <div style={{ position: "absolute", bottom: -7, left: 14, width: 11, height: 12, background: "#E04A86", borderRadius: "0 0 6px 6px" }} />
+          <div style={{ position: "absolute", bottom: -7, right: 14, width: 11, height: 12, background: "#E04A86", borderRadius: "0 0 6px 6px" }} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ─── Feature row mocks ─── */
+function PhoneMock() {
+  return (
+    <div style={{ position: "relative", height: 240, background: "#F4FBF4", borderRadius: 28, display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <div style={{ width: 124, height: 200, background: "#fff", border: "5px solid #15392A", borderRadius: 24, padding: "14px 11px", boxShadow: "0 10px 0 rgba(20,50,30,.12)" }}>
+        <div style={{ height: 8, borderRadius: 5, background: "#ECF1E6", overflow: "hidden", marginBottom: 12 }}>
+          <div style={{ width: "70%", height: "100%", background: "#16C172" }} />
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          <div style={{ height: 30, borderRadius: 9, border: "2px solid #16C172", background: "#EAFBF1" }} />
+          <div style={{ height: 30, borderRadius: 9, border: "2px solid #ECF1E6" }} />
+          <div style={{ height: 30, borderRadius: 9, border: "2px solid #ECF1E6" }} />
+          <div style={{ height: 30, borderRadius: 9, background: "#16C172", boxShadow: "0 3px 0 #0E9E5C" }} />
+        </div>
+      </div>
+      <div style={{ position: "absolute", right: 34, top: 28, width: 48, height: 48, borderRadius: "50%", background: "radial-gradient(circle at 38% 30%,#FFE594,#FFC93C 58%,#EFAE20)", border: "3px solid #E8A317", boxShadow: "0 4px 0 #C98A12", animation: "bob 4s ease-in-out infinite" }}>
+        <div style={{ position: "absolute", top: 17, left: 11, width: 6, height: 8, background: "#3A2A00", borderRadius: "50%" }} />
+        <div style={{ position: "absolute", top: 17, right: 11, width: 6, height: 8, background: "#3A2A00", borderRadius: "50%" }} />
+        <div style={{ position: "absolute", top: 28, left: "50%", transform: "translateX(-50%)", width: 14, height: 7, border: "2.5px solid #3A2A00", borderTop: "none", borderRadius: "0 0 16px 16px" }} />
+      </div>
+    </div>
+  );
+}
+
+function StreakMock() {
+  return (
+    <div style={{ position: "relative", height: 240, background: "#FFF6E4", borderRadius: 28, display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <div style={{ width: 170, background: "linear-gradient(150deg,#FF9A4D,#FF7A2E)", borderRadius: 22, padding: 18, textAlign: "center", color: "#fff", boxShadow: "0 8px 0 #D96020" }}>
+        <div style={{ font: "800 50px 'Baloo 2'", lineHeight: 1 }}>7</div>
+        <div style={{ font: "800 15px 'Baloo 2'", marginTop: 2 }}>ngày streak! 🔥</div>
+        <div style={{ display: "flex", justifyContent: "center", gap: 5, marginTop: 12 }}>
+          {[1,2,3].map(i => (
+            <div key={i} style={{ width: 18, height: 18, borderRadius: "50%", background: "rgba(255,255,255,.92)", display: "flex", alignItems: "center", justifyContent: "center", color: "#FF7A2E", font: "800 9px 'Baloo 2'" }}>✓</div>
+          ))}
+          <div style={{ width: 18, height: 18, borderRadius: "50%", background: "rgba(255,255,255,.32)", border: "2px dashed rgba(255,255,255,.8)" }} />
+        </div>
+      </div>
+      <div style={{ position: "absolute", left: 30, bottom: 28, color: "#FF8A3D", font: "800 22px 'Baloo 2'", animation: "pop 3s ease-in-out infinite" }}>✦</div>
+    </div>
+  );
+}
+
+function TopicChipsMock() {
+  const chips = [
+    { emoji: "💰", label: "Tiết kiệm", color: "#0E9E5C" },
+    { emoji: "📈", label: "Đầu tư", color: "#7C4DEC" },
+    { emoji: "🧾", label: "Ngân sách", color: "#E07320" },
+    { emoji: "🛡️", label: "Tránh nợ", color: "#E03A4E" },
+  ];
+  return (
+    <div style={{ position: "relative", height: 240, background: "#F3EEFF", borderRadius: 28, display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 10, width: 230, justifyContent: "center" }}>
+        {chips.map(c => (
+          <span key={c.label} style={{ background: "#fff", color: c.color, borderRadius: 30, padding: "10px 16px", font: "800 14px 'Baloo 2'", boxShadow: "0 4px 0 rgba(20,50,30,.08)" }}>
+            {c.emoji} {c.label}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ─── Books section data ─── */
+const BOOKS = [
+  { emoji: "💡", title: "How Money Works", author: "DK", color: "#FFF3DC", ink: "#9A6A0E", insight: "Cách tiền thực sự vận hành — từ ngân hàng đến thị trường" },
+  { emoji: "🏠", title: "Rich Dad Poor Dad", author: "R. Kiyosaki", color: "#EAFBF1", ink: "#0E7A4E", insight: "Người giàu không làm việc vì tiền — họ để tiền làm việc" },
+  { emoji: "🧠", title: "The Psychology of Money", author: "M. Housel", color: "#EAF1FF", ink: "#3457B2", insight: "Hành vi tài chính quan trọng hơn kiến thức tài chính" },
+  { emoji: "🏆", title: "Think and Grow Rich", author: "N. Hill", color: "#FFE9EE", ink: "#C0283A", insight: "Tư duy làm giàu bắt đầu từ mục tiêu rõ ràng và khao khát" },
+  { emoji: "📊", title: "The Millionaire Next Door", author: "T. Stanley", color: "#F1E9FF", ink: "#6B36C9", insight: "Người thực sự giàu sống giản dị và tiết kiệm có kỷ luật" },
+  { emoji: "💸", title: "I Will Teach You to Be Rich", author: "R. Sethi", color: "#E6FBF6", ink: "#0A8C76", insight: "Tự động hóa tài chính — hệ thống đơn giản cho người trẻ" },
+];
+
+/* ─── Topics ─── */
+const TOPIC_META = {
+  "money-basics":     { emoji: "💵", label: "Cơ bản về tiền" },
+  "saving":           { emoji: "🐷", label: "Tiết kiệm" },
+  "personal-finance": { emoji: "🧾", label: "Quản lý chi tiêu" },
+  "borrowing":        { emoji: "💳", label: "Vay & nợ" },
+  "investing":        { emoji: "📈", label: "Đầu tư" },
+  "stocks":           { emoji: "📊", label: "Chứng khoán" },
+  "digital-assets":   { emoji: "🪙", label: "Tài sản số" },
+};
+
+export default function Landing() {
   const router = useRouter();
   const [showLogin, setShowLogin] = useState(false);
-
   const enterApp = () => router.push("/learn");
-  const topicKeys = Object.keys(TOPICS);
 
   return (
-    <div style={{ background: C.bg, minHeight: "100vh", overflowX: "hidden" }}>
+    <div style={{ width: "100%", minHeight: "100vh", background: "#fff", overflowX: "hidden", fontFamily: "'Nunito', sans-serif" }}>
+      <style>{KEYFRAMES}</style>
 
-      {/* ── NAVBAR ── */}
-      <header style={{ position: "sticky", top: 0, zIndex: 40, background: "rgba(244,248,239,.85)", backdropFilter: "blur(10px)", borderBottom: `1px solid ${C.border}` }}>
-        <Section style={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: 64 }}>
+      {/* ── NAV ── */}
+      <div style={{ position: "sticky", top: 0, zIndex: 50, background: "rgba(255,255,255,.88)", backdropFilter: "blur(10px)", borderBottom: "1px solid #EEF3E9" }}>
+        <div style={{ maxWidth: 1180, margin: "0 auto", height: 68, padding: "0 28px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            <XuXuMascot size={34} />
-            <span style={{ font: "800 22px 'Baloo 2'", color: C.green }}>XuXu</span>
+            <div style={{ position: "relative", width: 38, height: 38, borderRadius: "50%", background: "radial-gradient(circle at 38% 32%,#FFE594,#FFC93C 58%,#F2B01E)", border: "3px solid #E8A317", boxShadow: "0 3px 0 #C98A12", flexShrink: 0 }}>
+              <div style={{ position: "absolute", top: 14, left: 9, width: 5, height: 7, background: "#3A2A00", borderRadius: "50%" }} />
+              <div style={{ position: "absolute", top: 14, right: 9, width: 5, height: 7, background: "#3A2A00", borderRadius: "50%" }} />
+              <div style={{ position: "absolute", top: 23, left: "50%", transform: "translateX(-50%)", width: 12, height: 6, border: "2.5px solid #3A2A00", borderTop: "none", borderRadius: "0 0 14px 14px" }} />
+            </div>
+            <span style={{ font: "800 24px 'Baloo 2'", color: "#16C172", letterSpacing: "-.5px" }}>XuXu</span>
           </div>
-          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            {/* Dev version toggle */}
-            {onSwitchVersion && (
-              <button
-                onClick={onSwitchVersion}
-                style={{ background: "#F4F8EF", border: "2px solid #ECF1E6", borderRadius: 20, padding: "5px 12px", font: "700 11px 'Nunito'", color: C.muted, cursor: "pointer", display: "flex", alignItems: "center", gap: 5 }}
-              >
-                <span style={{ background: C.green, borderRadius: 10, padding: "1px 7px", color: "#fff", fontSize: 10 }}>V1</span>
-                <span style={{ background: "#ECF1E6", borderRadius: 10, padding: "1px 7px", color: "#9AA89E", fontSize: 10 }}>V2</span>
-                <span style={{ fontSize: 10 }}>🔧 dev</span>
-              </button>
-            )}
-            <button
-              onClick={() => setShowLogin(true)}
-              className="btn-press"
-              style={{ background: "none", border: "none", cursor: "pointer", font: "800 14px 'Baloo 2'", color: C.muted, padding: "8px 12px" }}
-            >
-              Đăng nhập
-            </button>
-            <button
-              onClick={enterApp}
-              className="btn-press"
-              style={{ background: C.green, color: "#fff", border: "none", borderRadius: 12, padding: "10px 18px", font: "800 14px 'Baloo 2'", boxShadow: `0 4px 0 ${C.greenDark}`, cursor: "pointer" }}
-            >
-              Khám phá ngay
-            </button>
+          <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+            <span style={{ font: "700 14px 'Nunito'", color: "#5B7065", cursor: "pointer" }} onClick={enterApp}>Khoá học</span>
+            <span style={{ font: "700 14px 'Nunito'", color: "#5B7065", cursor: "pointer" }}>Về XuXu</span>
+            <button className="btn3d" onClick={() => setShowLogin(true)} style={{ background: "#fff", color: "#16C172", border: "2px solid #E0E8DA", borderBottomWidth: 4, borderRadius: 13, padding: "9px 18px", font: "800 13px 'Baloo 2'", letterSpacing: ".4px" }}>ĐĂNG NHẬP</button>
+            <button className="btn3d" onClick={enterApp} style={{ background: "#16C172", color: "#fff", border: "none", borderRadius: 13, boxShadow: "0 4px 0 #0E9E5C", padding: "11px 20px", font: "800 13px 'Baloo 2'", letterSpacing: ".4px" }}>BẮT ĐẦU</button>
           </div>
-        </Section>
-      </header>
+        </div>
+      </div>
 
       {/* ── HERO ── */}
-      <Section style={{ paddingTop: 48, paddingBottom: 40 }}>
-        <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 40, justifyContent: "center" }}>
+      <div style={{ position: "relative", background: "linear-gradient(180deg,#F4FBF4 0%,#FFFFFF 70%)", padding: "18px 0 70px", overflow: "hidden" }}>
+        <div style={{ position: "absolute", top: 60, left: -80, width: 340, height: 340, borderRadius: "50%", background: "radial-gradient(circle,#D7F4E2,transparent 70%)", pointerEvents: "none" }} />
+        <div style={{ position: "absolute", bottom: -60, right: -60, width: 320, height: 320, borderRadius: "50%", background: "radial-gradient(circle,#FFF1CF,transparent 70%)", pointerEvents: "none" }} />
 
-          {/* Copy */}
-          <div style={{ flex: "1 1 380px", maxWidth: 540 }}>
-            <div style={{ display: "inline-flex", alignItems: "center", gap: 7, background: "#fff", border: `2px solid ${C.border}`, borderRadius: 20, padding: "6px 14px", marginBottom: 18 }}>
-              <span style={{ fontSize: 15 }}>✨</span>
-              <span style={{ font: "700 12px 'Nunito'", color: C.muted }}>Học tài chính — vui, đơn giản, mỗi ngày 10 phút</span>
+        <div style={{ maxWidth: 1180, margin: "0 auto", padding: "0 28px", display: "grid", gridTemplateColumns: "1.05fr 1fr", gap: 36, alignItems: "center", position: "relative", minHeight: 520 }}>
+
+          {/* LEFT: illustration */}
+          <HeroScene />
+
+          {/* RIGHT: copy */}
+          <div style={{ textAlign: "left" }}>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: 7, background: "#E3F7EC", borderRadius: 30, padding: "7px 15px", marginBottom: 22 }}>
+              <span style={{ color: "#0E9E5C", font: "800 13px 'Baloo 2'" }}>✦</span>
+              <span style={{ font: "800 13px 'Nunito'", color: "#0E9E5C", letterSpacing: ".3px" }}>Miễn phí · Vui nhộn · Hiệu quả</span>
             </div>
-            <h1 style={{ font: "800 clamp(32px, 5vw, 52px)/1.1 'Baloo 2'", color: C.ink, marginBottom: 16 }}>
-              Hiểu về <span style={{ color: C.green }}>Tiền</span> theo cách{" "}
-              <span style={{ position: "relative", whiteSpace: "nowrap" }}>
-                vui nhất
-                <span style={{ position: "absolute", left: 0, right: 0, bottom: 2, height: 10, background: "#FFE08A", borderRadius: 6, zIndex: -1 }} />
-              </span>
+            <h1 style={{ font: "800 54px/1.08 'Baloo 2'", color: "#15392A", letterSpacing: -1, marginBottom: 18 }}>
+              Hiểu về <span style={{ color: "#16C172" }}>Tiền</span><br />theo cách vui nhất.
             </h1>
-            <p style={{ font: "600 clamp(15px, 2vw, 17px)/1.6 'Nunito'", color: C.muted, marginBottom: 24, maxWidth: 460 }}>
-              XuXu giúp bạn hiểu về tiền, tiết kiệm, đầu tư qua các khái niệm đơn giản và mini-game thú vị.
-              Chỉ 10–15 phút mỗi ngày để xây nền tảng tài chính vững chắc cho tương lai.
+            <p style={{ font: "600 18px/1.6 'Nunito'", color: "#5B7065", maxWidth: 430, marginBottom: 30 }}>
+              Học tài chính cùng XuXu — mỗi ngày vài phút, qua các bài học ngắn, đố vui và streak. Để bạn không bao giờ <b style={{ color: "#15392A" }}>"0 xu"</b>.
             </p>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
-              <button
-                onClick={enterApp}
-                className="btn-press"
-                style={{ background: C.green, color: "#fff", border: "none", borderRadius: 16, padding: "15px 28px", font: "800 16px 'Baloo 2'", boxShadow: `0 5px 0 ${C.greenDark}`, cursor: "pointer" }}
-              >
-                Bắt đầu khám phá →
-              </button>
-              <button
-                onClick={() => setShowLogin(true)}
-                className="btn-press"
-                style={{ background: "#fff", color: C.ink, border: `2px solid ${C.border}`, borderBottomWidth: 4, borderRadius: 16, padding: "13px 26px", font: "800 16px 'Baloo 2'", cursor: "pointer" }}
-              >
-                Đăng nhập
-              </button>
+            <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 18, flexWrap: "wrap" }}>
+              <button className="btn3d" onClick={enterApp} style={{ background: "#16C172", color: "#fff", border: "none", borderRadius: 16, boxShadow: "0 5px 0 #0E9E5C", padding: "16px 34px", font: "800 17px 'Baloo 2'", letterSpacing: ".5px" }}>BẮT ĐẦU HỌC</button>
+              <button className="btn3d" onClick={() => setShowLogin(true)} style={{ background: "#fff", color: "#16C172", border: "2px solid #E0E8DA", borderBottomWidth: 5, borderRadius: 16, padding: "14px 28px", font: "800 16px 'Baloo 2'", letterSpacing: ".5px" }}>TÔI ĐÃ CÓ TÀI KHOẢN</button>
             </div>
-            {/* 3 benefit pills — centered */}
-            <div style={{ display: "flex", gap: 10, marginTop: 24, flexWrap: "wrap", justifyContent: "center" }}>
-              {HERO_PILLS.map(p => (
-                <div key={p.text} style={{ display: "flex", alignItems: "center", gap: 6, background: "#fff", border: `2px solid ${C.border}`, borderRadius: 20, padding: "8px 14px", font: "700 13px 'Nunito'", color: C.ink }}>
-                  <span>{p.emoji}</span>
-                  <span>{p.text}</span>
-                </div>
+            <div style={{ display: "flex", alignItems: "center", gap: 18, font: "700 13px 'Nunito'", color: "#9AA89E", flexWrap: "wrap" }}>
+              {["Không cần thẻ", "7 chủ đề tài chính", "Học 5 phút/ngày"].map(t => (
+                <span key={t} style={{ display: "flex", alignItems: "center", gap: 5 }}>
+                  <span style={{ color: "#16C172", fontSize: 15 }}>✓</span> {t}
+                </span>
               ))}
             </div>
           </div>
+        </div>
+      </div>
 
-          {/* Visual — mascot + chips stacked cleanly */}
-          <div style={{ flex: "0 1 300px", display: "flex", flexDirection: "column", alignItems: "center", gap: 16 }}>
-            {/* Top chip */}
-            <div style={{ background: "#fff", borderRadius: 16, padding: "8px 14px", boxShadow: "0 6px 18px rgba(21,57,42,.12)", font: "800 13px 'Baloo 2'", color: C.ink, display: "flex", alignItems: "center", gap: 6, animation: "float 3.4s ease-in-out infinite" }}>
-              💰 +100 XP
-            </div>
+      {/* ── FEATURE ROWS ── */}
+      <div style={{ maxWidth: 1080, margin: "0 auto", padding: "80px 28px 40px", display: "flex", flexDirection: "column", gap: 90 }}>
 
-            {/* Mascot with side chips */}
-            <div style={{ position: "relative", display: "inline-block" }}>
-              <div style={{ width: 200, height: 200, borderRadius: "50%", background: "radial-gradient(circle at 50% 45%, #DCF7E8, #F4F8EF 75%)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <div style={{ animation: "float 3s ease-in-out infinite" }}>
-                  <XuXuMascot size={150} mood="excited" />
-                </div>
-              </div>
-              {/* Side chip left */}
-              <div style={{ position: "absolute", top: "50%", right: -8, transform: "translateY(-50%)", background: "#fff", borderRadius: 16, padding: "7px 11px", boxShadow: "0 6px 18px rgba(21,57,42,.12)", font: "800 12px 'Baloo 2'", color: C.orange, display: "flex", alignItems: "center", gap: 5, animation: "float 2.6s ease-in-out infinite", whiteSpace: "nowrap" }}>
-                🔥 Streak 7
-              </div>
-            </div>
+        {/* Row 1 */}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 50, alignItems: "center" }}>
+          <div>
+            <div style={{ font: "800 14px 'Nunito'", color: "#16C172", letterSpacing: 1, marginBottom: 10 }}>DỰA TRÊN CĂN CỨ</div>
+            <h2 style={{ font: "800 34px/1.18 'Baloo 2'", color: "#15392A", marginBottom: 14 }}>Bài học thiết kế khoa học, dễ vào đầu.</h2>
+            <p style={{ font: "600 16px/1.6 'Nunito'", color: "#5B7065" }}>XuXu chia kiến thức tài chính thành những mảnh nhỏ, lặp lại đúng lúc và đố vui để bạn nhớ lâu — không cần đọc cả cuốn sách dày.</p>
+          </div>
+          <PhoneMock />
+        </div>
 
-            {/* Bottom chip */}
-            <div style={{ background: "#fff", borderRadius: 16, padding: "8px 14px", boxShadow: "0 6px 18px rgba(21,57,42,.12)", font: "800 13px 'Baloo 2'", color: C.purple, display: "flex", alignItems: "center", gap: 6, animation: "float 3.1s ease-in-out infinite" }}>
-              🏆 Hạng Vàng
-            </div>
+        {/* Row 2 */}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 50, alignItems: "center" }}>
+          <StreakMock />
+          <div>
+            <div style={{ font: "800 14px 'Nunito'", color: "#FF8A3D", letterSpacing: 1, marginBottom: 10 }}>TIẾP THÊM ĐỘNG LỰC</div>
+            <h2 style={{ font: "800 34px/1.18 'Baloo 2'", color: "#15392A", marginBottom: 14 }}>Giữ streak, gom xu, lên hạng.</h2>
+            <p style={{ font: "600 16px/1.6 'Nunito'", color: "#5B7065" }}>Học đều mỗi ngày để giữ ngọn lửa streak, kiếm xu thưởng và leo bảng xếp hạng cùng bạn bè. Tài chính chưa bao giờ gây nghiện đến thế.</p>
           </div>
         </div>
-      </Section>
 
-      {/* ── TOPICS ── */}
-      <Section style={{ paddingTop: 32, paddingBottom: 48 }}>
-        <h2 style={{ font: "800 clamp(24px,3.5vw,34px) 'Baloo 2'", color: C.ink, textAlign: "center", marginBottom: 8 }}>
-          Bạn sẽ học gì ở XuXu?
-        </h2>
-        <p style={{ font: "600 15px 'Nunito'", color: C.muted, textAlign: "center", marginBottom: 28 }}>
-          7 chủ đề tài chính, từ những đồng xu đầu tiên đến đầu tư &amp; tài sản số.
-        </p>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))", gap: 12 }}>
-          {topicKeys.map(key => {
-            const m = TOPIC_META[key] || { emoji: "📚", color: "#fff", ink: C.ink };
-            return (
+        {/* Row 3 */}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 50, alignItems: "center" }}>
+          <div>
+            <div style={{ font: "800 14px 'Nunito'", color: "#8B5CF6", letterSpacing: 1, marginBottom: 10 }}>CÁ NHÂN HOÁ</div>
+            <h2 style={{ font: "800 34px/1.18 'Baloo 2'", color: "#15392A", marginBottom: 14 }}>Lộ trình riêng cho mục tiêu của bạn.</h2>
+            <p style={{ font: "600 16px/1.6 'Nunito'", color: "#5B7065" }}>Dù bạn muốn tiết kiệm mua nhà, bắt đầu đầu tư hay thoát nợ — XuXu gợi ý bài học phù hợp và điều chỉnh theo tốc độ học của bạn.</p>
+          </div>
+          <TopicChipsMock />
+        </div>
+      </div>
+
+      {/* ── HỌC THEO CHỦ ĐỀ ── */}
+      <div style={{ background: "#F4F8EF", padding: "64px 0" }}>
+        <div style={{ maxWidth: 1080, margin: "0 auto", padding: "0 28px", textAlign: "center" }}>
+          <div style={{ display: "inline-flex", alignItems: "center", gap: 7, background: "#EAFBF1", borderRadius: 30, padding: "6px 14px", marginBottom: 14 }}>
+            <span style={{ color: "#0E9E5C", font: "800 12px 'Baloo 2'" }}>✦</span>
+            <span style={{ font: "800 12px 'Nunito'", color: "#0E9E5C" }}>Học theo chủ đề</span>
+          </div>
+          <h2 style={{ font: "800 32px 'Baloo 2'", color: "#15392A", marginBottom: 8 }}>Chọn chủ đề, bắt đầu hành trình.</h2>
+          <p style={{ font: "600 16px 'Nunito'", color: "#5B7065", marginBottom: 34, maxWidth: 520, marginInline: "auto" }}>
+            Từ những đồng xu đầu tiên đến tài sản số — đi cùng XuXu từng bước, theo đúng điều bạn muốn hiểu.
+          </p>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: 14 }}>
+            {Object.entries(TOPIC_META).map(([key, m]) => (
               <button
                 key={key}
+                className="btn3d"
                 onClick={enterApp}
-                className="btn-press"
-                style={{ textAlign: "left", background: "#fff", border: `2px solid ${C.border}`, borderBottomWidth: 4, borderRadius: 18, padding: "16px 14px", cursor: "pointer" }}
+                style={{ background: "#fff", border: "2px solid #ECF1E6", borderBottomWidth: 4, borderRadius: 18, padding: "18px 8px", cursor: "pointer" }}
               >
-                <div style={{ width: 42, height: 42, borderRadius: 12, background: m.color, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22, marginBottom: 10 }}>
-                  {m.emoji}
-                </div>
-                <div style={{ font: "800 14px 'Baloo 2'", color: C.ink, lineHeight: 1.3 }}>{TOPICS[key]}</div>
+                <div style={{ fontSize: 28, marginBottom: 8 }}>{m.emoji}</div>
+                <div style={{ font: "800 12px 'Baloo 2'", color: "#15392A", lineHeight: 1.2 }}>{m.label}</div>
               </button>
-            );
-          })}
-          {/* CTA tile */}
-          <button
-            onClick={enterApp}
-            className="btn-press"
-            style={{ background: C.ink, border: "none", borderRadius: 18, padding: "16px 14px", cursor: "pointer", color: "#fff", textAlign: "left", display: "flex", flexDirection: "column", justifyContent: "center", minHeight: 100 }}
-          >
-            <div style={{ font: "800 15px 'Baloo 2'", marginBottom: 4 }}>Xem tất cả →</div>
-            <div style={{ font: "700 11px 'Nunito'", color: "rgba(255,255,255,.7)" }}>Vào dashboard khám phá</div>
-          </button>
+            ))}
+          </div>
         </div>
-      </Section>
+      </div>
 
-      {/* ── HOW IT WORKS ── */}
-      <div style={{ background: "#fff", borderTop: `1px solid ${C.border}`, borderBottom: `1px solid ${C.border}` }}>
-        <Section style={{ paddingTop: 48, paddingBottom: 48 }}>
-          <h2 style={{ font: "800 clamp(24px,3.5vw,34px) 'Baloo 2'", color: C.ink, textAlign: "center", marginBottom: 30 }}>
-            XuXu hoạt động thế nào?
-          </h2>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 18 }}>
-            {STEPS.map(s => (
-              <div key={s.n} style={{ background: C.bg, borderRadius: 20, padding: 24, position: "relative" }}>
-                <div style={{ position: "absolute", top: 18, right: 20, font: "800 40px 'Baloo 2'", color: "#E6EFE0" }}>{s.n}</div>
-                <div style={{ fontSize: 38, marginBottom: 12 }}>{s.emoji}</div>
-                <div style={{ font: "800 18px 'Baloo 2'", color: C.ink, marginBottom: 6 }}>{s.title}</div>
-                <div style={{ font: "600 14px/1.55 'Nunito'", color: C.muted }}>{s.body}</div>
+      {/* ── HỌC THEO SÁCH ── */}
+      <div style={{ background: "#fff", padding: "72px 0", borderTop: "1px solid #EEF3E9" }}>
+        <div style={{ maxWidth: 1080, margin: "0 auto", padding: "0 28px" }}>
+          <div style={{ textAlign: "center", marginBottom: 40 }}>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: 7, background: "#FFF3DC", borderRadius: 30, padding: "6px 14px", marginBottom: 14 }}>
+              <span style={{ color: "#9A6A0E", font: "800 12px 'Baloo 2'" }}>📖</span>
+              <span style={{ font: "800 12px 'Nunito'", color: "#9A6A0E" }}>Học theo sách</span>
+            </div>
+            <h2 style={{ font: "800 32px 'Baloo 2'", color: "#15392A", marginBottom: 10 }}>Tinh hoa từ những cuốn sách tài chính kinh điển.</h2>
+            <p style={{ font: "600 16px 'Nunito'", color: "#5B7065", maxWidth: 560, marginInline: "auto" }}>
+              Không cần đọc hàng trăm trang — XuXu chắt lọc các khái niệm cốt lõi từ những bestseller tài chính được yêu thích nhất thế giới.
+            </p>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: 18 }}>
+            {BOOKS.map(b => (
+              <div
+                key={b.title}
+                className="btn3d"
+                onClick={enterApp}
+                style={{ background: b.color, borderRadius: 20, padding: "22px 22px 20px", cursor: "pointer", textAlign: "left", border: "2px solid transparent" }}
+              >
+                <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12 }}>
+                  <div style={{ width: 48, height: 48, borderRadius: 14, background: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 24, boxShadow: "0 3px 8px rgba(0,0,0,.06)", flexShrink: 0 }}>
+                    {b.emoji}
+                  </div>
+                  <div>
+                    <div style={{ font: "800 15px 'Baloo 2'", color: "#15392A", lineHeight: 1.2 }}>{b.title}</div>
+                    <div style={{ font: "600 12px 'Nunito'", color: "#9AA89E", marginTop: 2 }}>{b.author}</div>
+                  </div>
+                </div>
+                <div style={{ font: "600 13px/1.5 'Nunito'", color: b.ink }}>
+                  💡 {b.insight}
+                </div>
               </div>
             ))}
           </div>
-        </Section>
+          <div style={{ textAlign: "center", marginTop: 28 }}>
+            <button className="btn3d" onClick={enterApp} style={{ background: "#15392A", color: "#fff", border: "none", borderRadius: 14, padding: "13px 28px", font: "800 14px 'Baloo 2'", boxShadow: "0 4px 0 #0A2015" }}>
+              Khám phá tất cả bài học →
+            </button>
+          </div>
+        </div>
       </div>
 
-      {/* ── FEATURES ── */}
-      <Section style={{ paddingTop: 48, paddingBottom: 48 }}>
-        <h2 style={{ font: "800 clamp(24px,3.5vw,34px) 'Baloo 2'", color: C.ink, textAlign: "center", marginBottom: 8 }}>
-          Vì sao mọi người thích học cùng XuXu?
-        </h2>
-        <p style={{ font: "600 15px 'Nunito'", color: C.muted, textAlign: "center", marginBottom: 30 }}>
-          Tài chính không còn khô khan — mà là một cuộc phiêu lưu mỗi ngày.
-        </p>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 16 }}>
-          {FEATURES.map(f => (
-            <div key={f.title} style={{ background: "#fff", border: `2px solid ${C.border}`, borderRadius: 18, padding: 22 }}>
-              <div style={{ fontSize: 34, marginBottom: 12 }}>{f.emoji}</div>
-              <div style={{ font: "800 17px 'Baloo 2'", color: C.ink, marginBottom: 6 }}>{f.title}</div>
-              <div style={{ font: "600 13px/1.55 'Nunito'", color: C.muted }}>{f.body}</div>
-            </div>
-          ))}
-        </div>
-      </Section>
-
-      {/* ── TARGET GROUPS ── */}
-      <Section style={{ paddingBottom: 56 }}>
-        <h2 style={{ font: "800 clamp(22px,3vw,30px) 'Baloo 2'", color: C.ink, textAlign: "center", marginBottom: 26 }}>
-          XuXu dành cho ai?
-        </h2>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 16 }}>
-          {TARGET_GROUPS.map(a => (
-            <div key={a.label} style={{ background: a.bg, borderRadius: 20, padding: 22, textAlign: "center" }}>
-              <div style={{ fontSize: 40, marginBottom: 10 }}>{a.emoji}</div>
-              <div style={{ font: "800 18px 'Baloo 2'", color: a.ink, marginBottom: 6 }}>{a.label}</div>
-              <div style={{ font: "600 13px/1.5 'Nunito'", color: C.muted }}>{a.desc}</div>
-            </div>
-          ))}
-        </div>
-      </Section>
-
       {/* ── FINAL CTA ── */}
-      <Section style={{ paddingBottom: 64 }}>
-        <div style={{ background: "linear-gradient(135deg, #16C172, #0E9E5C)", borderRadius: 28, padding: "48px 28px", textAlign: "center", color: "#fff", boxShadow: "0 12px 0 rgba(11,122,72,.5)" }}>
-          <div style={{ display: "flex", justifyContent: "center", marginBottom: 16 }}>
-            <XuXuMascot size={72} />
+      <div style={{ position: "relative", background: "linear-gradient(160deg,#16C172,#0C8A50)", padding: "72px 0", textAlign: "center", overflow: "hidden" }}>
+        <div style={{ position: "absolute", top: 30, left: "10%", width: 30, height: 30, borderRadius: "50%", background: "#FFC93C", border: "2.5px solid #E8A317", opacity: .5, animation: "bob 4s ease-in-out infinite" }} />
+        <div style={{ position: "absolute", bottom: 40, right: "12%", width: 22, height: 22, borderRadius: "50%", background: "#FFC93C", border: "2px solid #E8A317", opacity: .4, animation: "bob2 5s ease-in-out infinite" }} />
+        <div style={{ position: "absolute", top: 60, right: "18%", color: "rgba(255,255,255,.4)", font: "800 24px 'Baloo 2'", animation: "pop 3s ease-in-out infinite" }}>✦</div>
+        <div style={{ maxWidth: 680, margin: "0 auto", padding: "0 28px", position: "relative" }}>
+          <div style={{ display: "flex", justifyContent: "center", marginBottom: 22 }}>
+            <XuCoinSmall />
           </div>
-          <h2 style={{ font: "800 clamp(26px,4vw,38px) 'Baloo 2'", marginBottom: 12 }}>
-            Sẵn sàng làm bạn với Tiền?
+          <h2 style={{ font: "800 40px 'Baloo 2'", color: "#fff", lineHeight: 1.15, marginBottom: 12 }}>
+            Sẵn sàng làm bạn với <span style={{ color: "#FFC93C" }}>Tiền?</span>
           </h2>
-          <p style={{ font: "600 15px 'Nunito'", color: "rgba(255,255,255,.9)", marginBottom: 26, maxWidth: 460, marginInline: "auto" }}>
-            Vào xem dashboard, chọn một chủ đề và thử ngay bài học đầu tiên. Hoàn toàn miễn phí.
+          <p style={{ font: "700 17px 'Nunito'", color: "rgba(255,255,255,.9)", marginBottom: 28 }}>
+            Hoàn toàn miễn phí. Bắt đầu ngay hôm nay — chỉ 5 phút.
           </p>
-          <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
-            <button
-              onClick={enterApp}
-              className="btn-press"
-              style={{ background: "#fff", color: C.greenDark, border: "none", borderRadius: 16, padding: "15px 30px", font: "800 16px 'Baloo 2'", boxShadow: "0 5px 0 rgba(0,0,0,.12)", cursor: "pointer" }}
-            >
-              Khám phá ngay →
-            </button>
-            <button
-              onClick={() => setShowLogin(true)}
-              className="btn-press"
-              style={{ background: "rgba(255,255,255,.15)", color: "#fff", border: "2px solid rgba(255,255,255,.6)", borderRadius: 16, padding: "13px 28px", font: "800 16px 'Baloo 2'", cursor: "pointer" }}
-            >
-              Tạo tài khoản
-            </button>
-          </div>
+          <button className="btn3d" onClick={enterApp} style={{ background: "#fff", color: "#16C172", border: "none", borderRadius: 18, boxShadow: "0 6px 0 rgba(0,0,0,.18)", padding: "18px 44px", font: "800 18px 'Baloo 2'", letterSpacing: ".5px" }}>
+            BẮT ĐẦU MIỄN PHÍ →
+          </button>
         </div>
-      </Section>
+      </div>
 
       {/* ── FOOTER ── */}
-      <footer style={{ borderTop: `2px solid ${C.border}`, background: "#fff" }}>
-        <Section style={{ paddingTop: 32, paddingBottom: 32 }}>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 28, justifyContent: "space-between", alignItems: "flex-start" }}>
-
-            {/* Brand */}
-            <div>
-              <div style={{ display: "flex", alignItems: "center", gap: 9, marginBottom: 6 }}>
-                <XuXuMascot size={30} />
-                <span style={{ font: "800 20px 'Baloo 2'", color: C.green }}>XuXu</span>
+      <div style={{ background: "#0F2A1C", padding: "48px 0 30px" }}>
+        <div style={{ maxWidth: 1080, margin: "0 auto", padding: "0 28px", display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 24 }}>
+          <div style={{ maxWidth: 300 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 9, marginBottom: 10 }}>
+              <div style={{ position: "relative", width: 32, height: 32, borderRadius: "50%", background: "radial-gradient(circle at 38% 32%,#FFE594,#FFC93C 58%,#F2B01E)", border: "2.5px solid #E8A317" }}>
+                <div style={{ position: "absolute", top: 12, left: 8, width: 4, height: 6, background: "#3A2A00", borderRadius: "50%" }} />
+                <div style={{ position: "absolute", top: 12, right: 8, width: 4, height: 6, background: "#3A2A00", borderRadius: "50%" }} />
+                <div style={{ position: "absolute", top: 20, left: "50%", transform: "translateX(-50%)", width: 10, height: 5, border: "2px solid #3A2A00", borderTop: "none", borderRadius: "0 0 12px 12px" }} />
               </div>
-              <div style={{ font: "600 13px 'Nunito'", color: C.faint, lineHeight: 1.6 }}>
-                Học tài chính — vui, đơn giản, mỗi ngày.
-              </div>
+              <span style={{ font: "800 20px 'Baloo 2'", color: "#fff" }}>XuXu</span>
             </div>
-
-            {/* Contact */}
-            <div>
-              <div style={{ font: "800 14px 'Baloo 2'", color: C.ink, marginBottom: 10 }}>Liên hệ</div>
-              <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
-                <div style={{ font: "700 13px 'Nunito'", color: C.muted }}>👤 Thành Mắm</div>
-                <a href="mailto:i.thanhnt@gmail.com" style={{ font: "600 13px 'Nunito'", color: C.muted, textDecoration: "none", display: "flex", alignItems: "center", gap: 6 }}>
-                  ✉️ i.thanhnt@gmail.com
-                </a>
-                {/* Social */}
-                <div style={{ display: "flex", gap: 10, marginTop: 2 }}>
-                  <a
-                    href="https://tiktok.com/@thanhmam.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{ display: "flex", alignItems: "center", gap: 5, background: "#000", color: "#fff", borderRadius: 10, padding: "6px 11px", font: "700 12px 'Nunito'", textDecoration: "none" }}
-                  >
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.77a4.85 4.85 0 0 1-1.01-.08z"/>
-                    </svg>
-                    @thanhmam.com
-                  </a>
-                  <a
-                    href="https://facebook.com/i.thanhmam"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{ display: "flex", alignItems: "center", gap: 5, background: "#1877F2", color: "#fff", borderRadius: 10, padding: "6px 11px", font: "700 12px 'Nunito'", textDecoration: "none" }}
-                  >
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                    </svg>
-                    @i.thanhmam
-                  </a>
-                </div>
+            <p style={{ font: "600 13px 'Nunito'", color: "rgba(255,255,255,.5)", lineHeight: 1.6 }}>
+              Học tài chính — vui, đơn giản, mỗi ngày. Để bạn không bao giờ "0 xu".
+            </p>
+          </div>
+          <div>
+            <div style={{ font: "800 13px 'Nunito'", color: "rgba(255,255,255,.4)", letterSpacing: ".5px", marginBottom: 12 }}>LIÊN HỆ</div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 9 }}>
+              <span style={{ font: "700 13px 'Nunito'", color: "rgba(255,255,255,.75)" }}>👤 Thành Mắm</span>
+              <a href="mailto:i.thanhnt@gmail.com" style={{ font: "700 13px 'Nunito'", color: "rgba(255,255,255,.75)", textDecoration: "none" }}>✉ i.thanhnt@gmail.com</a>
+              <div style={{ display: "flex", gap: 8, marginTop: 4 }}>
+                <a href="https://tiktok.com/@thanhmam.com" target="_blank" rel="noopener noreferrer" style={{ background: "rgba(255,255,255,.08)", borderRadius: 9, padding: "6px 11px", font: "700 12px 'Nunito'", color: "rgba(255,255,255,.7)", textDecoration: "none" }}>TikTok @thanhmam</a>
+                <a href="https://facebook.com/i.thanhmam" target="_blank" rel="noopener noreferrer" style={{ background: "rgba(255,255,255,.08)", borderRadius: 9, padding: "6px 11px", font: "700 12px 'Nunito'", color: "rgba(255,255,255,.7)", textDecoration: "none" }}>Facebook i.thanhmam</a>
               </div>
             </div>
           </div>
-
-          <div style={{ borderTop: `1px solid ${C.border}`, marginTop: 24, paddingTop: 16, font: "600 12px 'Nunito'", color: C.faint, textAlign: "center" }}>
-            © {new Date().getFullYear()} XuXu · Made with ❤️ by Thành Mắm
-          </div>
-        </Section>
-      </footer>
+        </div>
+        <div style={{ textAlign: "center", font: "600 12px 'Nunito'", color: "rgba(255,255,255,.32)", marginTop: 34, borderTop: "1px solid rgba(255,255,255,.08)", paddingTop: 20 }}>
+          © {new Date().getFullYear()} XuXu · Made with 💚 by Thành Mắm
+        </div>
+      </div>
 
       {showLogin && <LoginModal onClose={() => setShowLogin(false)} />}
     </div>
