@@ -1,6 +1,6 @@
 # XuXu — Tính năng ứng dụng
 
-> Bản kiểm kê đầy đủ các tính năng của XuXu. Cập nhật: 2026-06-28.
+> **SSOT** cho tính năng, màn hình & luồng người dùng. Taxonomy/nội dung → [CONTENT.md](CONTENT.md); design → [DESIGN_SYSTEM.md](DESIGN_SYSTEM.md); lịch sử → [../CHANGELOG.md](../CHANGELOG.md). Cập nhật: 2026-06-29.
 
 XuXu là web app gamification giúp **mọi người** (trẻ em, người trẻ, ai muốn tìm hiểu về tiền) học tài chính qua mini-game tương tác — mỗi ngày 5–10 phút, theo phong cách Duolingo.
 
@@ -67,25 +67,11 @@ XuXu có 3 cách học: **theo chủ đề** (chip topic) · **theo cấp độ*
 - **Hồ sơ** (`/profile`): stats, lưới huy hiệu, Pro badge, đăng xuất.
 - **Free vs Pro**: tim vô hạn, 2× XP/xu, mở chủ đề sớm, ẩn quảng cáo. `UpgradeModal`, trial 7 ngày. Pro tier màu tím `#8B5CF6`.
 
-## 7. Phân loại nội dung (Taxonomy thống nhất)
+## 7. Phân loại nội dung (Taxonomy)
 
-> Đã **bỏ phân loại theo nhóm tuổi** (6-8 / 9-12 / 13-16). Nội dung phân loại theo **Chủ đề** + **Cấp độ**.
+Nội dung phân loại theo **7 Chủ đề × 2 Cấp độ** (Khởi đầu/Vững vàng) + loại bài. Đã bỏ phân loại theo nhóm tuổi.
 
-**7 Chủ đề** (`TOPICS` trong `src/data/lessons.js`):
-
-| Key | Nhãn |
-|---|---|
-| `money-basics` | Cơ bản về tiền |
-| `saving` | Tiết kiệm |
-| `personal-finance` | Quản lý tài chính cá nhân |
-| `borrowing` | Vay |
-| `investing` | Đầu tư |
-| `stocks` | Chứng khoán |
-| `digital-assets` | Tài sản số |
-
-**2 Cấp độ** (`LEVELS`): `foundation` 🌱 Khởi đầu · `advanced` 🌳 Vững vàng
-
-**4 Loại bài** (`CATEGORIES`): 💡 Khái niệm · ⚖️ Phân biệt · 🎯 Lựa chọn · 💳 Giao dịch
+> Bảng taxonomy đầy đủ + schema bài học/câu hỏi: **[CONTENT.md](CONTENT.md)** (SSOT).
 
 ## 8. Admin (`/admin`, nội bộ)
 

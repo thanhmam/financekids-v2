@@ -1,6 +1,6 @@
 # XuXu — Design System
 
-> Tham chiếu nhanh cho mọi tính năng/giao diện mới (gồm cả **Admin**). Nguồn đầy đủ: thư mục `design-system/` (tokens CSS, components JSX, guidelines HTML, UI kit). Cập nhật: 2026-06-28.
+> **SSOT** cho design (màu, typography, component, motif) — áp dụng cho cả app lẫn **Admin**. Mọi file khác chỉ link tới đây, không lặp lại bảng token. Nguồn token/component gốc: thư mục `design-system/`. Lịch sử thay đổi: [../CHANGELOG.md](../CHANGELOG.md). Cập nhật: 2026-06-29.
 
 XuXu mang phong cách Duolingo: tươi sáng, bo tròn, "chunky", thân thiện. Màu chủ đạo xanh lá, accent vàng đồng xu, nút "3D press", chữ Baloo 2.
 
