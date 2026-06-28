@@ -204,43 +204,72 @@ export default function GamePage() {
 
       {/* ── Desktop left sidebar ── */}
       <aside className="hidden md:flex flex-col" style={{
-        width: 240, minHeight: "100vh", background: "#F4F8EF",
-        borderRight: "2px solid #ECF1E6", padding: "24px 16px",
+        width: 252, minHeight: "100vh", background: "#fff",
+        borderRight: "2px solid #ECF1E6", padding: "22px 16px",
         position: "sticky", top: 0, alignSelf: "flex-start", height: "100vh",
-        overflowY: "auto",
+        overflowY: "auto", flexShrink: 0,
       }}>
+        {/* XuXu logo — same as home */}
+        <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "0 6px 18px" }}>
+          <XuXuMascot size={36} />
+          <div style={{ font: "800 22px 'Baloo 2'", color: "#16C172" }}>XuXu</div>
+        </div>
+
+        {/* Nav items — same as home */}
+        {[
+          { icon: "⌂", label: "Học",       path: "/" },
+          { icon: "◆", label: "Khám phá",  path: "/explore" },
+          { icon: "▲", label: "Nhiệm vụ",  path: "/tasks" },
+          { icon: "♛", label: "Xếp hạng", path: "/leaderboard" },
+          { icon: "◉", label: "Cửa hàng", path: "/shop" },
+          { icon: "☺", label: "Hồ sơ",    path: "/profile" },
+        ].map(item => (
+          <button
+            key={item.label}
+            onClick={() => router.push(item.path)}
+            style={{
+              display: "flex", alignItems: "center", gap: 13,
+              background: "transparent",
+              border: "2px solid transparent",
+              borderRadius: 14, padding: "10px 14px",
+              cursor: "pointer", textAlign: "left", width: "100%",
+            }}
+          >
+            <span style={{ color: "#9AA89E", font: "800 17px 'Baloo 2'", width: 22, textAlign: "center" }}>{item.icon}</span>
+            <span style={{ font: "800 14px 'Baloo 2'", color: "#5B7065" }}>{item.label}</span>
+          </button>
+        ))}
+
+        {/* Divider */}
+        <div style={{ height: 2, background: "#ECF1E6", margin: "14px 4px" }} />
+
         {/* Back button */}
         <button
           onClick={() => router.push("/")}
-          style={{ display: "flex", alignItems: "center", gap: 8, background: "none", border: "none", cursor: "pointer", marginBottom: 20, padding: "6px 4px" }}
+          style={{ display: "flex", alignItems: "center", gap: 8, background: "none", border: "none", cursor: "pointer", marginBottom: 14, padding: "4px 4px" }}
         >
-          <span style={{ display: "flex", alignItems: "center", justifyContent: "center", width: 32, height: 32, borderRadius: 10, background: "#fff", border: "2px solid #ECF1E6" }}>
+          <span style={{ display: "flex", alignItems: "center", justifyContent: "center", width: 28, height: 28, borderRadius: 9, background: "#F4F8EF", border: "2px solid #ECF1E6" }}>
             <BackIcon />
           </span>
-          <span style={{ font: "700 13px 'Nunito'", color: "#5B7065" }}>Trang chủ</span>
+          <span style={{ font: "700 12px 'Nunito'", color: "#5B7065" }}>Trang chủ</span>
         </button>
 
-        {/* Lesson title */}
-        <div style={{ marginBottom: 20 }}>
-          <div style={{ fontSize: 32, marginBottom: 6 }}>{lesson.icon}</div>
-          <div style={{ font: "800 14px 'Baloo 2'", color: "#15392A", lineHeight: 1.4 }}>{lesson.title}</div>
-          <div style={{ font: "600 12px 'Nunito'", color: "#5B7065", marginTop: 4 }}>
+        {/* Lesson title + score */}
+        <div style={{ marginBottom: 14, padding: "0 4px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
+            <span style={{ fontSize: 24 }}>{lesson.icon}</span>
+            <div style={{ font: "800 13px 'Baloo 2'", color: "#15392A", lineHeight: 1.3 }}>{lesson.title}</div>
+          </div>
+          <div style={{ font: "600 11px 'Nunito'", color: "#5B7065" }}>
             {answers.filter(a => a.isCorrect).length}/{lesson.questions.length} câu đúng
           </div>
         </div>
 
-        {/* Hearts */}
-        <div style={{ display: "flex", gap: 4, marginBottom: 20 }}>
-          {Array.from({ length: MAX_HEARTS }).map((_, i) => (
-            <span key={i} style={{ color: i < hearts ? "#FF5366" : "#ECF1E6", font: "700 18px 'Baloo 2'", transition: "color .2s" }}>♥</span>
-          ))}
-        </div>
-
-        {/* Question list */}
-        <div style={{ font: "700 11px 'Nunito'", color: "#9AA89E", textTransform: "uppercase", letterSpacing: 1, marginBottom: 10 }}>
+        {/* Question list — hearts on the right of each item */}
+        <div style={{ font: "700 10px 'Nunito'", color: "#9AA89E", textTransform: "uppercase", letterSpacing: 1, marginBottom: 8, padding: "0 4px" }}>
           Câu hỏi
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
           {lesson.questions.map((q, i) => {
             const status = questionStatus(i);
             const bg = status === "correct" ? "#EAFBF1" : status === "wrong" ? "#FFE3E7" : status === "current" ? "#fff" : "#fff";
@@ -248,24 +277,29 @@ export default function GamePage() {
             const textColor = status === "correct" ? "#0E9E5C" : status === "wrong" ? "#C0283A" : "#15392A";
             return (
               <div key={q.id} style={{
-                display: "flex", alignItems: "center", gap: 10,
-                padding: "8px 10px", borderRadius: 12,
+                display: "flex", alignItems: "center", gap: 8,
+                padding: "7px 10px", borderRadius: 12,
                 background: bg, border: `2px solid ${border}`,
                 boxShadow: status === "current" ? "0 2px 8px rgba(22,193,114,.15)" : "none",
                 transition: "all .2s",
               }}>
                 <div style={{
-                  width: 24, height: 24, borderRadius: 8, flexShrink: 0,
+                  width: 22, height: 22, borderRadius: 7, flexShrink: 0,
                   display: "flex", alignItems: "center", justifyContent: "center",
-                  font: "800 11px 'Baloo 2'",
+                  font: "800 10px 'Baloo 2'",
                   background: status === "correct" ? "#16C172" : status === "wrong" ? "#FF5366" : status === "current" ? "#16C172" : "#ECF1E6",
                   color: status === "pending" ? "#9AA89E" : "#fff",
                 }}>
                   {status === "correct" ? "✓" : status === "wrong" ? "✗" : i + 1}
                 </div>
-                <div style={{ font: "600 12px 'Nunito'", color: textColor, lineHeight: 1.3, flex: 1, minWidth: 0 }} className="line-clamp-2">
-                  {q.question?.slice(0, 48)}{q.question?.length > 48 ? "…" : ""}
+                <div style={{ font: "600 11px 'Nunito'", color: textColor, lineHeight: 1.3, flex: 1, minWidth: 0 }} className="line-clamp-2">
+                  {q.question?.slice(0, 40)}{q.question?.length > 40 ? "…" : ""}
                 </div>
+                {/* Heart on the right */}
+                <span style={{
+                  font: "700 14px 'Baloo 2'", flexShrink: 0,
+                  color: status === "wrong" ? "#ECF1E6" : status === "correct" ? "#FF5366" : "#ECF1E6",
+                }}>♥</span>
               </div>
             );
           })}

@@ -90,10 +90,10 @@ export default function GameQuiz({ question, onAnswer, onNext }) {
 
       {/* Explanation */}
       {revealed && (
-        <div style={{ marginTop: 14, padding: "12px 14px", borderRadius: 14, background: isCorrect ? "#EAFBF1" : "#FFF3F4", borderLeft: `4px solid ${isCorrect ? "#16C172" : "#FF5366"}`, animation: "slideUp .3s ease" }}>
-          <div style={{ display: "flex", alignItems: "flex-start", gap: 8 }}>
-            <span style={{ fontSize: 18 }}>{isCorrect ? "🎉" : "💡"}</span>
-            <p style={{ font: "600 13px 'Nunito'", color: "#34453B", lineHeight: 1.5 }}>{question.explanation}</p>
+        <div style={{ marginTop: 16, padding: "16px 18px", borderRadius: 16, background: isCorrect ? "#EAFBF1" : "#FFF3F4", borderLeft: `4px solid ${isCorrect ? "#16C172" : "#FF5366"}`, animation: "slideUp .3s ease" }}>
+          <div style={{ display: "flex", alignItems: "flex-start", gap: 10 }}>
+            <span style={{ fontSize: 22, flexShrink: 0 }}>{isCorrect ? "🎉" : "💡"}</span>
+            <p style={{ font: "600 14px/1.6 'Nunito'", color: "#34453B" }} className="md:text-[15px]">{question.explanation}</p>
           </div>
           {question.marketingHook && (
             <div style={{ marginTop: 10, paddingTop: 10, borderTop: "1px dashed #D7E3DA", font: "700 12px 'Nunito'", color: "#0E7A4E", lineHeight: 1.5 }}>

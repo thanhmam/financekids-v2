@@ -140,7 +140,7 @@ export default function GameAB({ question, lessonColor, onAnswer, onNext }) {
                   Bạn đã chọn đúng! 🎉
                 </p>
               )}
-              <p className="font-semibold text-gray-700 text-sm leading-relaxed">
+              <p className="font-semibold text-gray-700 text-sm md:text-[15px] leading-relaxed">
                 {question.explanation}
               </p>
             </div>
