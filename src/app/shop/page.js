@@ -4,6 +4,9 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
 import { useProgress } from "@/hooks/useProgress";
+import { useBooks } from "@/hooks/useBooks";
+import { discountPercent, formatVND } from "@/data/books";
+import BookCover from "@/components/BookCover";
 import BottomNav from "@/components/BottomNav";
 import DesktopLayout from "@/components/DesktopLayout";
 import UpgradeModal from "@/components/UpgradeModal";
@@ -30,6 +33,7 @@ export default function ShopPage() {
   const router = useRouter();
   const { profile, isPro, activateTrial } = useAuth();
   const { totalXP } = useProgress();
+  const { books } = useBooks();
   const [toast, setToast] = useState(null);
   const [showUpgrade, setShowUpgrade] = useState(false);
   const xu = profile?.xu || 1250;
@@ -101,6 +105,51 @@ export default function ShopPage() {
     );
   }
 
+  function BookShelf({ cols = 2 }) {
+    return (
+      <div style={{ marginTop: 24 }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 4 }}>
+          <div style={{ font: "800 18px 'Baloo 2'", color: "#15392A" }}>📚 Sách tham khảo</div>
+        </div>
+        <div style={{ font: "600 12px 'Nunito'", color: "#9AA89E", marginBottom: 14 }}>
+          Sách tài chính kinh điển — mua qua Shopee với giá ưu đãi
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: `repeat(${cols}, 1fr)`, gap: cols === 3 ? 16 : 12 }}>
+          {books.map((b) => {
+            const pct = discountPercent(b);
+            return (
+              <div
+                key={b.id}
+                className="btn-press"
+                onClick={() => router.push(`/shop/book/${b.id}`)}
+                style={{ background: "#fff", border: "2px solid #ECF1E6", borderBottomWidth: 4, borderRadius: 18, padding: 14, cursor: "pointer", display: "flex", gap: 12 }}
+              >
+                <div style={{ position: "relative" }}>
+                  <BookCover book={b} width={72} />
+                  {pct > 0 && (
+                    <span style={{ position: "absolute", top: -7, left: -7, background: "#FF5366", color: "#fff", borderRadius: 9, padding: "2px 7px", font: "800 10px 'Baloo 2'", boxShadow: "0 2px 0 #D63A4D" }}>-{pct}%</span>
+                  )}
+                </div>
+                <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column" }}>
+                  <div style={{ font: "800 14px 'Baloo 2'", color: "#15392A", lineHeight: 1.2 }}>{b.title}</div>
+                  <div style={{ font: "600 11px 'Nunito'", color: "#9AA89E", margin: "2px 0 6px" }}>{b.author}</div>
+                  <div style={{ flex: 1 }} />
+                  <div style={{ display: "flex", alignItems: "baseline", gap: 6, flexWrap: "wrap" }}>
+                    <span style={{ font: "800 15px 'Baloo 2'", color: "#16C172" }}>{formatVND(b.price)}</span>
+                    {pct > 0 && <span style={{ font: "600 11px 'Nunito'", color: "#C2CDBA", textDecoration: "line-through" }}>{formatVND(b.originalPrice)}</span>}
+                  </div>
+                  <div style={{ marginTop: 8, background: "#FFF3E9", color: "#EE4D2D", borderRadius: 10, padding: "6px 0", textAlign: "center", font: "800 12px 'Baloo 2'" }}>
+                    Xem chi tiết →
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <>
       {/* ── MOBILE ── */}
@@ -113,6 +162,7 @@ export default function ShopPage() {
           <SaleBanner />
           <ItemGrid cols={2} />
           <EarnMore />
+          <BookShelf cols={1} />
         </div>
         {toast && (
           <div style={{ position:"fixed", bottom:90, left:"50%", transform:"translateX(-50%)", background:toast.color, color:"#fff", borderRadius:14, padding:"12px 20px", font:"800 14px 'Baloo 2'", boxShadow:"0 6px 20px rgba(0,0,0,.18)", zIndex:100, animation:"slideUp .3s ease", whiteSpace:"nowrap" }}>{toast.msg}</div>
@@ -131,6 +181,7 @@ export default function ShopPage() {
           <SaleBanner />
           <ItemGrid cols={3} />
           <EarnMore />
+          <BookShelf cols={2} />
         </div>
         {toast && (
           <div style={{ position:"fixed", bottom:40, left:"50%", transform:"translateX(-50%)", background:toast.color, color:"#fff", borderRadius:14, padding:"12px 20px", font:"800 14px 'Baloo 2'", boxShadow:"0 6px 20px rgba(0,0,0,.18)", zIndex:100, animation:"slideUp .3s ease", whiteSpace:"nowrap" }}>{toast.msg}</div>

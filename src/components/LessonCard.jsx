@@ -3,12 +3,6 @@
 import Link from "next/link";
 import { CATEGORIES, LEVELS, TOPICS } from "@/data/lessons";
 
-const AGE_CHIP = {
-  "6-8":   { bg: "#E3F7EC", color: "#0E9E5C", label: "6-8 tuổi" },
-  "9-12":  { bg: "#EEF2FF", color: "#4F46E5", label: "9-12 tuổi" },
-  "13-16": { bg: "#F1E9FF", color: "#7C4DEC", label: "13-16 tuổi" },
-};
-
 const LEVEL_CHIP = {
   foundation: { bg: "#EAFBF1", color: "#0E9E5C" },
   advanced:   { bg: "#F1E9FF", color: "#7C4DEC" },
@@ -16,7 +10,6 @@ const LEVEL_CHIP = {
 
 export default function LessonCard({ lesson, isCompleted, guest = false, onGuestClick }) {
   const category = CATEGORIES[lesson.category];
-  const age = AGE_CHIP[lesson.ageGroup];
   const lvl = lesson.level && LEVELS?.[lesson.level];
   const lvlChip = lesson.level && LEVEL_CHIP[lesson.level];
 
@@ -53,16 +46,13 @@ export default function LessonCard({ lesson, isCompleted, guest = false, onGuest
           {lesson.subtitle}
         </div>
 
-        {/* Chips: cấp độ (bài kho) + tuổi */}
+        {/* Chip: cấp độ (Khởi đầu / Vững vàng) */}
         <div style={{ display: "flex", flexWrap: "wrap", gap: 5, marginBottom: 10 }}>
           {lvl && lvlChip && (
             <span style={{ display: "inline-block", background: lvlChip.bg, color: lvlChip.color, borderRadius: 20, padding: "3px 9px", font: "700 10px 'Nunito'" }}>
               {lvl.emoji} {lvl.label}
             </span>
           )}
-          <span style={{ display: "inline-block", background: age.bg, color: age.color, borderRadius: 20, padding: "3px 9px", font: "700 10px 'Nunito'" }}>
-            {age.label}
-          </span>
         </div>
 
         {/* Footer */}

@@ -30,6 +30,12 @@ import { useProgress } from "@/hooks/useProgress";
 import UpgradeModal from "@/components/UpgradeModal";
 
 const DAILY_GOAL = 3;
+const STREAK_DAYS = ["T2", "T3", "T4", "T5", "T6", "T7", "CN"];
+const LEADERBOARD = [
+  { rank: 1, name: "Bảo Nam", xp: "3.120", avatarBg: "#FFC93C", avatarBorder: "#E8A317", rankColor: "#E8A317" },
+  { rank: 2, name: "Thu Hà",  xp: "2.890", avatarBg: "#C9D2C0", avatarBorder: "#AEB8A4", rankColor: "#9AA89E" },
+  { rank: 3, name: "Đức Anh", xp: "2.640", avatarBg: "#E6B98A", avatarBorder: "#CD9A6B", rankColor: "#CD7F32" },
+];
 
 const TIPS = [
   "Để dành 10% mỗi khi nhận tiền nhé!",
@@ -454,37 +460,75 @@ export default function Dashboard({ guest = false }) {
         </div>
 
         {/* ── RIGHT RAIL ── */}
-        <div style={{ width: 288, flexShrink: 0, background: "#fff", borderLeft: "2px solid #ECF1E6", padding: "24px 20px", height: "100vh", overflowY: "auto" }}>
+        <div style={{ width: 300, flexShrink: 0, background: "#fff", borderLeft: "2px solid #ECF1E6", padding: "24px 20px", height: "100vh", overflowY: "auto" }}>
 
-          {/* League widget */}
-          <div style={{ border: "2px solid #ECF1E6", borderRadius: 18, padding: 16, marginBottom: 16 }}>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
-              <span style={{ font: "800 15px 'Baloo 2'", color: "#15392A" }}>Hạng Vàng</span>
-              <span style={{ color: "#FFC93C", font: "800 22px 'Baloo 2'" }}>♛</span>
+          {/* Leaderboard (full) */}
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
+            <span style={{ font: "800 16px 'Baloo 2'", color: "#15392A" }}>Bảng xếp hạng</span>
+            <span style={{ background: "#FFF8E6", color: "#9A6A0E", borderRadius: 11, padding: "4px 10px", font: "700 11px 'Nunito'" }}>Hạng Vàng</span>
+          </div>
+          <div style={{ border: "2px solid #ECF1E6", borderRadius: 18, padding: 14, marginBottom: 18 }}>
+            {LEADERBOARD.map(e => (
+              <div key={e.rank} style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 9 }}>
+                <span style={{ width: 16, font: "800 13px 'Baloo 2'", color: e.rankColor }}>{e.rank}</span>
+                <div style={{ width: 28, height: 28, borderRadius: "50%", background: e.avatarBg, border: `2px solid ${e.avatarBorder}`, flexShrink: 0 }} />
+                <span style={{ flex: 1, font: "700 13px 'Nunito'", color: "#34453B" }}>{e.name}</span>
+                <span style={{ font: "800 13px 'Baloo 2'", color: "#5B7065" }}>{e.xp}</span>
+              </div>
+            ))}
+            {/* You row */}
+            <div style={{ display: "flex", alignItems: "center", gap: 10, background: "#EAFBF1", borderRadius: 11, padding: "7px 8px", margin: "2px -8px 0" }}>
+              <span style={{ width: 16, font: "800 13px 'Baloo 2'", color: "#16C172" }}>4</span>
+              <XuXuMascot size={28} />
+              <span style={{ flex: 1, font: "800 13px 'Nunito'", color: "#0E9E5C" }}>{displayName} (Bạn)</span>
+              <span style={{ font: "800 13px 'Baloo 2'", color: "#0E9E5C" }}>{totalXP.toLocaleString("de-DE")}</span>
             </div>
-            <button
-              onClick={() => router.push("/leaderboard")}
-              style={{ width: "100%", background: "#EAFBF1", border: "2px solid #BFEBD2", borderRadius: 12, padding: "11px 0", font: "800 13px 'Baloo 2'", color: "#0E9E5C", cursor: "pointer" }}
-            >
-              Xem bảng xếp hạng →
-            </button>
-            <div style={{ font: "600 11px 'Nunito'", color: "#9AA89E", textAlign: "center", marginTop: 10 }}>
-              Top 7 thăng hạng tuần này
+            <div style={{ font: "600 11px 'Nunito'", color: "#9AA89E", textAlign: "center", marginTop: 12 }}>
+              Top 7 thăng hạng · còn 3 ngày
             </div>
           </div>
 
-          {/* Streak card */}
-          <div style={{ background: "linear-gradient(160deg, #FF9A4D, #FF7A2E)", borderRadius: 18, padding: 16, color: "#fff", marginBottom: 16, boxShadow: "0 5px 0 #E0631C" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-              <span style={{ font: "800 30px 'Baloo 2'" }}>{streak}</span>
+          {/* Daily goal */}
+          <div style={{ font: "800 16px 'Baloo 2'", color: "#15392A", marginBottom: 12 }}>Mục tiêu hôm nay</div>
+          <div style={{ border: "2px solid #ECF1E6", borderRadius: 18, padding: 16, marginBottom: 18 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 12 }}>
+              <div style={{ position: "relative", width: 56, height: 56, flexShrink: 0 }}>
+                <div style={{ width: 56, height: 56, borderRadius: "50%", background: `conic-gradient(#16C172 ${dailyPct}%, #ECF1E6 0)` }} />
+                <div style={{ position: "absolute", inset: 7, borderRadius: "50%", background: "#fff", display: "flex", alignItems: "center", justifyContent: "center", font: "800 14px 'Baloo 2'", color: "#15392A" }}>{dailyPct}%</div>
+              </div>
               <div>
-                <div style={{ font: "800 14px 'Baloo 2'" }}>ngày streak</div>
-                <div style={{ font: "600 11px 'Nunito'", color: "rgba(255,255,255,.85)" }}>Học hôm nay để giữ lửa!</div>
+                <div style={{ font: "800 15px 'Baloo 2'", color: "#15392A" }}>{dailyDone} / {DAILY_GOAL} bài học</div>
+                <div style={{ font: "600 11px 'Nunito'", color: "#9AA89E", marginTop: 2 }}>Còn {DAILY_GOAL - dailyDone} bài · +{(DAILY_GOAL - dailyDone) * 10} xu là đạt</div>
               </div>
             </div>
+            <div style={{ height: 10, borderRadius: 7, background: "#ECF1E6", overflow: "hidden" }}>
+              <div style={{ width: `${dailyPct}%`, height: "100%", background: "#16C172", transition: "width .5s ease" }} />
+            </div>
           </div>
 
-          {/* Tip */}
+          {/* Streak card with 7-day bars */}
+          <div style={{ background: "linear-gradient(160deg, #FF9A4D, #FF7A2E)", borderRadius: 18, padding: 18, color: "#fff", marginBottom: 18, boxShadow: "0 5px 0 #E0631C" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 14 }}>
+              <span style={{ font: "800 40px 'Baloo 2'", lineHeight: 1, textShadow: "0 3px 0 rgba(0,0,0,.15)" }}>{streak}</span>
+              <div>
+                <div style={{ font: "800 16px 'Baloo 2'" }}>ngày streak!</div>
+                <div style={{ font: "600 11px 'Nunito'", color: "rgba(255,255,255,.88)", marginTop: 2 }}>Học hôm nay để giữ lửa nhé</div>
+              </div>
+            </div>
+            <div style={{ display: "flex", gap: 5 }}>
+              {STREAK_DAYS.map((d, i) => {
+                const state = i < 6 ? (i < Math.min(streak, 6) ? "done" : "empty") : (streak >= 7 ? "done" : "today");
+                return (
+                  <div key={d} style={{ flex: 1, height: 26, borderRadius: 8, background: state === "done" ? "rgba(255,255,255,.85)" : "rgba(255,255,255,.3)", border: state === "today" ? "2px dashed rgba(255,255,255,.7)" : "none", display: "flex", alignItems: "center", justifyContent: "center", color: state === "done" ? "#FF7A2E" : "#fff", font: `800 ${state === "today" ? 11 : 12}px 'Baloo 2'` }}>
+                    {state === "done" ? "✓" : state === "today" ? "★" : d}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Tips */}
+          <div style={{ font: "800 15px 'Baloo 2'", color: "#15392A", marginBottom: 10 }}>Mẹo của XuXu</div>
           <div style={{ border: "2px dashed #DDE6D6", borderRadius: 18, padding: 14, display: "flex", gap: 11, alignItems: "flex-start" }}>
             <XuXuMascot size={34} />
             <div style={{ font: "600 12px 'Nunito'", color: "#34453B", lineHeight: 1.5 }}>

@@ -295,6 +295,97 @@ export async function saveLessonMeta(lessonId, patch) {
   lsSet(L_META_KEY, all);
 }
 
+// ========== 6. CỬA HÀNG SÁCH (book store) ==========
+// Admin quản lý: bìa, tên, tác giả, giá, giảm giá, link Shopee affiliate.
+// Lưu dạng ghi đè/bổ sung lên catalog tĩnh trong data/books.js.
+//   overrides: { [bookId]: {patch} }  — sửa sách có sẵn hoặc ẩn (hidden:true)
+//   extras:    [ {book} ]             — sách mới do admin thêm
+const BOOK_OVERRIDE_KEY = "fk_admin_book_overrides";
+const BOOK_EXTRA_KEY = "fk_admin_book_extras";
+
+export async function getBookOverrides() {
+  if (useFirestore()) {
+    try {
+      const snap = await getDocs(collection(db, "book_overrides"));
+      const map = {};
+      snap.forEach((d) => (map[d.id] = d.data()));
+      return map;
+    } catch (e) {
+      console.warn("getBookOverrides lỗi:", e.message);
+    }
+  }
+  return lsGet(BOOK_OVERRIDE_KEY, {});
+}
+
+export async function saveBookOverride(bookId, patch) {
+  if (useFirestore()) {
+    try {
+      await setDoc(
+        doc(db, "book_overrides", bookId),
+        { ...patch, updatedAt: serverTimestamp() },
+        { merge: true }
+      );
+      return;
+    } catch (e) {
+      console.warn("saveBookOverride lỗi:", e.message);
+    }
+  }
+  const all = lsGet(BOOK_OVERRIDE_KEY, {});
+  all[bookId] = { ...(all[bookId] || {}), ...patch };
+  lsSet(BOOK_OVERRIDE_KEY, all);
+}
+
+export async function getBookExtras() {
+  if (useFirestore()) {
+    try {
+      const snap = await getDocs(collection(db, "book_extras"));
+      return snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+    } catch (e) {
+      console.warn("getBookExtras lỗi:", e.message);
+    }
+  }
+  return lsGet(BOOK_EXTRA_KEY, []);
+}
+
+export async function saveBookExtra(book) {
+  const id = book.id || `book-${Date.now()}`;
+  const record = { ...book, id };
+  if (useFirestore()) {
+    try {
+      await setDoc(doc(db, "book_extras", id), { ...book, updatedAt: serverTimestamp() }, { merge: true });
+      return record;
+    } catch (e) {
+      console.warn("saveBookExtra lỗi:", e.message);
+    }
+  }
+  const all = lsGet(BOOK_EXTRA_KEY, []);
+  const idx = all.findIndex((b) => b.id === id);
+  if (idx >= 0) all[idx] = record;
+  else all.push(record);
+  lsSet(BOOK_EXTRA_KEY, all);
+  return record;
+}
+
+export async function removeBookExtra(id) {
+  if (useFirestore()) {
+    try {
+      await deleteDoc(doc(db, "book_extras", id));
+      return;
+    } catch (e) {
+      console.warn("removeBookExtra lỗi:", e.message);
+    }
+  }
+  lsSet(BOOK_EXTRA_KEY, lsGet(BOOK_EXTRA_KEY, []).filter((b) => b.id !== id));
+}
+
+// Hợp nhất catalog tĩnh + override + extra → danh sách sách hiển thị
+export function mergeBooks(staticBooks, overrides = {}, extras = []) {
+  const merged = staticBooks
+    .map((b) => ({ ...b, ...(overrides[b.id] || {}) }))
+    .filter((b) => !b.hidden);
+  return [...merged, ...extras.filter((b) => !b.hidden)];
+}
+
 // Áp override lên 1 lesson (dùng ở app ngoài lẫn admin)
 export function applyLessonOverrides(lesson, qOverrides = {}, lMeta = {}) {
   const meta = lMeta[lesson.id] || {};

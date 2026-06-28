@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { TOPICS } from "@/data/lessons";
+import { BOOKS } from "@/data/books";
+import BookCover from "@/components/BookCover";
 import LoginModal from "@/components/LoginModal";
 
 /* ─── Animations (injected once) ─── */
@@ -14,6 +16,23 @@ const KEYFRAMES = `
 @keyframes drift{ 0%,100%{transform:translate(0,0)} 50%{transform:translate(6px,-10px)} }
 .btn3d{transition:transform .08s,box-shadow .08s;cursor:pointer;}
 .btn3d:active{transform:translateY(3px);}
+
+@media (max-width: 880px) {
+  .nav-links { display: none !important; }
+  .hero-grid { grid-template-columns: 1fr !important; gap: 12px !important; min-height: 0 !important; }
+  .hero-copy { text-align: center !important; }
+  .hero-copy h1 { font-size: 36px !important; }
+  .hero-copy p { margin-left: auto !important; margin-right: auto !important; }
+  .hero-copy .hero-ctas, .hero-copy .hero-trust { justify-content: center !important; }
+  .hero-scene { height: 320px !important; transform: scale(.7); transform-origin: top center; margin-bottom: -90px; }
+  .feature-row { grid-template-columns: 1fr !important; gap: 24px !important; }
+  .feature-row .feature-visual { order: -1; }
+  .topics-grid { grid-template-columns: repeat(2, 1fr) !important; }
+}
+@media (max-width: 480px) {
+  .hero-copy h1 { font-size: 30px !important; }
+  .books-grid { grid-template-columns: 1fr !important; }
+}
 `;
 
 /* ─── Xu Coin Character ─── */
@@ -63,7 +82,7 @@ function XuCoinSmall() {
 /* ─── Hero illustration scene ─── */
 function HeroScene() {
   return (
-    <div style={{ position: "relative", height: 520 }}>
+    <div className="hero-scene" style={{ position: "relative", height: 520 }}>
       {/* ground shadow */}
       <div style={{ position: "absolute", left: "50%", bottom: 74, transform: "translateX(-50%)", width: 380, height: 46, borderRadius: "50%", background: "radial-gradient(ellipse,rgba(20,60,35,.13),transparent 70%)" }} />
 
@@ -218,16 +237,6 @@ function TopicChipsMock() {
   );
 }
 
-/* ─── Books section data ─── */
-const BOOKS = [
-  { emoji: "💡", title: "How Money Works", author: "DK", color: "#FFF3DC", ink: "#9A6A0E", insight: "Cách tiền thực sự vận hành — từ ngân hàng đến thị trường" },
-  { emoji: "🏠", title: "Rich Dad Poor Dad", author: "R. Kiyosaki", color: "#EAFBF1", ink: "#0E7A4E", insight: "Người giàu không làm việc vì tiền — họ để tiền làm việc" },
-  { emoji: "🧠", title: "The Psychology of Money", author: "M. Housel", color: "#EAF1FF", ink: "#3457B2", insight: "Hành vi tài chính quan trọng hơn kiến thức tài chính" },
-  { emoji: "🏆", title: "Think and Grow Rich", author: "N. Hill", color: "#FFE9EE", ink: "#C0283A", insight: "Tư duy làm giàu bắt đầu từ mục tiêu rõ ràng và khao khát" },
-  { emoji: "📊", title: "The Millionaire Next Door", author: "T. Stanley", color: "#F1E9FF", ink: "#6B36C9", insight: "Người thực sự giàu sống giản dị và tiết kiệm có kỷ luật" },
-  { emoji: "💸", title: "I Will Teach You to Be Rich", author: "R. Sethi", color: "#E6FBF6", ink: "#0A8C76", insight: "Tự động hóa tài chính — hệ thống đơn giản cho người trẻ" },
-];
-
 /* ─── Topics ─── */
 const TOPIC_META = {
   "money-basics":     { emoji: "💵", label: "Cơ bản về tiền" },
@@ -260,8 +269,8 @@ export default function Landing() {
             <span style={{ font: "800 24px 'Baloo 2'", color: "#16C172", letterSpacing: "-.5px" }}>XuXu</span>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-            <span style={{ font: "700 14px 'Nunito'", color: "#5B7065", cursor: "pointer" }} onClick={enterApp}>Khoá học</span>
-            <span style={{ font: "700 14px 'Nunito'", color: "#5B7065", cursor: "pointer" }}>Về XuXu</span>
+            <span className="nav-links" style={{ font: "700 14px 'Nunito'", color: "#5B7065", cursor: "pointer" }} onClick={enterApp}>Khoá học</span>
+            <span className="nav-links" style={{ font: "700 14px 'Nunito'", color: "#5B7065", cursor: "pointer" }}>Về XuXu</span>
             <button className="btn3d" onClick={() => setShowLogin(true)} style={{ background: "#fff", color: "#16C172", border: "2px solid #E0E8DA", borderBottomWidth: 4, borderRadius: 13, padding: "9px 18px", font: "800 13px 'Baloo 2'", letterSpacing: ".4px" }}>ĐĂNG NHẬP</button>
             <button className="btn3d" onClick={enterApp} style={{ background: "#16C172", color: "#fff", border: "none", borderRadius: 13, boxShadow: "0 4px 0 #0E9E5C", padding: "11px 20px", font: "800 13px 'Baloo 2'", letterSpacing: ".4px" }}>BẮT ĐẦU</button>
           </div>
@@ -273,13 +282,13 @@ export default function Landing() {
         <div style={{ position: "absolute", top: 60, left: -80, width: 340, height: 340, borderRadius: "50%", background: "radial-gradient(circle,#D7F4E2,transparent 70%)", pointerEvents: "none" }} />
         <div style={{ position: "absolute", bottom: -60, right: -60, width: 320, height: 320, borderRadius: "50%", background: "radial-gradient(circle,#FFF1CF,transparent 70%)", pointerEvents: "none" }} />
 
-        <div style={{ maxWidth: 1180, margin: "0 auto", padding: "0 28px", display: "grid", gridTemplateColumns: "1.05fr 1fr", gap: 36, alignItems: "center", position: "relative", minHeight: 520 }}>
+        <div className="hero-grid" style={{ maxWidth: 1180, margin: "0 auto", padding: "0 28px", display: "grid", gridTemplateColumns: "1.05fr 1fr", gap: 36, alignItems: "center", position: "relative", minHeight: 520 }}>
 
           {/* LEFT: illustration */}
           <HeroScene />
 
           {/* RIGHT: copy */}
-          <div style={{ textAlign: "left" }}>
+          <div className="hero-copy" style={{ textAlign: "left" }}>
             <div style={{ display: "inline-flex", alignItems: "center", gap: 7, background: "#E3F7EC", borderRadius: 30, padding: "7px 15px", marginBottom: 22 }}>
               <span style={{ color: "#0E9E5C", font: "800 13px 'Baloo 2'" }}>✦</span>
               <span style={{ font: "800 13px 'Nunito'", color: "#0E9E5C", letterSpacing: ".3px" }}>Miễn phí · Vui nhộn · Hiệu quả</span>
@@ -290,12 +299,12 @@ export default function Landing() {
             <p style={{ font: "600 18px/1.6 'Nunito'", color: "#5B7065", maxWidth: 430, marginBottom: 30 }}>
               Học tài chính cùng XuXu — mỗi ngày vài phút, qua các bài học ngắn, đố vui và streak. Để bạn không bao giờ <b style={{ color: "#15392A" }}>"0 xu"</b>.
             </p>
-            <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 18, flexWrap: "wrap" }}>
+            <div className="hero-ctas" style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 18, flexWrap: "wrap" }}>
               <button className="btn3d" onClick={enterApp} style={{ background: "#16C172", color: "#fff", border: "none", borderRadius: 16, boxShadow: "0 5px 0 #0E9E5C", padding: "16px 34px", font: "800 17px 'Baloo 2'", letterSpacing: ".5px" }}>BẮT ĐẦU HỌC</button>
               <button className="btn3d" onClick={() => setShowLogin(true)} style={{ background: "#fff", color: "#16C172", border: "2px solid #E0E8DA", borderBottomWidth: 5, borderRadius: 16, padding: "14px 28px", font: "800 16px 'Baloo 2'", letterSpacing: ".5px" }}>TÔI ĐÃ CÓ TÀI KHOẢN</button>
             </div>
-            <div style={{ display: "flex", alignItems: "center", gap: 18, font: "700 13px 'Nunito'", color: "#9AA89E", flexWrap: "wrap" }}>
-              {["Không cần thẻ", "7 chủ đề tài chính", "Học 5 phút/ngày"].map(t => (
+            <div className="hero-trust" style={{ display: "flex", alignItems: "center", gap: 18, font: "700 13px 'Nunito'", color: "#9AA89E", flexWrap: "wrap" }}>
+              {["Học miễn phí", "Học mà chơi", "Học 5–10 phút/ngày"].map(t => (
                 <span key={t} style={{ display: "flex", alignItems: "center", gap: 5 }}>
                   <span style={{ color: "#16C172", fontSize: 15 }}>✓</span> {t}
                 </span>
@@ -309,18 +318,18 @@ export default function Landing() {
       <div style={{ maxWidth: 1080, margin: "0 auto", padding: "80px 28px 40px", display: "flex", flexDirection: "column", gap: 90 }}>
 
         {/* Row 1 */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 50, alignItems: "center" }}>
+        <div className="feature-row" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 50, alignItems: "center" }}>
           <div>
             <div style={{ font: "800 14px 'Nunito'", color: "#16C172", letterSpacing: 1, marginBottom: 10 }}>DỰA TRÊN CĂN CỨ</div>
             <h2 style={{ font: "800 34px/1.18 'Baloo 2'", color: "#15392A", marginBottom: 14 }}>Bài học thiết kế khoa học, dễ vào đầu.</h2>
             <p style={{ font: "600 16px/1.6 'Nunito'", color: "#5B7065" }}>XuXu chia kiến thức tài chính thành những mảnh nhỏ, lặp lại đúng lúc và đố vui để bạn nhớ lâu — không cần đọc cả cuốn sách dày.</p>
           </div>
-          <PhoneMock />
+          <div className="feature-visual"><PhoneMock /></div>
         </div>
 
         {/* Row 2 */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 50, alignItems: "center" }}>
-          <StreakMock />
+        <div className="feature-row" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 50, alignItems: "center" }}>
+          <div className="feature-visual"><StreakMock /></div>
           <div>
             <div style={{ font: "800 14px 'Nunito'", color: "#FF8A3D", letterSpacing: 1, marginBottom: 10 }}>TIẾP THÊM ĐỘNG LỰC</div>
             <h2 style={{ font: "800 34px/1.18 'Baloo 2'", color: "#15392A", marginBottom: 14 }}>Giữ streak, gom xu, lên hạng.</h2>
@@ -329,13 +338,13 @@ export default function Landing() {
         </div>
 
         {/* Row 3 */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 50, alignItems: "center" }}>
+        <div className="feature-row" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 50, alignItems: "center" }}>
           <div>
             <div style={{ font: "800 14px 'Nunito'", color: "#8B5CF6", letterSpacing: 1, marginBottom: 10 }}>CÁ NHÂN HOÁ</div>
             <h2 style={{ font: "800 34px/1.18 'Baloo 2'", color: "#15392A", marginBottom: 14 }}>Lộ trình riêng cho mục tiêu của bạn.</h2>
             <p style={{ font: "600 16px/1.6 'Nunito'", color: "#5B7065" }}>Dù bạn muốn tiết kiệm mua nhà, bắt đầu đầu tư hay thoát nợ — XuXu gợi ý bài học phù hợp và điều chỉnh theo tốc độ học của bạn.</p>
           </div>
-          <TopicChipsMock />
+          <div className="feature-visual"><TopicChipsMock /></div>
         </div>
       </div>
 
@@ -350,7 +359,7 @@ export default function Landing() {
           <p style={{ font: "600 16px 'Nunito'", color: "#5B7065", marginBottom: 34, maxWidth: 520, marginInline: "auto" }}>
             Từ những đồng xu đầu tiên đến tài sản số — đi cùng XuXu từng bước, theo đúng điều bạn muốn hiểu.
           </p>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: 14 }}>
+          <div className="topics-grid" style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: 14 }}>
             {Object.entries(TOPIC_META).map(([key, m]) => (
               <button
                 key={key}
@@ -379,32 +388,38 @@ export default function Landing() {
               Không cần đọc hàng trăm trang — XuXu chắt lọc các khái niệm cốt lõi từ những bestseller tài chính được yêu thích nhất thế giới.
             </p>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: 18 }}>
-            {BOOKS.map(b => (
-              <div
-                key={b.title}
-                className="btn3d"
-                onClick={enterApp}
-                style={{ background: b.color, borderRadius: 20, padding: "22px 22px 20px", cursor: "pointer", textAlign: "left", border: "2px solid transparent" }}
-              >
-                <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12 }}>
-                  <div style={{ width: 48, height: 48, borderRadius: 14, background: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 24, boxShadow: "0 3px 8px rgba(0,0,0,.06)", flexShrink: 0 }}>
-                    {b.emoji}
+          <div className="books-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 18 }}>
+            {BOOKS.map(b => {
+              const pct = b.originalPrice && b.originalPrice > b.price ? Math.round((1 - b.price / b.originalPrice) * 100) : 0;
+              return (
+                <div
+                  key={b.id}
+                  className="btn3d book-card"
+                  onClick={() => router.push(`/shop/book/${b.id}`)}
+                  style={{ background: "#fff", borderRadius: 20, padding: 16, cursor: "pointer", textAlign: "left", border: "2px solid #ECF1E6", borderBottomWidth: 4, display: "flex", gap: 14 }}
+                >
+                  <div style={{ position: "relative" }}>
+                    <BookCover book={b} width={92} />
+                    {pct > 0 && (
+                      <span style={{ position: "absolute", top: -8, left: -8, background: "#FF5366", color: "#fff", borderRadius: 10, padding: "3px 8px", font: "800 11px 'Baloo 2'", boxShadow: "0 3px 0 #D63A4D" }}>-{pct}%</span>
+                    )}
                   </div>
-                  <div>
+                  <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column" }}>
                     <div style={{ font: "800 15px 'Baloo 2'", color: "#15392A", lineHeight: 1.2 }}>{b.title}</div>
-                    <div style={{ font: "600 12px 'Nunito'", color: "#9AA89E", marginTop: 2 }}>{b.author}</div>
+                    <div style={{ font: "600 12px 'Nunito'", color: "#9AA89E", margin: "2px 0 8px" }}>{b.author}</div>
+                    <div style={{ font: "600 12px/1.45 'Nunito'", color: "#5B7065", flex: 1 }}>{b.tagline}</div>
+                    <div style={{ display: "flex", alignItems: "baseline", gap: 8, marginTop: 10 }}>
+                      <span style={{ font: "800 16px 'Baloo 2'", color: "#16C172" }}>{b.price.toLocaleString("vi-VN")}₫</span>
+                      {pct > 0 && <span style={{ font: "600 12px 'Nunito'", color: "#C2CDBA", textDecoration: "line-through" }}>{b.originalPrice.toLocaleString("vi-VN")}₫</span>}
+                    </div>
                   </div>
                 </div>
-                <div style={{ font: "600 13px/1.5 'Nunito'", color: b.ink }}>
-                  💡 {b.insight}
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
           <div style={{ textAlign: "center", marginTop: 28 }}>
-            <button className="btn3d" onClick={enterApp} style={{ background: "#15392A", color: "#fff", border: "none", borderRadius: 14, padding: "13px 28px", font: "800 14px 'Baloo 2'", boxShadow: "0 4px 0 #0A2015" }}>
-              Khám phá tất cả bài học →
+            <button className="btn3d" onClick={() => router.push("/shop")} style={{ background: "#15392A", color: "#fff", border: "none", borderRadius: 14, padding: "13px 28px", font: "800 14px 'Baloo 2'", boxShadow: "0 4px 0 #0A2015" }}>
+              Xem tất cả sách tài chính →
             </button>
           </div>
         </div>
