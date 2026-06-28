@@ -1,6 +1,6 @@
 /**
- * FinanceKids — Lesson data (45 bài gốc + bài từ kho thư viện)
- * Bài kho thư viện có: topic, level, fromLibrary; câu hỏi kèm skills, bookRefs, marketingHook.
+ * FinanceKids — Lesson data (đã phân loại topic + level cho toàn bộ)
+ * Mỗi bài: topic, level (foundation|advanced). Bài kho có fromLibrary + câu hỏi kèm skills/bookRefs/marketingHook.
  */
 export const LESSONS = [
   {
@@ -85,7 +85,9 @@ export const LESSONS = [
         "bestChoice": "B",
         "explanation": "Cả hai đều không sai! Nhưng nếu tiết kiệm, con có thể mua được thứ con thích hơn sau này. Đó gọi là TIẾT KIỆM! 🌟"
       }
-    ]
+    ],
+    "topic": "money-basics",
+    "level": "foundation"
   },
   {
     "id": "lesson-02",
@@ -169,7 +171,9 @@ export const LESSONS = [
         "correct": 2,
         "explanation": "Luôn mua thứ CẦN THIẾT trước (đồ ăn, thuốc...), sau đó mới nghĩ đến thứ MUỐN CÓ. Đó là cách dùng tiền thông minh! 🧠"
       }
-    ]
+    ],
+    "topic": "money-basics",
+    "level": "foundation"
   },
   {
     "id": "lesson-03",
@@ -219,7 +223,9 @@ export const LESSONS = [
         "correctAnswer": 55000,
         "explanation": "Giỏi lắm! Minh tiết kiệm được 55.000đ. Nếu cứ tiết kiệm đều đặn như vậy, Minh sẽ sớm có đủ tiền mua thứ mình muốn! 🌟"
       }
-    ]
+    ],
+    "topic": "saving",
+    "level": "foundation"
   },
   {
     "id": "lesson-04",
@@ -303,7 +309,9 @@ export const LESSONS = [
         "correct": 1,
         "explanation": "Tiền xu hiện đại làm bằng hợp kim kim loại (nhôm, đồng, niken...). Ngày xưa mới dùng vàng thật, nhưng quá đắt và nặng! 🪙"
       }
-    ]
+    ],
+    "topic": "money-basics",
+    "level": "foundation"
   },
   {
     "id": "lesson-05",
@@ -361,7 +369,9 @@ export const LESSONS = [
         "correct": 1,
         "explanation": "Từ thiện là TỰ NGUYỆN giúp đỡ người khác - không cần ai bắt, không cần được khen. Dù ít hay nhiều, điều quan trọng là tấm lòng! 💖"
       }
-    ]
+    ],
+    "topic": "money-basics",
+    "level": "foundation"
   },
   {
     "id": "lesson-06",
@@ -437,7 +447,9 @@ export const LESSONS = [
         "correct": 1,
         "explanation": "ĐẶT MỤC TIÊU CỤ THỂ là bước đầu tiên! 'Tôi tiết kiệm 50.000đ/tuần để sau 10 tuần mua xe đạp 500.000đ' - rõ ràng, đo lường được! 🎯"
       }
-    ]
+    ],
+    "topic": "saving",
+    "level": "foundation"
   },
   {
     "id": "lesson-07",
@@ -522,7 +534,9 @@ export const LESSONS = [
         "correct": 1,
         "explanation": "100.000đ × 6 tháng = 600.000đ! Đủ mua nhiều thứ xịn hơn rồi 🎉"
       }
-    ]
+    ],
+    "topic": "personal-finance",
+    "level": "foundation"
   },
   {
     "id": "lesson-08",
@@ -607,7 +621,9 @@ export const LESSONS = [
         "correct": 2,
         "explanation": "50.000đ ÷ 5.000đ = 10 ngày! Chỉ 10 ngày quét nhà là có 50.000đ rồi 🎉"
       }
-    ]
+    ],
+    "topic": "money-basics",
+    "level": "foundation"
   },
   {
     "id": "lesson-09",
@@ -728,7 +744,9 @@ export const LESSONS = [
         "correctAnswer": 80000,
         "explanation": "Số dư cuối cùng là 80.000đ."
       }
-    ]
+    ],
+    "topic": "money-basics",
+    "level": "foundation"
   },
   {
     "id": "lesson-10",
@@ -813,7 +831,9 @@ export const LESSONS = [
         "bestChoice": "B",
         "explanation": "Dùng tiền lẻ chính xác khi có thể — giúp người bán không phải tìm tiền thừa, và thuận tiện hơn cho cả hai!"
       }
-    ]
+    ],
+    "topic": "money-basics",
+    "level": "foundation"
   },
   {
     "id": "lesson-11",
@@ -890,7 +910,9 @@ export const LESSONS = [
         "bestChoice": "B",
         "explanation": "Không cần nhiều! 5.000đ hay 10.000đ cũng có ý nghĩa. Khi nhiều người góp chút, tổng lại rất lớn!"
       }
-    ]
+    ],
+    "topic": "money-basics",
+    "level": "foundation"
   },
   {
     "id": "lesson-12",
@@ -975,7 +997,9 @@ export const LESSONS = [
         "correct": 0,
         "explanation": "Giày 6 tháng phải mua 4 đôi trong 2 năm = 800.000đ. Giày 2 năm chỉ cần 1 đôi = 200.000đ. Tiết kiệm 600.000đ!"
       }
-    ]
+    ],
+    "topic": "saving",
+    "level": "foundation"
   },
   {
     "id": "lesson-13",
@@ -1076,7 +1100,9 @@ export const LESSONS = [
         "correctAnswer": 45000,
         "explanation": "Số dư cuối cùng là 45.000đ."
       }
-    ]
+    ],
+    "topic": "saving",
+    "level": "foundation"
   },
   {
     "id": "lesson-14",
@@ -1170,7 +1196,9 @@ export const LESSONS = [
         "bestChoice": "B",
         "explanation": "Lập kế hoạch trước khi tiêu tiền giúp bạn không bao giờ hết tiền. Đây gọi là LẬP NGÂN SÁCH (Budget)! 📊"
       }
-    ]
+    ],
+    "topic": "personal-finance",
+    "level": "foundation"
   },
   {
     "id": "lesson-15",
@@ -1254,7 +1282,9 @@ export const LESSONS = [
         "correct": 0,
         "explanation": "Đúng! Gửi 100.000đ với lãi suất 5%/năm → sau 1 năm có 105.000đ. 5.000đ là tiền ngân hàng trả cho bạn vì đã gửi tiền! 🌟"
       }
-    ]
+    ],
+    "topic": "money-basics",
+    "level": "foundation"
   },
   {
     "id": "lesson-16",
@@ -1338,7 +1368,9 @@ export const LESSONS = [
         "correct": 1,
         "explanation": "Luôn SO SÁNH GIÁ trước khi mua! Cùng một sản phẩm có thể rẻ hơn 20-30% ở chỗ khác. Đây là kỹ năng tiêu tiền thông minh! 🔍"
       }
-    ]
+    ],
+    "topic": "personal-finance",
+    "level": "foundation"
   },
   {
     "id": "lesson-17",
@@ -1422,7 +1454,9 @@ export const LESSONS = [
         "correct": 1,
         "explanation": "Thu nhập thụ động = tiền đến mà không cần bạn làm việc liên tục. Ví dụ: cho thuê nhà, cổ tức cổ phiếu, sách bán tự động. Mục tiêu tài chính: xây dựng nhiều nguồn thu nhập thụ động! 💰"
       }
-    ]
+    ],
+    "topic": "money-basics",
+    "level": "foundation"
   },
   {
     "id": "lesson-18",
@@ -1480,7 +1514,9 @@ export const LESSONS = [
         "bestChoice": "B",
         "explanation": "Bảo hiểm y tế là quan trọng nhất! Ốm đau ai cũng gặp, một lần nhập viện có thể tốn hàng chục triệu. Bảo hiểm y tế giúp gia đình không bị kiệt sức vì viện phí. 🏥"
       }
-    ]
+    ],
+    "topic": "personal-finance",
+    "level": "foundation"
   },
   {
     "id": "lesson-19",
@@ -1538,7 +1574,9 @@ export const LESSONS = [
         "bestChoice": "A",
         "explanation": "VAT 10% = bạn trả thêm 10% cho nhà nước qua người bán hàng. Mua đồ 100k thực ra trả 110k. Đó là lý do giá trên quầy khác với giá tính thuế trong hóa đơn! 🧾"
       }
-    ]
+    ],
+    "topic": "personal-finance",
+    "level": "foundation"
   },
   {
     "id": "lesson-20",
@@ -1596,7 +1634,9 @@ export const LESSONS = [
         "bestChoice": "B",
         "explanation": "Giữ tiền mặt trong thời lạm phát = mất tiền từ từ! 10 triệu sau 1 năm lạm phát 7% chỉ mua được lượng hàng trị giá 9,3 triệu. Đó là lý do phải đầu tư hoặc gửi tiết kiệm lãi cao hơn lạm phát! 💡"
       }
-    ]
+    ],
+    "topic": "money-basics",
+    "level": "foundation"
   },
   {
     "id": "lesson-21",
@@ -1654,7 +1694,9 @@ export const LESSONS = [
         "bestChoice": "B",
         "explanation": "COD (Cash On Delivery) = thanh toán khi nhận hàng. Với shop lạ, luôn chọn COD để kiểm tra hàng trước khi trả tiền. Nếu hàng không đúng = không mất tiền! 📦"
       }
-    ]
+    ],
+    "topic": "digital-assets",
+    "level": "foundation"
   },
   {
     "id": "lesson-22",
@@ -1724,7 +1766,9 @@ export const LESSONS = [
         "correctAnswer": 3000000,
         "explanation": "3 triệu sau 6 tháng. Còn xa mục tiêu 18 triệu, nhưng đây là khởi đầu tốt! Tăng dần số tiết kiệm khi thu nhập tăng. Bước nhỏ mỗi ngày = kết quả lớn! 💪"
       }
-    ]
+    ],
+    "topic": "saving",
+    "level": "foundation"
   },
   {
     "id": "lesson-23",
@@ -1825,7 +1869,9 @@ export const LESSONS = [
         "bestChoice": "B",
         "explanation": "Tiền dư là \"chiến thắng\"! Chuyển vào tiết kiệm giúp quỹ dự phòng và mục tiêu dài hạn của bạn lớn hơn."
       }
-    ]
+    ],
+    "topic": "personal-finance",
+    "level": "foundation"
   },
   {
     "id": "lesson-24",
@@ -1946,7 +1992,9 @@ export const LESSONS = [
         "correct": 0,
         "explanation": "Bán vòng 20k nhưng nguyên liệu tốn 8k → Lợi nhuận = 20k - 8k = 12k. Lợi nhuận mới là tiền thực sự kiếm được!"
       }
-    ]
+    ],
+    "topic": "money-basics",
+    "level": "foundation"
   },
   {
     "id": "lesson-25",
@@ -2049,7 +2097,9 @@ export const LESSONS = [
         "bestChoice": "A",
         "explanation": "Có tiền không có nghĩa là nên mua! Câu hỏi đúng là \"Mình CẦN không?\" — nếu không chắc, đợi 24h rồi quyết định."
       }
-    ]
+    ],
+    "topic": "money-basics",
+    "level": "foundation"
   },
   {
     "id": "lesson-26",
@@ -2160,7 +2210,9 @@ export const LESSONS = [
         "correct": 0,
         "explanation": "COD (Cash On Delivery) an toàn nhất khi mua online — trả tiền khi đã nhận và kiểm tra hàng. Không chuyển khoản trước cho người lạ!"
       }
-    ]
+    ],
+    "topic": "digital-assets",
+    "level": "foundation"
   },
   {
     "id": "lesson-27",
@@ -2245,7 +2297,9 @@ export const LESSONS = [
         "correct": 0,
         "explanation": "Chậm tiến độ không có nghĩa là thất bại! Điều chỉnh: tiết kiệm thêm 15k/tuần trong 2 tuần, hoặc kéo dài thêm 2 tuần."
       }
-    ]
+    ],
+    "topic": "saving",
+    "level": "foundation"
   },
   {
     "id": "lesson-28",
@@ -2348,7 +2402,9 @@ export const LESSONS = [
         "correct": 0,
         "explanation": "Vay tiền cho nhu cầu khẩn cấp là hợp lý. Nhưng vay để mua đồ xa xỉ (túi hiệu, giày đắt) là nguy hiểm — dễ rơi vào bẫy nợ!"
       }
-    ]
+    ],
+    "topic": "borrowing",
+    "level": "foundation"
   },
   {
     "id": "lesson-29",
@@ -2425,7 +2481,9 @@ export const LESSONS = [
         "bestChoice": "B",
         "explanation": "Đề xuất thay thế không từ chối hoàn toàn! \"Tháng sau\" = giữ tình bạn + giữ mục tiêu tài chính. Bạn tốt sẽ hiểu!"
       }
-    ]
+    ],
+    "topic": "personal-finance",
+    "level": "foundation"
   },
   {
     "id": "lesson-30",
@@ -2513,7 +2571,9 @@ export const LESSONS = [
         "correctAnswer": 20000000,
         "explanation": "Quy tắc 72: Lấy 72 ÷ lãi suất = số năm để tiền gấp đôi. Lãi 6% → 72÷6 = 12 năm. 10 triệu → 20 triệu! Không cần thêm 1 đồng nào! 🎉"
       }
-    ]
+    ],
+    "topic": "investing",
+    "level": "advanced"
   },
   {
     "id": "lesson-31",
@@ -2597,7 +2657,9 @@ export const LESSONS = [
         "correct": 2,
         "explanation": "Nguyên tắc vàng: KHÔNG BAO GIỜ đầu tư tiền sinh hoạt hoặc tiền khẩn cấp! Chỉ đầu tư tiền 'thừa' - mất cũng không ảnh hưởng cuộc sống. An toàn là ưu tiên số 1! ⚠️"
       }
-    ]
+    ],
+    "topic": "investing",
+    "level": "advanced"
   },
   {
     "id": "lesson-32",
@@ -2691,7 +2753,9 @@ export const LESSONS = [
         "correctAnswer": 10927270,
         "explanation": "Chỉ 3 tháng, nợ từ 10 triệu thành gần 11 triệu! Nếu cứ để vậy, nợ sẽ nhân đôi mỗi 2 năm. Luôn TRẢ NỢ ĐẦY ĐỦ ĐÚNG HẠN! ⚠️"
       }
-    ]
+    ],
+    "topic": "borrowing",
+    "level": "advanced"
   },
   {
     "id": "lesson-33",
@@ -2779,7 +2843,9 @@ export const LESSONS = [
         "bestChoice": "B",
         "explanation": "Nguyên tắc vàng: TRẢ CHO TƯƠNG LAI TRƯỚC, tiêu sau! Tiết kiệm ngay đầu tháng, không phải tiết kiệm phần còn lại. 'Pay yourself first!' 💪"
       }
-    ]
+    ],
+    "topic": "personal-finance",
+    "level": "advanced"
   },
   {
     "id": "lesson-34",
@@ -2863,7 +2929,9 @@ export const LESSONS = [
         "correct": 2,
         "explanation": "\"Đừng để tất cả trứng vào một giỏ!\" Nếu đầu tư 100% vào 1 công ty rồi công ty đó phá sản = mất hết. Đa dạng hóa danh mục đầu tư giúp giảm rủi ro! 🧺"
       }
-    ]
+    ],
+    "topic": "stocks",
+    "level": "advanced"
   },
   {
     "id": "lesson-35",
@@ -2939,7 +3007,9 @@ export const LESSONS = [
         "correctAnswer": 260000,
         "explanation": "Lợi nhuận 260.000đ sau 2 ngày! Doanh thu 440k - Chi phí 180k = 260k. Đây là mô hình kinh doanh đơn giản nhất: mua rẻ, bán đắt hơn, phần chênh là lợi nhuận! 🚀"
       }
-    ]
+    ],
+    "topic": "personal-finance",
+    "level": "advanced"
   },
   {
     "id": "lesson-36",
@@ -2997,7 +3067,9 @@ export const LESSONS = [
         "bestChoice": "B",
         "explanation": "Mục tiêu cụ thể + đo được = dễ theo dõi và đạt được hơn! 'Nhiều tiền' không biết đủ lúc nào. '50 triệu trong 3 năm' = biết chính xác cần làm gì mỗi tháng! ✅"
       }
-    ]
+    ],
+    "topic": "personal-finance",
+    "level": "advanced"
   },
   {
     "id": "lesson-37",
@@ -3081,7 +3153,9 @@ export const LESSONS = [
         "correct": 1,
         "explanation": "DẤU HIỆU LỪA ĐẢO: lãi suất quá cao (30-50%/tháng = 360-600%/năm!), phải giới thiệu người mới, áp lực 'cơ hội có giới hạn'. Nhớ: không có khoản đầu tư hợp pháp nào cho lãi cao như vậy! 🚨"
       }
-    ]
+    ],
+    "topic": "digital-assets",
+    "level": "advanced"
   },
   {
     "id": "lesson-38",
@@ -3139,7 +3213,9 @@ export const LESSONS = [
         "bestChoice": "A",
         "explanation": "Luôn TRẢ ĐỦ! Trả tối thiểu = phần còn lại bị tính lãi 24-36%/năm. Trả tối thiểu 150k nhưng phần còn lại 4,85 triệu sinh lãi ~ 120k/tháng. Tháng sau lại nợ nhiều hơn! ⚠️"
       }
-    ]
+    ],
+    "topic": "borrowing",
+    "level": "advanced"
   },
   {
     "id": "lesson-39",
@@ -3209,7 +3285,9 @@ export const LESSONS = [
         "correct": 1,
         "explanation": "Lương GROSS = lương trên hợp đồng. Lương NET = thực nhận sau khi trừ BHXH (8%), BHYT (1.5%), BHTN (1%), thuế TNCN. Khi đàm phán lương, luôn hỏi GROSS hay NET để tránh nhầm! 💡"
       }
-    ]
+    ],
+    "topic": "personal-finance",
+    "level": "advanced"
   },
   {
     "id": "lesson-40",
@@ -3275,7 +3353,9 @@ export const LESSONS = [
         "correct": 0,
         "explanation": "Tỷ lệ nợ/thu nhập AN TOÀN = dưới 36%. Nếu lương 10 triệu, tổng trả nợ hàng tháng không nên quá 3,6 triệu. Vượt 50% = vùng nguy hiểm, có thể không đủ tiền sinh hoạt! ⚠️"
       }
-    ]
+    ],
+    "topic": "personal-finance",
+    "level": "advanced"
   },
   {
     "id": "lesson-41",
@@ -3343,7 +3423,9 @@ export const LESSONS = [
         "bestChoice": "A",
         "explanation": "Cả hai đều tốt! Nhưng tiết kiệm từ CHI PHÍ LỚN (phòng trọ) hiệu quả hơn nhiều. Ghép phòng tiết kiệm 500k/tháng = 6 triệu/năm. Không cafe tiết kiệm tối đa 1 triệu/tháng. Tập trung vào 'big wins' trước! 💡"
       }
-    ]
+    ],
+    "topic": "personal-finance",
+    "level": "advanced"
   },
   {
     "id": "lesson-42",
@@ -3427,7 +3509,9 @@ export const LESSONS = [
         "correct": 1,
         "explanation": "Vòng lặp giàu có: Kiếm tiền → Mua TÀI SẢN (cổ phiếu, bất động sản...) → Tài sản sinh thêm thu nhập → Dùng thu nhập thụ động để sống. Người nghèo: Kiếm tiền → Chi tiêu hết → Lại đi làm. 🔄"
       }
-    ]
+    ],
+    "topic": "personal-finance",
+    "level": "advanced"
   },
   {
     "id": "lesson-43",
@@ -3485,7 +3569,9 @@ export const LESSONS = [
         "bestChoice": "B",
         "explanation": "Thu 8 triệu - Trả 10 triệu = ÂM 2 triệu/tháng. Mỗi tháng phải bù thêm 2 triệu! Trừ khi giá căn hộ tăng đủ để bù lại, đây là BĐS ĐẦU TƯ CHƯA TỐT. Tính kỹ trước khi mua! 💡"
       }
-    ]
+    ],
+    "topic": "investing",
+    "level": "advanced"
   },
   {
     "id": "lesson-44",
@@ -3549,7 +3635,9 @@ export const LESSONS = [
         "correctAnswer": 2640000000,
         "explanation": "Người A chỉ đóng 10 năm nhưng lại có nhiều hơn Người B đóng 30 năm liên tục từ 30 tuổi! Bí mật: THỜI GIAN. Mỗi năm trì hoãn = mất hàng trăm triệu tiền lãi trong tương lai! Bắt đầu ngay hôm nay! 🌴"
       }
-    ]
+    ],
+    "topic": "saving",
+    "level": "advanced"
   },
   {
     "id": "lesson-45",
@@ -3678,7 +3766,9 @@ export const LESSONS = [
         "correct": 0,
         "explanation": "Quy tắc 4%: nếu danh mục = 25 × chi tiêu hàng năm → rút 4%/năm không bao giờ hết tiền (danh mục tăng trưởng bù lại). Đây là nền tảng kế hoạch FIRE!"
       }
-    ]
+    ],
+    "topic": "money-basics",
+    "level": "advanced"
   },
   {
     "id": "lib-money-basics-foundation",
@@ -4744,7 +4834,7 @@ export const getLessonsByAgeGroup = (ageGroup) => {
 export const getLessonById = (id) => LESSONS.find((l) => l.id === id);
 
 export const getLessonsByTopic = (topic) =>
-  LESSONS.filter((l) => l.topic === topic);
+  topic === "all" ? LESSONS : LESSONS.filter((l) => l.topic === topic);
 
 export const AGE_GROUPS = [
   {

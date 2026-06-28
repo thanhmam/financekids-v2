@@ -2,7 +2,24 @@
 
 import { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
-import { LESSONS, AGE_GROUPS, getLessonsByAgeGroup } from "@/data/lessons";
+import { LESSONS, TOPICS, LEVELS } from "@/data/lessons";
+
+// Chip chủ đề (nhãn ngắn + emoji) — khớp phân tích taxonomy
+const TOPIC_CHIPS = [
+  { value: "all", emoji: "🌈", label: "Tất cả" },
+  { value: "money-basics", emoji: "💰", label: "Tiền cơ bản" },
+  { value: "saving", emoji: "🐷", label: "Tiết kiệm" },
+  { value: "personal-finance", emoji: "📒", label: "Quản lý tài chính" },
+  { value: "borrowing", emoji: "🤝", label: "Vay" },
+  { value: "investing", emoji: "📈", label: "Đầu tư" },
+  { value: "stocks", emoji: "📊", label: "Chứng khoán" },
+  { value: "digital-assets", emoji: "🪙", label: "Tài sản số" },
+];
+const LEVEL_CHIPS = [
+  { value: "all", emoji: "✨", label: "Mọi cấp độ" },
+  { value: "foundation", emoji: "🌱", label: "Khởi đầu" },
+  { value: "advanced", emoji: "🌳", label: "Vững vàng" },
+];
 import LessonCard from "@/components/LessonCard";
 import BadgesPanel from "@/components/BadgesPanel";
 import LoginModal from "@/components/LoginModal";
@@ -42,14 +59,19 @@ export default function Home() {
   const { user, profile, isPro, activateTrial } = useAuth();
   const { completed, totalXP } = useProgress();
 
-  const [selectedAgeGroup, setSelectedAgeGroup] = useState("all");
+  const [selectedTopic, setSelectedTopic] = useState("all");
+  const [selectedLevel, setSelectedLevel] = useState("all");
   const [showLogin, setShowLogin] = useState(false);
   const [showBadges, setShowBadges] = useState(false);
   const [showUpgrade, setShowUpgrade] = useState(false);
 
   const tip = useMemo(() => TIPS[Math.floor(Math.random() * TIPS.length)], []);
 
-  const filteredLessons = getLessonsByAgeGroup(selectedAgeGroup);
+  const filteredLessons = LESSONS.filter(
+    (l) =>
+      (selectedTopic === "all" || l.topic === selectedTopic) &&
+      (selectedLevel === "all" || l.level === selectedLevel)
+  );
   const continueLesson = LESSONS.find(l => !completed.includes(l.id));
   const streak = profile?.streak || 0;
   const dailyDone = Math.min(completed.length, DAILY_GOAL);
@@ -58,28 +80,59 @@ export default function Home() {
 
   const displayName = profile?.displayName || (user ? "Bạn nhỏ" : "XuXu");
 
-  const AgeFilterBar = ({ cols = false }) => (
-    <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 14 }}>
-      {AGE_GROUPS.map(group => (
-        <button
-          key={group.value}
-          className="btn-press"
-          onClick={() => setSelectedAgeGroup(group.value)}
-          style={{
-            display: "flex", alignItems: "center", gap: 6,
-            padding: "7px 14px", borderRadius: 20,
-            font: "700 13px 'Nunito'", border: "none", cursor: "pointer",
-            background: selectedAgeGroup === group.value ? "#16C172" : "#fff",
-            color: selectedAgeGroup === group.value ? "#fff" : "#5B7065",
-            boxShadow: selectedAgeGroup === group.value ? "0 4px 0 #0E9E5C" : "0 2px 8px rgba(21,57,42,.07)",
-            transform: selectedAgeGroup === group.value ? "translateY(-1px)" : "none",
-            transition: "all .15s ease",
-          }}
-        >
-          <span>{group.emoji}</span>
-          <span>{group.label}</span>
-        </button>
-      ))}
+  const AgeFilterBar = () => (
+    <div style={{ marginBottom: 14 }}>
+      {/* Chủ đề */}
+      <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 8 }}>
+        {TOPIC_CHIPS.map(t => {
+          const active = selectedTopic === t.value;
+          return (
+            <button
+              key={t.value}
+              className="btn-press"
+              onClick={() => setSelectedTopic(t.value)}
+              style={{
+                display: "flex", alignItems: "center", gap: 6,
+                padding: "7px 14px", borderRadius: 20,
+                font: "700 13px 'Nunito'", border: "none", cursor: "pointer",
+                background: active ? "#16C172" : "#fff",
+                color: active ? "#fff" : "#5B7065",
+                boxShadow: active ? "0 4px 0 #0E9E5C" : "0 2px 8px rgba(21,57,42,.07)",
+                transform: active ? "translateY(-1px)" : "none",
+                transition: "all .15s ease",
+              }}
+            >
+              <span>{t.emoji}</span>
+              <span>{t.label}</span>
+            </button>
+          );
+        })}
+      </div>
+      {/* Cấp độ */}
+      <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+        {LEVEL_CHIPS.map(lv => {
+          const active = selectedLevel === lv.value;
+          return (
+            <button
+              key={lv.value}
+              className="btn-press"
+              onClick={() => setSelectedLevel(lv.value)}
+              style={{
+                display: "flex", alignItems: "center", gap: 5,
+                padding: "5px 12px", borderRadius: 16,
+                font: "700 12px 'Nunito'", border: "1.5px solid", cursor: "pointer",
+                background: active ? "#EAFBF1" : "transparent",
+                borderColor: active ? "#16C172" : "#E0E8E2",
+                color: active ? "#0E7A4E" : "#9AA89E",
+                transition: "all .15s ease",
+              }}
+            >
+              <span>{lv.emoji}</span>
+              <span>{lv.label}</span>
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 
