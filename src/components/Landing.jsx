@@ -3,9 +3,9 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { TOPICS } from "@/data/lessons";
-import { BOOKS } from "@/data/books";
 import BookCover from "@/components/BookCover";
 import LoginModal from "@/components/LoginModal";
+import { useBooks } from "@/hooks/useBooks";
 
 /* ─── Animations (injected once) ─── */
 const KEYFRAMES = `
@@ -252,6 +252,7 @@ export default function Landing() {
   const router = useRouter();
   const [showLogin, setShowLogin] = useState(false);
   const enterApp = () => router.push("/learn");
+  const { books: BOOKS } = useBooks();
 
   return (
     <div style={{ width: "100%", minHeight: "100vh", background: "#fff", overflowX: "hidden", fontFamily: "'Nunito', sans-serif" }}>

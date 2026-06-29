@@ -91,7 +91,7 @@ export default function BookDetailPage() {
 
         {/* Affiliate note */}
         <div style={{ font: "600 12px 'Nunito'", color: "#9AA89E", textAlign: "center", padding: "6px 0 4px" }}>
-          🛒 Mua qua Shopee — XuXu có thể nhận hoa hồng tiếp thị liên kết, không ảnh hưởng giá bạn trả.
+          🛒 Mua qua Shopee — Giá chỉ mang tính tham khảo, có thể thay đổi tùy theo voucher của bạn và sàn tại thời điểm mua.
         </div>
       </div>
 

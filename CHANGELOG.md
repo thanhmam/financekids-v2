@@ -4,9 +4,17 @@
 >
 > **Quy tắc (bắt buộc — xem [AGENTS.md](AGENTS.md)):** Sau mỗi version/thay đổi đáng kể, **THÊM** mục mới lên đầu. **Không xóa, không viết lại lịch sử cũ.** Định dạng theo [Keep a Changelog](https://keepachangelog.com/), ngày `YYYY-MM-DD`.
 
-Phiên bản hiện tại: **0.6.1** · cập nhật 2026-06-29.
+Phiên bản hiện tại: **0.6.2** · cập nhật 2026-06-29.
 
 ---
+
+## [0.6.2] — 2026-06-29
+
+### Fixed
+- **Ảnh bìa sách không hiển thị trên Landing**: `Landing.jsx` dùng `BOOKS` tĩnh thay vì `useBooks()` nên override từ Admin (bao gồm `coverUrl`) không được áp dụng. Sửa bằng cách dùng `useBooks()` — Landing giờ tự động hiển thị ảnh bìa thật đã lưu trong Admin.
+
+### Changed
+- **Trang chi tiết sách** (`/shop/book/[bookId]`): sửa dòng disclaimer affiliate từ "không ảnh hưởng giá bạn trả" → "Giá chỉ mang tính tham khảo, có thể thay đổi tùy theo voucher của bạn và sàn tại thời điểm mua."
 
 ## [0.6.1] — 2026-06-29
 
