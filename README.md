@@ -2,7 +2,7 @@
 
 Web app gamification giúp **mọi người** (trẻ em, người trẻ, ai muốn tìm hiểu về tiền) học tài chính — mỗi ngày 5–10 phút, theo phong cách Duolingo: mascot XuXu, hệ thống tim, XP, streak, huy hiệu, bảng xếp hạng.
 
-**Live:** [money.thanhmam.com](https://money.thanhmam.com) · **Repo:** [github.com/thanhmam/financekids-v2](https://github.com/thanhmam/financekids-v2)
+**Live:** [xuxu.thanhmam.com](https://xuxu.thanhmam.com) · **Repo:** [github.com/thanhmam/financekids-v2](https://github.com/thanhmam/financekids-v2)
 
 > 🤖 **AI agent / người mới tham gia: đọc [AGENTS.md](AGENTS.md) TRƯỚC.** Đó là bộ rule bắt buộc (tài liệu phải đọc, nguồn sự thật duy nhất, kỷ luật changelog).
 
