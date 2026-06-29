@@ -4,9 +4,21 @@
 >
 > **Quy tắc (bắt buộc — xem [AGENTS.md](AGENTS.md)):** Sau mỗi version/thay đổi đáng kể, **THÊM** mục mới lên đầu. **Không xóa, không viết lại lịch sử cũ.** Định dạng theo [Keep a Changelog](https://keepachangelog.com/), ngày `YYYY-MM-DD`.
 
-Phiên bản hiện tại: **0.6.3** · cập nhật 2026-06-29.
+Phiên bản hiện tại: **0.6.4** · cập nhật 2026-06-29.
 
 ---
+
+## [0.6.4] — 2026-06-29
+
+### Changed
+- **Admin › Cửa hàng sách — danh sách**:
+  - Title của mỗi card trở thành link → click mở trang chi tiết sách (`/shop/book/[id]`) trong tab mới.
+  - Nút "Xem trang →" đổi thành "🛒 Link mua hàng" — dẫn trực tiếp đến link mua hàng đã lưu (chỉ hiện khi link hợp lệ, không phải placeholder mặc định).
+  - Label form "Link Shopee affiliate" → **"Link mua hàng"**.
+- **Trang Chi tiết sách (`/shop/book/[bookId]`)** — tối ưu Desktop:
+  - Thêm **left navigation** (giống các trang khác trong app) đúng design system: sticky sidebar, active highlight Cửa hàng, breadcrumb desktop.
+  - Desktop: nút "Mua sách trên Shopee" hiển thị **inline** dưới giá (không còn sticky bar ở đáy); sticky bar chỉ còn trên mobile.
+  - Thêm BottomNav cho mobile.
 
 ## [0.6.3] — 2026-06-29
 

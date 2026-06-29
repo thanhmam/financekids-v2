@@ -139,7 +139,7 @@ export default function AdminBooksPage() {
               <div key={book.id} className={`bg-white rounded-3xl shadow-sm p-4 flex gap-4 ${book.hidden ? "opacity-50" : ""}`}>
                 <BookCover book={book} width={70} />
                 <div className="flex-1 min-w-0">
-                  <div className="font-black text-gray-800 leading-tight">{book.title}</div>
+                  <a href={`/shop/book/${book.id}`} target="_blank" rel="noopener noreferrer" className="font-black text-gray-800 leading-tight hover:text-emerald-600 transition-colors cursor-pointer">{book.title}</a>
                   <div className="text-xs text-gray-400 font-bold mb-1">{book.author}</div>
                   <div className="text-sm font-black text-emerald-600">
                     {formatVND(book.price)}
@@ -148,7 +148,9 @@ export default function AdminBooksPage() {
                   <div className="flex flex-wrap gap-2 mt-2">
                     <button onClick={() => openEdit(book)} className="text-xs font-bold px-3 py-1.5 rounded-xl bg-gray-100 text-gray-700 hover:bg-gray-200">Sửa</button>
                     <button onClick={() => toggleHidden(book)} className="text-xs font-bold px-3 py-1.5 rounded-xl bg-amber-50 text-amber-700 hover:bg-amber-100">{book.hidden ? "Hiện" : "Ẩn"}</button>
-                    <a href={`/shop/book/${book.id}`} target="_blank" rel="noopener noreferrer" className="text-xs font-bold px-3 py-1.5 rounded-xl bg-blue-50 text-blue-600 hover:bg-blue-100">Xem trang →</a>
+                    {book.shopeeUrl && book.shopeeUrl !== "https://shopee.vn/" && (
+                      <a href={book.shopeeUrl} target="_blank" rel="noopener noreferrer" className="text-xs font-bold px-3 py-1.5 rounded-xl bg-orange-50 text-orange-600 hover:bg-orange-100">🛒 Link mua hàng</a>
+                    )}
                     {isExtraId(book.id) && (
                       <button onClick={() => del(book.id)} className="text-xs font-bold px-3 py-1.5 rounded-xl bg-red-50 text-red-600 hover:bg-red-100">Xoá</button>
                     )}
@@ -175,7 +177,7 @@ export default function AdminBooksPage() {
                 <Field label="Giá (₫)"><input type="number" className={inp} value={editing.form.price} onChange={(e) => set("price", e.target.value)} /></Field>
                 <Field label="Giá gốc (₫)"><input type="number" className={inp} value={editing.form.originalPrice} onChange={(e) => set("originalPrice", e.target.value)} /></Field>
               </div>
-              <Field label="Link Shopee affiliate"><input className={inp} value={editing.form.shopeeUrl} onChange={(e) => set("shopeeUrl", e.target.value)} /></Field>
+              <Field label="Link mua hàng"><input className={inp} value={editing.form.shopeeUrl} onChange={(e) => set("shopeeUrl", e.target.value)} placeholder="https://shopee.vn/..." /></Field>
               <Field label="Ảnh bìa (URL — để trống dùng bìa CSS)"><input className={inp} value={editing.form.coverUrl} onChange={(e) => set("coverUrl", e.target.value)} placeholder="https://..." /></Field>
               <div className="grid grid-cols-3 gap-3">
                 <Field label="Emoji"><input className={inp} value={editing.form.emoji} onChange={(e) => set("emoji", e.target.value)} /></Field>
