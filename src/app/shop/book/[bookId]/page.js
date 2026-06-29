@@ -130,7 +130,7 @@ export default function BookDetailPage() {
                   onClick={buy}
                   style={{ background: "#EE4D2D", color: "#fff", border: "none", borderRadius: 14, padding: "15px 28px", font: "800 16px 'Baloo 2'", boxShadow: "0 5px 0 #C13A1E", cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 8 }}
                 >
-                  🛒 Mua sách trên Shopee
+                  🛒 Mua sách
                 </button>
                 <div style={{ font: "600 11px 'Nunito'", color: "#9AA89E", marginTop: 8 }}>
                   Giá chỉ mang tính tham khảo, có thể thay đổi tùy theo voucher của bạn và sàn tại thời điểm mua.
@@ -164,23 +164,19 @@ export default function BookDetailPage() {
 
           {/* Affiliate note (mobile only — desktop shown above) */}
           <div className="md:hidden" style={{ font: "600 12px 'Nunito'", color: "#9AA89E", textAlign: "center", padding: "6px 0 4px" }}>
-            🛒 Mua qua Shopee — Giá chỉ mang tính tham khảo, có thể thay đổi tùy theo voucher của bạn và sàn tại thời điểm mua.
+            Giá chỉ mang tính tham khảo, có thể thay đổi tùy theo voucher của bạn và sàn tại thời điểm mua.
           </div>
-        </div>
 
-        {/* Sticky buy bar — mobile only */}
-        <div className="md:hidden" style={{ position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 40, background: "#fff", borderTop: "2px solid #ECF1E6", padding: "12px 20px", display: "flex", alignItems: "center", gap: 14 }}>
-          <div style={{ flexShrink: 0 }}>
-            <div style={{ font: "600 11px 'Nunito'", color: "#9AA89E" }}>Giá ưu đãi</div>
-            <div style={{ font: "800 20px 'Baloo 2'", color: "#16C172" }}>{formatVND(book.price)}</div>
+          {/* Buy button — mobile inline */}
+          <div className="md:hidden" style={{ marginTop: 16 }}>
+            <button
+              className="btn-press"
+              onClick={buy}
+              style={{ width: "100%", background: "#EE4D2D", color: "#fff", border: "none", borderRadius: 14, padding: "15px 0", font: "800 16px 'Baloo 2'", boxShadow: "0 5px 0 #C13A1E", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}
+            >
+              🛒 Mua sách
+            </button>
           </div>
-          <button
-            className="btn-press"
-            onClick={buy}
-            style={{ flex: 1, background: "#EE4D2D", color: "#fff", border: "none", borderRadius: 14, padding: "15px 0", font: "800 16px 'Baloo 2'", boxShadow: "0 5px 0 #C13A1E", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}
-          >
-            🛒 Mua sách trên Shopee
-          </button>
         </div>
 
         {/* Bottom nav — mobile only */}

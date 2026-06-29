@@ -4,9 +4,14 @@
 >
 > **Quy tắc (bắt buộc — xem [AGENTS.md](AGENTS.md)):** Sau mỗi version/thay đổi đáng kể, **THÊM** mục mới lên đầu. **Không xóa, không viết lại lịch sử cũ.** Định dạng theo [Keep a Changelog](https://keepachangelog.com/), ngày `YYYY-MM-DD`.
 
-Phiên bản hiện tại: **0.6.4** · cập nhật 2026-06-29.
+Phiên bản hiện tại: **0.6.5** · cập nhật 2026-06-29.
 
 ---
+
+## [0.6.5] — 2026-06-29
+
+### Changed
+- **Chi tiết sách**: bỏ hoàn toàn vùng sticky bottom bar (Giá ưu đãi + nút lớn); nút mua chuyển về inline dưới nội dung cho cả desktop lẫn mobile. Đổi tên nút "Mua sách trên Shopee" → **"Mua sách"**.
 
 ## [0.6.4] — 2026-06-29
 
