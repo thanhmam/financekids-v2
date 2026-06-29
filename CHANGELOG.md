@@ -4,9 +4,14 @@
 >
 > **Quy tắc (bắt buộc — xem [AGENTS.md](AGENTS.md)):** Sau mỗi version/thay đổi đáng kể, **THÊM** mục mới lên đầu. **Không xóa, không viết lại lịch sử cũ.** Định dạng theo [Keep a Changelog](https://keepachangelog.com/), ngày `YYYY-MM-DD`.
 
-Phiên bản hiện tại: **0.6.2** · cập nhật 2026-06-29.
+Phiên bản hiện tại: **0.6.3** · cập nhật 2026-06-29.
 
 ---
+
+## [0.6.3] — 2026-06-29
+
+### Changed
+- **Admin › Cửa hàng sách**: thêm nút "Xem trang →" trên mỗi card — mở tab mới đến `/shop/book/[id]` để xem trước trang đích của sách.
 
 ## [0.6.2] — 2026-06-29
 

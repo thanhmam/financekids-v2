@@ -148,6 +148,7 @@ export default function AdminBooksPage() {
                   <div className="flex flex-wrap gap-2 mt-2">
                     <button onClick={() => openEdit(book)} className="text-xs font-bold px-3 py-1.5 rounded-xl bg-gray-100 text-gray-700 hover:bg-gray-200">Sửa</button>
                     <button onClick={() => toggleHidden(book)} className="text-xs font-bold px-3 py-1.5 rounded-xl bg-amber-50 text-amber-700 hover:bg-amber-100">{book.hidden ? "Hiện" : "Ẩn"}</button>
+                    <a href={`/shop/book/${book.id}`} target="_blank" rel="noopener noreferrer" className="text-xs font-bold px-3 py-1.5 rounded-xl bg-blue-50 text-blue-600 hover:bg-blue-100">Xem trang →</a>
                     {isExtraId(book.id) && (
                       <button onClick={() => del(book.id)} className="text-xs font-bold px-3 py-1.5 rounded-xl bg-red-50 text-red-600 hover:bg-red-100">Xoá</button>
                     )}
