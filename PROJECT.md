@@ -74,7 +74,7 @@ Component: `ProBadge`, `UpgradeModal`. Pro tier màu tím `#8B5CF6` (token — [
 ## 6. Firebase & Deploy (vận hành)
 
 ```bash
-# Auth: Google + Anonymous; Authorized domains: localhost, money.thanhmam.com, *.vercel.app
+# Auth: Google + Anonymous; Authorized domains: localhost, xuxu.thanhmam.com, *.vercel.app
 # Firestore: publish rules
 firebase deploy --only firestore:rules
 # Deploy app: push GitHub main → Vercel auto-deploy

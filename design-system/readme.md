@@ -9,7 +9,7 @@ This design system captures XuXu's bright, chunky, kid-friendly visual language:
 This system was reverse-engineered from the product source. If you have access, explore them to build richer, more accurate XuXu designs:
 
 - **GitHub:** [github.com/thanhmam/financekids-v2](https://github.com/thanhmam/financekids-v2) — the live Next.js 16 app (the authoritative source for tokens, components, and screens). Key files read: `src/app/globals.css`, `tailwind.config.js`, `src/components/*`, `src/app/*/page.js`, `src/data/lessons.js`.
-- **Live app:** [money.thanhmam.com](https://money.thanhmam.com)
+- **Live app:** [xuxu.thanhmam.com](https://xuxu.thanhmam.com)
 - The app's own internal `README.md` and `PROJECT.md` document the "XuXu Design System v1" the tokens here are based on.
 
 The reader is encouraged to browse the GitHub repository further to recreate screens with higher fidelity than this distilled system alone.

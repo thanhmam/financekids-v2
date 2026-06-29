@@ -73,7 +73,7 @@ Mascot `float` (±8px); thưởng `pop`/overshoot `cubic-bezier(.175,.885,.32,1.
 - **feedback/**: `Badge`
 - **game/**: `LessonCard`, `QuizOption`
 - **navigation/**: `BottomNav`
-- App-specific: `BookCover` (bìa sách CSS hoặc ảnh), `LoginModal` (modal giữa màn hình), `Dashboard`, `Landing`.
+- App-specific: `BookCover` (bìa sách CSS hoặc ảnh), `LoginModal` (modal giữa màn hình), `Dashboard`, `Landing`, `SiteHeader`/`SiteFooter` (header + footer công khai dùng chung cho Landing & các trang phụ /journey, /changelog).
 
 ## 8. Áp dụng cho Admin
 

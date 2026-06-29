@@ -4,9 +4,28 @@
 >
 > **Quy tắc (bắt buộc — xem [AGENTS.md](AGENTS.md)):** Sau mỗi version/thay đổi đáng kể, **THÊM** mục mới lên đầu. **Không xóa, không viết lại lịch sử cũ.** Định dạng theo [Keep a Changelog](https://keepachangelog.com/), ngày `YYYY-MM-DD`.
 
-Phiên bản hiện tại: **0.6.5** · cập nhật 2026-06-29.
+Phiên bản hiện tại: **0.7.1** · cập nhật 2026-06-29.
 
 ---
+
+## [0.7.1] — 2026-06-29
+
+### Added
+- **Bài viết đầu tiên** trên Hành trình XuXu: *"Tôi đã 'vibe code' ra XuXu như thế nào — và vì sao tài liệu mới là phần khó nhất"* (`/journey/vibe-code-xuxu`).
+- **Renderer bài viết hỗ trợ inline `**đậm**` / `*nghiêng*`** (hàm `inline()` trong `journey/[slug]`), cập nhật chú thích schema trong `src/data/journey.js`.
+
+### Changed
+- **Đổi custom domain** `money.thanhmam.com` → **`xuxu.thanhmam.com`** (domain thực tế đang chạy). Cập nhật `README.md`, `PROJECT.md` (Firebase authorized domains), `design-system/readme.md`. *(Mục lịch sử `[0.1.0]` giữ nguyên domain cũ đúng thời điểm.)*
+
+## [0.7.0] — 2026-06-29
+
+### Added
+- **Trang "Hành trình xây dựng XuXu"** (`/journey` + `/journey/[slug]`): kho bài viết chia sẻ về quá trình tạo XuXu. Trang danh sách (card: emoji/ngày/đọc bao lâu/tiêu đề/tóm tắt) + trang chi tiết render theo block (`h2`/`p`/`quote`/`list`/`img`). Nội dung quản lý trong `src/data/journey.js` (thêm bài = thêm 1 object, slug duy nhất). Seed sẵn 1 bài mẫu.
+- **Trang "Nhật ký cập nhật" / Change Log** (`/changelog`): timeline các thay đổi quan trọng hướng người dùng (tag Mới/Cải thiện/Sửa lỗi). Bản chọn lọc trong `src/data/changelog.js` — **không thay thế** `CHANGELOG.md` (vẫn là SSOT đầy đủ cho dev).
+- **Footer mới có cột "KHÁM PHÁ"**: link tới Hành trình, Nhật ký cập nhật, Cửa hàng sách (dùng `next/link`).
+
+### Changed
+- **Tách footer dùng chung** `SiteFooter` (trước nằm inline trong `Landing.jsx`) + thêm header công khai `SiteHeader` cho các trang phụ. Landing nay tái dùng `SiteFooter`.
 
 ## [0.6.5] — 2026-06-29
 
