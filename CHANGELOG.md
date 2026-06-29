@@ -4,9 +4,20 @@
 >
 > **Quy tắc (bắt buộc — xem [AGENTS.md](AGENTS.md)):** Sau mỗi version/thay đổi đáng kể, **THÊM** mục mới lên đầu. **Không xóa, không viết lại lịch sử cũ.** Định dạng theo [Keep a Changelog](https://keepachangelog.com/), ngày `YYYY-MM-DD`.
 
-Phiên bản hiện tại: **0.6.0** · cập nhật 2026-06-29.
+Phiên bản hiện tại: **0.6.1** · cập nhật 2026-06-29.
 
 ---
+
+## [0.6.1] — 2026-06-29
+
+### Fixed
+- **Nút "KIỂM TRA/TIẾP TỤC" trên mobile bị trôi**: bỏ `translate-y` (transform) ở wrapper nội dung game (`game/[lessonId]`) — transform tạo containing block khiến `position: fixed` của thanh nút neo nhầm vào div cuộn thay vì viewport. Chuyển transition câu hỏi sang fade `opacity`, nút giờ ghim đáy màn hình.
+
+### Changed
+- **Cá nhân hóa lộ trình** (`/personalize`):
+  - Intro bỏ câu "Trả lời 3 câu hỏi nhanh" và bỏ con số "45 bài" (số bài sẽ tăng) — chỉ giới thiệu XuXu chọn bài phù hợp mục tiêu & trình độ.
+  - Câu hỏi nhịp học đổi từ "muốn học bao nhiêu bài" → "muốn dành bao nhiêu thời gian học": 5–10 phút / 15 phút / 30 phút / hơn 30 phút (`minutes` thay cho `perDay`).
+  - Nút "Bắt đầu học" giờ vào bài **chưa học đầu tiên** trong lộ trình (đã sắp xếp dễ → khó); chưa học bài nào → bắt đầu từ bài đầu.
 
 ## [0.6.0] — 2026-06-29
 

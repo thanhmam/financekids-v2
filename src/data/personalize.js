@@ -30,12 +30,13 @@ export const QUESTIONS = [
   },
   {
     id: "pace",
-    title: "Mỗi ngày bạn muốn học bao nhiêu?",
+    title: "Mỗi ngày bạn muốn dành bao nhiêu thời gian học?",
     subtitle: "Giữ thói quen đều đặn là chìa khoá",
     options: [
-      { value: "light",  emoji: "☕", label: "1 bài / ngày",  desc: "Nhẹ nhàng, vừa sức",       perDay: 1 },
-      { value: "normal", emoji: "🔥", label: "2–3 bài / ngày", desc: "Tiến bộ đều mỗi ngày",     perDay: 3 },
-      { value: "intense",emoji: "🚀", label: "5+ bài / ngày",  desc: "Bứt tốc, học nhanh",       perDay: 5 },
+      { value: "light",  emoji: "☕", label: "5–10 phút",   desc: "Nhẹ nhàng, vừa sức",        minutes: 10 },
+      { value: "normal", emoji: "🔥", label: "15 phút",     desc: "Tiến bộ đều mỗi ngày",      minutes: 15 },
+      { value: "intense",emoji: "🚀", label: "30 phút",     desc: "Học chắc, tiến bộ nhanh",   minutes: 30 },
+      { value: "max",    emoji: "🏆", label: "Hơn 30 phút", desc: "Bứt tốc, chinh phục nhanh", minutes: 45 },
     ],
   },
 ];

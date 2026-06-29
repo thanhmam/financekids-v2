@@ -304,8 +304,8 @@ export default function GamePage() {
 
         {/* Game content */}
         <div
-          className={`flex-1 max-w-2xl w-full mx-auto px-5 py-6 flex flex-col transition-all duration-300 ${
-            showTransition ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"
+          className={`flex-1 max-w-2xl w-full mx-auto px-5 py-6 flex flex-col transition-opacity duration-300 ${
+            showTransition ? "opacity-0" : "opacity-100"
           }`}
         >
           {question.type === "quiz" && (
