@@ -4,9 +4,18 @@
 >
 > **Quy tắc (bắt buộc — xem [AGENTS.md](AGENTS.md)):** Sau mỗi version/thay đổi đáng kể, **THÊM** mục mới lên đầu. **Không xóa, không viết lại lịch sử cũ.** Định dạng theo [Keep a Changelog](https://keepachangelog.com/), ngày `YYYY-MM-DD`.
 
-Phiên bản hiện tại: **0.7.1** · cập nhật 2026-06-29.
+Phiên bản hiện tại: **0.7.2** · cập nhật 2026-06-29.
 
 ---
+
+## [0.7.2] — 2026-06-29
+
+### Changed
+- **Trang Nhật ký cập nhật (`/changelog`)** giờ **tự đọc từ `CHANGELOG.md`** (SSOT) — parse các mục version, chỉ lấy thay đổi chính (câu đầu mỗi gạch đầu dòng cấp 1), tự bỏ phần header quy tắc/ghi chú. Không còn dữ liệu changelog trùng lặp.
+- **Footer**: bỏ link "Cửa hàng sách" khỏi cột KHÁM PHÁ (chỉ còn Hành trình + Nhật ký cập nhật).
+
+### Removed
+- Xoá `src/data/changelog.js` (dữ liệu changelog thủ công, đã thay bằng nguồn trực tiếp `CHANGELOG.md`).
 
 ## [0.7.1] — 2026-06-29
 

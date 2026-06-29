@@ -37,7 +37,6 @@ export default function SiteFooter() {
           <div style={{ display: "flex", flexDirection: "column", gap: 9 }}>
             <Link href="/journey" style={linkStyle}>🌱 Hành trình xây dựng XuXu</Link>
             <Link href="/changelog" style={linkStyle}>📝 Nhật ký cập nhật</Link>
-            <Link href="/shop" style={linkStyle}>📚 Cửa hàng sách</Link>
           </div>
         </div>
 
